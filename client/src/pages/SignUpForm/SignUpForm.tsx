@@ -3,23 +3,44 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { useState } from 'react';
 import axios from 'axios';
+import RequiredAsterisk from '../../components/RequiredAsterisk';
 
 const SignUpForm = () => {
   const sampleFormData = {
     email: '',
     password: '',
+    displayName: '',
     confirmPassword: '',
   };
+
+  const sampleErrors = {
+    email: { msg: '' },
+    password: { msg: '' },
+    confirmPassword: { msg: '' },
+    userExists: { msg: '' },
+  };
+
   const [formData, setFormData] = useState(sampleFormData);
+  const [errors, setErrors] = useState(sampleErrors);
+  const [success, setSuccess] = useState(false);
+
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setErrors(sampleErrors);
+    setSuccess(false);
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   }
+
   async function handleSubmit(e: React.FormEvent) {
+    setErrors(sampleErrors);
     e.preventDefault();
-    const response = await axios.post('/api/users/create', formData);
-    const data = response.data;
-    console.log(data);
+    try {
+      await axios.post('api/users/create', formData);
+      setSuccess(true);
+    } catch (err: unknown) {
+      const errorData = err.response.data;
+      setErrors({ ...errors, ...errorData });
+    }
   }
 
   return (
@@ -30,9 +51,15 @@ const SignUpForm = () => {
       <h1 className="text-outline hidden text-center font-fingerPaint text-6xl text-white md:block">
         Sign Up
       </h1>
-      <form className="my-5 flex flex-col" onSubmit={handleSubmit}>
+      <form
+        noValidate
+        className="my-5 flex flex-col"
+        onSubmit={async (e) => {
+          await handleSubmit(e);
+        }}
+      >
         <label htmlFor="email" className="text-lg">
-          Email:
+          Email: <RequiredAsterisk />
         </label>
         <input
           type="email"
@@ -42,8 +69,24 @@ const SignUpForm = () => {
           autoComplete="off"
           onChange={handleInputChange}
         />
+        {errors.email && (
+          <p className="text-error text-sm">{errors.email.msg}</p>
+        )}
+        {errors.userExists && (
+          <p className="text-error text-sm">{errors.userExists.msg}</p>
+        )}
+        <label htmlFor="displayName" className="mt-4 text-lg">
+          Display Name:
+        </label>
+        <input
+          type="text"
+          name="displayName"
+          id="displayName"
+          className="rounded-md bg-gray pl-2 pr-2 text-2xl"
+          onChange={handleInputChange}
+        />
         <label htmlFor="password" className="mt-4 text-lg">
-          Password:
+          Password: <RequiredAsterisk />
         </label>
         <input
           type="password"
@@ -52,8 +95,11 @@ const SignUpForm = () => {
           className="rounded-md bg-gray pl-2 pr-2 text-2xl"
           onChange={handleInputChange}
         />
+        {errors.password && (
+          <p className="text-error text-sm">{errors.password.msg}</p>
+        )}
         <label htmlFor="confirmPassword" className="mt-4 text-lg">
-          Confirm Password:
+          Confirm Password: <RequiredAsterisk />
         </label>
         <input
           type="password"
@@ -62,12 +108,18 @@ const SignUpForm = () => {
           className="rounded-md bg-gray pl-2 pr-2 text-2xl"
           onChange={handleInputChange}
         />
+        {errors.confirmPassword && (
+          <p className="text-error text-sm">{errors.confirmPassword.msg}</p>
+        )}
         <button
           type="submit"
           className="mt-5 w-full rounded-md bg-primary p-2 text-3xl font-bold uppercase text-white"
         >
           Sign Up
         </button>
+        {success && (
+          <p className="text-success">Your account was successfully created.</p>
+        )}
       </form>
       <div className="relative">
         <div className="border-t-1 absolute top-1/2 w-full border border-black"></div>

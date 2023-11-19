@@ -16,28 +16,34 @@ exports.create_user = [
       minSymbols: 1,
     })
     .escape(),
-  body('confirm-password').trim().escape(),
-  (req, res, next) => {
+  body('displayName').trim().escape(),
+  body('confirmPassword').trim().escape(),
+  async (req, res, next) => {
+    // Error messages such as account already exists, not strong password should take precedence
     const errors = validationResult(req).mapped();
     const { email, password, confirmPassword } = req.body;
-    const hasUser = User.findOne({
-      email,
-    });
-    if (confirmPassword !== password) {
-      errors.confirmPassword = 'Passwords do not match';
-    }
+    const hasUser = await User.findOne({ email }).exec();
+    const passwordMatches = confirmPassword === password;
     if (hasUser) {
-      errors.userExists = 'Email already has an account';
-    }
-
-    if (Object.keys(errors).length > 0) {
+      res.status(400).json({ email: { msg: 'Email already has an account' } });
+    } else if (Object.keys(errors).length > 0) {
+      if (!errors.password) {
+        if (!passwordMatches) {
+          errors.confirmPassword = { msg: 'Passwords do not match' };
+        }
+      }
       res.status(400).json(errors);
+    } else if (!passwordMatches) {
+      res
+        .status(400)
+        .json({ confirmPassword: { msg: 'Passwords do not match' } });
     } else {
       next();
     }
   },
   (req, res, next) => {
-    const { email, password } = req.body;
+    const { email, password, displayName } = req.body;
+    const username = displayName === '' ? email : displayName;
     bcrypt.hash(password, 10, async (err, hashedPassword) => {
       if (err) {
         res.status(400).json({
@@ -45,7 +51,7 @@ exports.create_user = [
         });
       } else {
         const newProfile = new Profile({
-          username: email,
+          username,
         });
         await newProfile.save();
         const newUser = new User({
