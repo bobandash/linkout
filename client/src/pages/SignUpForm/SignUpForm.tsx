@@ -1,8 +1,27 @@
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import { useState } from 'react';
+import axios from 'axios';
 
 const SignUpForm = () => {
+  const sampleFormData = {
+    email: '',
+    password: '',
+    confirmPassword: '',
+  };
+  const [formData, setFormData] = useState(sampleFormData);
+  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  }
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    const response = await axios.post('/api/users/create', formData);
+    const data = response.data;
+    console.log(data);
+  }
+
   return (
     <div className="w-full overflow-hidden bg-white p-8 md:w-1/2">
       <h1 className="text-outline text-center font-fingerPaint text-6xl text-white md:hidden">
@@ -11,7 +30,7 @@ const SignUpForm = () => {
       <h1 className="text-outline hidden text-center font-fingerPaint text-6xl text-white md:block">
         Sign Up
       </h1>
-      <form className="my-5 flex flex-col">
+      <form className="my-5 flex flex-col" onSubmit={handleSubmit}>
         <label htmlFor="email" className="text-lg">
           Email:
         </label>
@@ -21,6 +40,7 @@ const SignUpForm = () => {
           id="email"
           className="rounded-md bg-gray pl-2 pr-2 text-2xl"
           autoComplete="off"
+          onChange={handleInputChange}
         />
         <label htmlFor="password" className="mt-4 text-lg">
           Password:
@@ -30,6 +50,7 @@ const SignUpForm = () => {
           name="password"
           id="password"
           className="rounded-md bg-gray pl-2 pr-2 text-2xl"
+          onChange={handleInputChange}
         />
         <label htmlFor="confirmPassword" className="mt-4 text-lg">
           Confirm Password:
@@ -39,6 +60,7 @@ const SignUpForm = () => {
           name="confirmPassword"
           id="confirmPassword"
           className="rounded-md bg-gray pl-2 pr-2 text-2xl"
+          onChange={handleInputChange}
         />
         <button
           type="submit"
