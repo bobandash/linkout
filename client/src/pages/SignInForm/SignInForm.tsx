@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGoogle, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 
 const SignInForm = () => {
   return (
@@ -44,10 +46,10 @@ const SignInForm = () => {
       </div>
       <div className="mb-2 flex flex-col">
         <button className="mb-2 w-full rounded-md bg-secondary p-2 text-lg font-bold uppercase text-white">
-          Google
+          <FontAwesomeIcon icon={faGoogle} /> Google
         </button>
         <button className="w-full rounded-md bg-secondary p-2 text-lg font-bold uppercase text-white">
-          Linkedin
+          <FontAwesomeIcon icon={faLinkedin} /> Linkedin
         </button>
       </div>
       <p>
