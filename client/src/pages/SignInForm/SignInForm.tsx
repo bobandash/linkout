@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const SignUpForm = () => {
+const SignInForm = () => {
   return (
     <div className="w-full overflow-hidden bg-white p-8 md:w-1/2">
       <h1 className="text-outline text-center font-fingerPaint text-6xl text-white md:hidden">
@@ -60,4 +60,4 @@ const SignUpForm = () => {
   );
 };
 
-export default SignUpForm;
+export default SignInForm;
