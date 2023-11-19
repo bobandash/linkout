@@ -31,13 +31,13 @@ const SignUpForm = () => {
           id="password"
           className="rounded-md bg-gray pl-2 pr-2 text-2xl"
         />
-        <label htmlFor="confirm-password" className="mt-4 text-lg">
+        <label htmlFor="confirmPassword" className="mt-4 text-lg">
           Confirm Password:
         </label>
         <input
           type="password"
-          name="password"
-          id="password"
+          name="confirmPassword"
+          id="confirmPassword"
           className="rounded-md bg-gray pl-2 pr-2 text-2xl"
         />
         <button
