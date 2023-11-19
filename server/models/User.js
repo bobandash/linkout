@@ -2,32 +2,37 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-const UserSchema = new Schema({
-  email: {
-    type: String,
-    required: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  communities: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Community',
+const UserSchema = new Schema(
+  {
+    email: {
+      type: String,
+      required: true,
     },
-  ],
-  friends: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Friend',
+    password: {
+      type: String,
+      required: true,
     },
-  ],
-  profile: {
-    type: Schema.Types.ObjectId,
-    ref: 'Profile',
+    communities: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Community',
+      },
+    ],
+    friends: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Friend',
+      },
+    ],
+    profile: {
+      type: Schema.Types.ObjectId,
+      ref: 'Profile',
+      required: true,
+    },
   },
-  timestamp: true,
-});
+  {
+    timestamps: true,
+  },
+);
 
 module.exports = mongoose.model('User', UserSchema);
