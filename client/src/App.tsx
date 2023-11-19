@@ -1,7 +1,7 @@
-import SignUpForm from './pages/SignUpForm/index';
+import SignInForm from './pages/SignInForm/index';
 
 function App() {
-  return <SignUpForm />;
+  return <SignInForm />;
 }
 
 export default App;
