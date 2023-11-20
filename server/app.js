@@ -4,7 +4,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
-
+const passport = require('passport');
+const jwtStrategy = require('./strategies/jwt');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 require('dotenv').config();
@@ -16,6 +17,9 @@ app.use(cors());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+passport.use(jwtStrategy);
+
+app.use(passport.initialize());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
