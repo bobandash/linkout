@@ -14,7 +14,7 @@ const ProfileSchema = new Schema(
     },
     profilePic: {
       type: String,
-      default: '',
+      default: 'images/defaultPfp.jpg',
     },
     aboutMe: {
       type: String,
@@ -22,15 +22,19 @@ const ProfileSchema = new Schema(
     },
     link: {
       type: String,
+      default: '',
     },
     interests: {
       type: String,
+      default: '',
     },
     skills: {
       type: Schema.Types.Mixed,
+      default: '',
     },
     socialMediaUrls: {
       type: Schema.Types.Mixed,
+      default: '',
     },
   },
   {

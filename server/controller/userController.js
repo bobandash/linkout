@@ -113,3 +113,33 @@ exports.sign_in_status = [
     });
   },
 ];
+
+exports.get_username = [
+  verifyToken,
+  async (req, res, next) => {
+    const { email } = req.user;
+    const user = await User.findOne({ email }).populate('profile').exec();
+    res.json({
+      username: user.profile.username,
+    });
+  },
+];
+
+exports.get_email = [
+  verifyToken,
+  async (req, res, next) => {
+    const { email } = req.user;
+    res.json({
+      email: email,
+    });
+  },
+];
+
+exports.get_profile = [
+  verifyToken,
+  async (req, res, next) => {
+    const { email } = req.user;
+    const user = await User.findOne({ email }).populate('profile').exec();
+    res.json({ profile: user.profile });
+  },
+];

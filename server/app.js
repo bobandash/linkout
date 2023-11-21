@@ -12,12 +12,13 @@ require('dotenv').config();
 require('./config/database.config');
 
 const app = express();
-app.use(cors());
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 passport.use(jwtStrategy);
+app.use(cors());
+app.use(express.static('public'));
 app.use(cookieParser());
 app.use(passport.initialize());
 app.use(logger('dev'));
