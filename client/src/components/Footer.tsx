@@ -28,20 +28,20 @@ const Footer = () => {
   }
 
   return (
-    <footer className="sticky bottom-0 flex justify-around bg-secondary p-3 md:hidden">
-      <div onClick={navHome}>
+    <footer className="sticky bottom-0 flex justify-around bg-secondary p-3  md:hidden">
+      <div onClick={navHome} className={'hover:cursor-pointer'}>
         <FontAwesomeIcon icon={faHomeUser} size={'xl'} />
       </div>
-      <div onClick={navProfile}>
+      <div onClick={navProfile} className={'hover:cursor-pointer'}>
         <FontAwesomeIcon icon={faUser} size={'xl'} />
       </div>
-      <div onClick={navServers}>
+      <div onClick={navServers} className={'hover:cursor-pointer'}>
         <FontAwesomeIcon icon={faNetworkWired} size={'xl'} />
       </div>
-      <div onClick={navMessages}>
+      <div onClick={navMessages} className={'hover:cursor-pointer'}>
         <FontAwesomeIcon icon={faMessage} size={'xl'} />
       </div>
-      <div onClick={navFriends}>
+      <div onClick={navFriends} className={'hover:cursor-pointer'}>
         <FontAwesomeIcon icon={faUsers} size={'xl'} />
       </div>
     </footer>
