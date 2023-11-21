@@ -2,6 +2,8 @@ const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 const Profile = require('../models/Profile');
+const jwt = require('jsonwebtoken');
+const verifyToken = require('./utils/verifyToken');
 
 exports.create_user = [
   body('email', 'Email is invalid').trim().isEmail().escape(),
@@ -64,6 +66,50 @@ exports.create_user = [
       res.json({
         success: 'Your account was successfully created.',
       });
+    });
+  },
+];
+
+exports.log_in = [
+  body('email', 'Your credientials are invalid').trim().isEmail().escape(),
+  async (req, res, next) => {
+    const errors = validationResult(req).mapped();
+    const { email, password } = req.body;
+    if (Object.keys(errors).length > 0) {
+      return res.status(400).json(errors);
+    }
+
+    const userOfInterest = await User.findOne({ email: email }).exec();
+
+    if (userOfInterest) {
+      const match = await bcrypt.compare(password, userOfInterest.password);
+      if (match) {
+        const token = jwt.sign({ email }, process.env.SECRET_TOKEN, {
+          expiresIn: '7d',
+        });
+        return res
+          .status(200)
+          .cookie('secureToken', JSON.stringify(token), {
+            httpOnly: true,
+            secure: true,
+            maxAge: 24 * 60 * 60 * 1000 * 7,
+          })
+          .json({ msg: 'Successfully signed in' });
+      }
+      return res.status(400).json({
+        password: {
+          msg: 'Your credientials are invalid',
+        },
+      });
+    }
+  },
+];
+
+exports.sign_in_status = [
+  verifyToken,
+  (req, res, next) => {
+    res.status(200).json({
+      signedInStatus: true,
     });
   },
 ];
