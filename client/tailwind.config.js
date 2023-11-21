@@ -12,6 +12,9 @@ export default {
         primary: '#E51636',
         secondary: '#F24F4F',
         gray: '#D9D9D9',
+        error: '#EE4B2B',
+        success: '#00FF00',
+        required: '#E51636',
       },
       boxShadow: {
         custom:
