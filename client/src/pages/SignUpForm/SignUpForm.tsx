@@ -1,47 +1,11 @@
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faLinkedin } from '@fortawesome/free-brands-svg-icons';
-import { useState } from 'react';
-import axios from 'axios';
 import RequiredAsterisk from '../../components/RequiredAsterisk';
+import useSignUp from './__hooks__/useSignUp';
 
 const SignUpForm = () => {
-  const sampleFormData = {
-    email: '',
-    password: '',
-    displayName: '',
-    confirmPassword: '',
-  };
-
-  const sampleErrors = {
-    email: { msg: '' },
-    password: { msg: '' },
-    confirmPassword: { msg: '' },
-    userExists: { msg: '' },
-  };
-
-  const [formData, setFormData] = useState(sampleFormData);
-  const [errors, setErrors] = useState(sampleErrors);
-  const [success, setSuccess] = useState(false);
-
-  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setErrors(sampleErrors);
-    setSuccess(false);
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  }
-
-  async function handleSubmit(e: React.FormEvent) {
-    setErrors(sampleErrors);
-    e.preventDefault();
-    try {
-      await axios.post('api/users/create', formData);
-      setSuccess(true);
-    } catch (err: unknown) {
-      const errorData = err.response.data;
-      setErrors({ ...errors, ...errorData });
-    }
-  }
+  const { errors, success, handleInputChange, handleSubmit } = useSignUp();
 
   return (
     <div className="w-full overflow-hidden bg-white p-8 md:w-1/2">
@@ -52,6 +16,7 @@ const SignUpForm = () => {
         Sign Up
       </h1>
       <form
+        autoComplete="off"
         noValidate
         className="my-5 flex flex-col"
         onSubmit={async (e) => {
@@ -66,14 +31,16 @@ const SignUpForm = () => {
           name="email"
           id="email"
           className="rounded-md bg-gray pl-2 pr-2 text-2xl"
-          autoComplete="off"
+          autoComplete="xyz"
+          required
+          autoFocus
           onChange={handleInputChange}
         />
         {errors.email && (
-          <p className="text-error text-sm">{errors.email.msg}</p>
+          <p className="text-sm text-error">{errors.email.msg}</p>
         )}
         {errors.userExists && (
-          <p className="text-error text-sm">{errors.userExists.msg}</p>
+          <p className="text-sm text-error">{errors.userExists.msg}</p>
         )}
         <label htmlFor="displayName" className="mt-4 text-lg">
           Display Name:
@@ -92,11 +59,12 @@ const SignUpForm = () => {
           type="password"
           name="password"
           id="password"
+          required
           className="rounded-md bg-gray pl-2 pr-2 text-2xl"
           onChange={handleInputChange}
         />
         {errors.password && (
-          <p className="text-error text-sm">{errors.password.msg}</p>
+          <p className="text-sm text-error">{errors.password.msg}</p>
         )}
         <label htmlFor="confirmPassword" className="mt-4 text-lg">
           Confirm Password: <RequiredAsterisk />
@@ -105,11 +73,12 @@ const SignUpForm = () => {
           type="password"
           name="confirmPassword"
           id="confirmPassword"
+          required
           className="rounded-md bg-gray pl-2 pr-2 text-2xl"
           onChange={handleInputChange}
         />
         {errors.confirmPassword && (
-          <p className="text-error text-sm">{errors.confirmPassword.msg}</p>
+          <p className="text-sm text-error">{errors.confirmPassword.msg}</p>
         )}
         <button
           type="submit"
