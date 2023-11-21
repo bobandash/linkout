@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import useSignIn from './__hooks__/useSignIn';
 
 const SignInForm = () => {
+  const { hasErrors, handleInputChange, handleSubmit } = useSignIn();
   return (
     <div className="w-full overflow-hidden bg-white p-8 md:w-1/2">
       <h1 className="text-outline text-center font-fingerPaint text-6xl text-white md:hidden">
@@ -11,7 +13,7 @@ const SignInForm = () => {
       <h1 className="text-outline hidden text-center font-fingerPaint text-6xl text-white md:block">
         Sign In
       </h1>
-      <form className="my-5 flex flex-col">
+      <form className="my-5 flex flex-col" onSubmit={handleSubmit} noValidate>
         <label htmlFor="email" className="text-lg">
           Email:
         </label>
@@ -20,7 +22,9 @@ const SignInForm = () => {
           name="email"
           id="email"
           className="rounded-md bg-gray pl-2 pr-2 text-2xl"
-          autoComplete="off"
+          autoComplete="xyz"
+          autoFocus
+          onChange={handleInputChange}
         />
         <label htmlFor="password" className="mt-4 text-lg">
           Password:
@@ -30,7 +34,11 @@ const SignInForm = () => {
           name="password"
           id="password"
           className="rounded-md bg-gray pl-2 pr-2 text-2xl"
+          onChange={handleInputChange}
         />
+        {hasErrors && (
+          <p className="text-sm text-error">Your credientials are invalid</p>
+        )}
         <button
           type="submit"
           className="mt-5 w-full rounded-md bg-primary p-2 text-3xl font-bold uppercase text-white"
