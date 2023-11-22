@@ -26,7 +26,7 @@ const useSignIn = () => {
       setHasErrors(false);
       e.preventDefault();
       try {
-        const response = await axios.post('api/users/login', formData);
+        const response = await axios.post('/api/users/login', formData);
         if (response.status === 200) {
           setIsSignedIn(true);
         }

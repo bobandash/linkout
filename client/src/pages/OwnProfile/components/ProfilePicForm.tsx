@@ -22,7 +22,7 @@ const ProfilePicForm: FC<ProfilePicFormProps> = ({ profilePic }) => {
       files: FileList;
     };
     setPfpFile(target.files[0]);
-    await axios.put('api/users/user/pfp', target.files[0]);
+    await axios.put('/api/users/user/pfp', target.files[0]);
   }
 
   /*   async function handleOnSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -30,7 +30,7 @@ const ProfilePicForm: FC<ProfilePicFormProps> = ({ profilePic }) => {
     console.log('hi');
     console.log(pfpFile);
     if (pfpFile !== null) {
-      await axios.put('api/users/user/pfp', pfpFile);
+      await axios.put('/api/users/user/pfp', pfpFile);
     }
   } */
 
@@ -41,7 +41,7 @@ const ProfilePicForm: FC<ProfilePicFormProps> = ({ profilePic }) => {
       className="flex flex-col items-center"
     >
       <div className="relative aspect-square max-w-[80px] overflow-hidden rounded-full border-2 bg-white md:max-w-[100px]">
-        <img src={`api/${profilePic}`} alt="profile picture" />
+        <img src={`/api/${profilePic}`} alt="profile picture" />
         <input
           ref={inputRef}
           type="file"

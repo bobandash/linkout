@@ -22,7 +22,7 @@ const useProfile = () => {
 
   useEffect(() => {
     async function getProfile() {
-      const response = await axios.get('api/users/user/profile');
+      const response = await axios.get('/api/users/user/profile');
       setProfile(response.data.profile);
     }
 

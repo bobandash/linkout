@@ -12,7 +12,7 @@ const UsernameComponent = () => {
   useEffect(() => {
     async function getUserName() {
       try {
-        const response = await axios.get('api/users/user/username', {
+        const response = await axios.get('/api/users/user/username', {
           withCredentials: true,
         });
         const username = response.data.username;
