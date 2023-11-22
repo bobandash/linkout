@@ -4,6 +4,16 @@ const User = require('../models/User');
 const Profile = require('../models/Profile');
 const jwt = require('jsonwebtoken');
 const verifyToken = require('./utils/verifyToken');
+const multer = require('multer');
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads');
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + ' ' + file.originalname);
+  },
+});
+const upload = multer({ storage: storage });
 
 exports.create_user = [
   body('email', 'Email is invalid').trim().isEmail().escape(),
@@ -141,5 +151,20 @@ exports.get_profile = [
     const { email } = req.user;
     const user = await User.findOne({ email }).populate('profile').exec();
     res.json({ profile: user.profile });
+  },
+];
+
+exports.post_pfp = [
+  verifyToken,
+  upload.single('image'),
+  async (req, res, next) => {
+    const { email } = req.user;
+    const fullFilePath = req.file.path;
+    const user = await User.findOne({ email }).populate('profile').exec();
+    const profileId = user.profile._id;
+    await Profile.findByIdAndUpdate(profileId, {
+      profilePic: fullFilePath,
+    }).exec();
+    res.json({ data: fullFilePath });
   },
 ];
