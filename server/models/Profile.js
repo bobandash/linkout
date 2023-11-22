@@ -34,7 +34,12 @@ const ProfileSchema = new Schema(
     },
     socialMediaUrls: {
       type: Schema.Types.Mixed,
-      default: '',
+      default: {
+        instagram: '',
+        facebook: '',
+        twitter: '',
+        tiktok: '',
+      },
     },
   },
   {
