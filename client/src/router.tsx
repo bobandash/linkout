@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from './App';
 import SignUpForm from './pages/SignUpForm/index.tsx';
-import Profile from './pages/Profile/index.tsx';
+import Profile from './pages/OwnProfile/index.tsx';
 import Communities from './pages/Communities/index.tsx';
 
 const router = createBrowserRouter([
