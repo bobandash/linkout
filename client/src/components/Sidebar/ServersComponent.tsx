@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComment } from '@fortawesome/free-regular-svg-icons';
 import DefaultServer from './Server/DefaultServer';
 import { faHouse } from '@fortawesome/free-solid-svg-icons/faHouse';
+import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
 
 const ServersComponent = () => {
   return (
@@ -10,6 +11,10 @@ const ServersComponent = () => {
       <DefaultServer
         icon={<FontAwesomeIcon icon={faComment} />}
         link={'/messages'}
+      />
+      <DefaultServer
+        icon={<FontAwesomeIcon icon={faPlus} />}
+        link={'/communities/create'}
       />
     </div>
   );
