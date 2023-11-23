@@ -7,10 +7,10 @@ const SignInForm = () => {
   const { hasErrors, handleInputChange, handleSubmit } = useSignIn();
   return (
     <div className="w-full overflow-hidden bg-white p-8 md:w-1/2">
-      <h1 className="text-outline text-center font-fingerPaint text-6xl text-white md:hidden">
+      <h1 className="text-outline text-center font-play text-6xl font-bold uppercase text-black md:hidden">
         Linkout
       </h1>
-      <h1 className="text-outline hidden text-center font-fingerPaint text-6xl text-white md:block">
+      <h1 className="text-outline hidden text-center font-play text-6xl font-bold uppercase text-black md:block">
         Sign In
       </h1>
       <form className="my-5 flex flex-col" onSubmit={handleSubmit} noValidate>
@@ -53,10 +53,10 @@ const SignInForm = () => {
         </p>
       </div>
       <div className="mb-2 flex flex-col">
-        <button className="mb-2 w-full rounded-md bg-secondary p-2 text-lg font-bold uppercase text-white">
+        <button className="mb-2 w-full rounded-md bg-primary p-2 text-lg font-bold uppercase text-white">
           <FontAwesomeIcon icon={faGoogle} /> Google
         </button>
-        <button className="w-full rounded-md bg-secondary p-2 text-lg font-bold uppercase text-white">
+        <button className="w-full rounded-md bg-primary p-2 text-lg font-bold uppercase text-white">
           <FontAwesomeIcon icon={faLinkedin} /> Linkedin
         </button>
       </div>

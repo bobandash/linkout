@@ -5,12 +5,15 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        fingerPaint: ['Finger Paint', 'Play', 'Sans Serif'],
         play: ['Play', 'Finger Paint', 'Sans Serif'],
       },
       colors: {
-        primary: '#E51636',
-        secondary: '#F24F4F',
+        primary: '#811331',
+        // these colors go from darkest to lightest
+        color_1: '#1e2124',
+        color_2: '#282b30',
+        color_3: '#36393e',
+        color_4: '#424549',
         gray: '#D9D9D9',
         error: '#EE4B2B',
         success: '#00FF00',
@@ -23,12 +26,9 @@ export default {
       },
       gridTemplateColumns: {
         mobile_site: '1fr',
-        md_site: '1fr 2fr',
-        xl_site: '1fr 3fr',
-      },
-      gridTemplateRows: {
-        mobile_site: 'min-content auto min-content',
-        md_site: 'min-content auto',
+        lg_site: '350px minmax(0,3fr)',
+        two_xl_site: '350px minmax(0,3fr) 300px',
+        sidebar_site: 'fit-content minmax(0, 1fr)',
       },
       gridTemplateAreas: {
         mobile_site: ['main-header', 'main', 'footer'],

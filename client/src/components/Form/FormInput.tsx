@@ -22,7 +22,7 @@ const FormInput: FC<EditProfileInputProps> = ({
     <div className="relative mt-5 w-full">
       <label
         htmlFor={nameCamelized}
-        className="text-outline absolute left-0 top-0 -translate-x-1 -translate-y-1/2 bg-primary pb-1 pr-2 font-fingerPaint text-xl uppercase text-white"
+        className="text-outline absolute left-0 top-0 -translate-x-1 -translate-y-1/2 bg-primary pb-1 pr-2 font-play text-xl uppercase text-white"
       >
         {name}
       </label>

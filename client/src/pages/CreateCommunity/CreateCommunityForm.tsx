@@ -6,7 +6,7 @@ import FormIconInput from '../../components/Form/FormIconInput';
 const CreateCommunityForm = () => {
   const [community, setCommunity] = useState({});
   return (
-    <div className="flex-grow bg-primary">
+    <div className="bg-color_3 flex-grow">
       <form encType="multipart/form-data" className="p-5" noValidate>
         <FormIconInput />
         <FormInput name={'Community Name'} autoFocus={true} />

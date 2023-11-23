@@ -4,10 +4,10 @@ import UsernameComponent from './Username';
 
 const Sidebar = () => {
   return (
-    <aside className="hidden min-h-screen flex-col md:flex">
-      <UsernameComponent />
-      <div className="flex flex-grow flex-row bg-primary">
-        <ServersComponent />
+    <aside className="hidden min-h-screen max-w-full flex-row overflow-hidden lg:flex">
+      <ServersComponent />
+      <div className="bg-color_2 flex flex-grow flex-col">
+        <UsernameComponent />
         <FriendsComponent />
       </div>
     </aside>

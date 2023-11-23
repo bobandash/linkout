@@ -6,7 +6,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
 
 const ServersComponent = () => {
   return (
-    <div className="flex flex-col border-r-4 p-4">
+    <div className="bg-color_1 flex flex-col p-4">
       <DefaultServer icon={<FontAwesomeIcon icon={faHouse} />} link={'/'} />
       <DefaultServer
         icon={<FontAwesomeIcon icon={faComment} />}

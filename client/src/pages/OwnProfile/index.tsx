@@ -6,7 +6,7 @@ const Profile = () => {
   return (
     <div className="min-h-screen">
       <Header name={'Your Profile'} />
-      <div className="flex flex-grow flex-col bg-primary">
+      <div className="bg-color_3 flex flex-grow flex-col">
         {/*         <ProfileButtons /> */}
         <EditProfileComponent />
       </div>

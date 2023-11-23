@@ -28,21 +28,21 @@ const Footer = () => {
   }
 
   return (
-    <footer className="sticky bottom-0 flex justify-around bg-secondary p-3  md:hidden">
+    <footer className="bg-color_1 sticky bottom-0 flex justify-around p-3  md:hidden">
       <div onClick={navHome} className={'hover:cursor-pointer'}>
-        <FontAwesomeIcon icon={faHomeUser} size={'xl'} />
+        <FontAwesomeIcon icon={faHomeUser} size={'xl'} color={'#FFF'} />
       </div>
       <div onClick={navProfile} className={'hover:cursor-pointer'}>
-        <FontAwesomeIcon icon={faUser} size={'xl'} />
+        <FontAwesomeIcon icon={faUser} size={'xl'} color={'#FFF'} />
       </div>
       <div onClick={navServers} className={'hover:cursor-pointer'}>
-        <FontAwesomeIcon icon={faNetworkWired} size={'xl'} />
+        <FontAwesomeIcon icon={faNetworkWired} size={'xl'} color={'#FFF'} />
       </div>
       <div onClick={navMessages} className={'hover:cursor-pointer'}>
-        <FontAwesomeIcon icon={faMessage} size={'xl'} />
+        <FontAwesomeIcon icon={faMessage} size={'xl'} color={'#FFF'} />
       </div>
       <div onClick={navFriends} className={'hover:cursor-pointer'}>
-        <FontAwesomeIcon icon={faUsers} size={'xl'} />
+        <FontAwesomeIcon icon={faUsers} size={'xl'} color={'#FFF'} />
       </div>
     </footer>
   );

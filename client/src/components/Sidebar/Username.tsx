@@ -25,17 +25,17 @@ const UsernameComponent = () => {
   }, []);
 
   return (
-    <div className="grid-in-sidebar-header flex w-full flex-row gap-x-4 border-b-4 border-r-4 border-black bg-secondary p-5">
+    <div className="grid-in-sidebar-header flex w-full flex-row gap-x-4 border-b-4 border-black bg-secondary p-5">
       <div className="flex items-center justify-center">
         <div className="aspect-square min-w-[60px] rounded-full bg-white 2xl:min-w-[80px]"></div>
       </div>
-      <div className="flex flex-col justify-center">
-        <h1 className="text-outline font-fingerPaint uppercase text-white md:text-2xl xl:text-4xl">
+      <div className="flex flex-col justify-center overflow-hidden">
+        <h1 className="text-outline xl:text-1xl overflow-ellipsis font-play font-bold uppercase text-white md:max-w-[10ch] md:overflow-hidden md:overflow-ellipsis md:text-xl">
           {username}
         </h1>
         <button
           onClick={handleEditProfile}
-          className="w-max font-play font-bold text-white md:text-xl xl:text-3xl"
+          className="w-max font-play uppercase text-white"
         >
           Edit Profile
         </button>

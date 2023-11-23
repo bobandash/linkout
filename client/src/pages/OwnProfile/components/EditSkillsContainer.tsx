@@ -4,7 +4,7 @@ const EditSkillsContainer = () => {
     <div className="relative mt-4 w-full">
       <label
         htmlFor={'skills'}
-        className="text-outline absolute left-0 top-0 -translate-x-1 -translate-y-1/2 bg-primary pb-1 pr-2 font-fingerPaint text-xl uppercase text-white"
+        className="text-outline bg-color_3 absolute left-0 top-0 -translate-x-1 -translate-y-1/2 pb-1 pr-2 font-play text-xl uppercase text-white"
       >
         Skills
       </label>
