@@ -28,7 +28,7 @@ const Footer = () => {
   }
 
   return (
-    <footer className="bg-color_1 sticky bottom-0 flex justify-around p-3  md:hidden">
+    <footer className="bg-color_1 sticky bottom-0 flex justify-around p-3  lg:hidden">
       <div onClick={navHome} className={'hover:cursor-pointer'}>
         <FontAwesomeIcon icon={faHomeUser} size={'xl'} color={'#FFF'} />
       </div>
