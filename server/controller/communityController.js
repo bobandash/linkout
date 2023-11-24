@@ -40,7 +40,6 @@ exports.create_community = [
       LinkOuts: [],
     });
     await community.save();
-    const communityData = community.data;
     return res.json(community);
   },
 ];
