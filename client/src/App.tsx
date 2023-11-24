@@ -1,11 +1,16 @@
 import SignInForm from './pages/SignInForm/index';
-import { SignedInContext } from './context/SignedInContext';
+import { UserContext } from './context/UserContext';
 import { useContext } from 'react';
 import PageTemplate from './components/PageTemplate';
 import { Outlet } from 'react-router';
+import LoadingScreen from './pages/Loading/index';
 
 function App() {
-  const { isSignedIn } = useContext(SignedInContext);
+  const { isSignedIn, isLoading } = useContext(UserContext);
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
+
   if (isSignedIn) {
     return (
       <PageTemplate>
