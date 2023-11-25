@@ -12,18 +12,27 @@ interface SignedInContextProviderProps {
   children: React.ReactNode;
 }
 
-interface SignedInContextProps {
+interface CommunitiesProp {
+  name: string;
+  profilePic: string;
+  _id: string;
+  description: string;
+}
+
+interface UserContextProps {
   isSignedIn: boolean;
   setIsSignedIn: Dispatch<SetStateAction<boolean>>;
   username: string;
   isLoading: boolean;
+  communities: null | [CommunitiesProp];
 }
 
-export const UserContext = createContext<SignedInContextProps>({
+export const UserContext = createContext<UserContextProps>({
   setIsSignedIn: () => {},
   isSignedIn: false,
   username: '',
   isLoading: true,
+  communities: null,
 });
 
 export const UserContextProvider: FC<SignedInContextProviderProps> = ({
@@ -32,11 +41,28 @@ export const UserContextProvider: FC<SignedInContextProviderProps> = ({
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [username, setUsername] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [communities, setCommunities] = useState<null | [CommunitiesProp]>(
+    null,
+  );
+
   useEffect(() => {
     async function main() {
       await getUser();
       await getUsername();
+      await getUserCommunities();
       setIsLoading(false);
+    }
+
+    async function getUserCommunities() {
+      try {
+        const response = await axios.get('/api/users/user/community', {
+          withCredentials: true,
+        });
+        const json = response.data;
+        setCommunities(json.communities);
+      } catch {
+        setCommunities(null);
+      }
     }
 
     async function getUsername() {
@@ -68,7 +94,7 @@ export const UserContextProvider: FC<SignedInContextProviderProps> = ({
 
   return (
     <UserContext.Provider
-      value={{ setIsSignedIn, isSignedIn, username, isLoading }}
+      value={{ setIsSignedIn, isSignedIn, username, isLoading, communities }}
     >
       {children}
     </UserContext.Provider>
