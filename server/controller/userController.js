@@ -154,6 +154,47 @@ exports.get_profile = [
   },
 ];
 
+exports.update_profile = [
+  verifyToken,
+  upload.single('profilePic'),
+  // TO-DO: add data validation for social media urls
+  async (req, res, next) => {
+    const file = req.file;
+    const {
+      username,
+      status,
+      aboutMe,
+      link,
+      interests,
+      instagram,
+      facebook,
+      twitter,
+      tiktok,
+    } = req.body;
+    const { email } = req.user;
+    const user = await User.findOne({ email }).populate('profile').exec();
+    const profileId = user.profile.id;
+    const existingProfile = await Profile.findById(profileId).exec();
+    const updateFields = {
+      profilePic: file ? file.filename : existingProfile.profilePic,
+      username,
+      status,
+      aboutMe,
+      link,
+      interests,
+      socialMediaUrls: {
+        instagram,
+        facebook,
+        twitter,
+        tiktok,
+      },
+    };
+
+    await Profile.findByIdAndUpdate(profileId, updateFields);
+    res.json({ success: 'Success' });
+  },
+];
+
 exports.post_pfp = [
   verifyToken,
   upload.single('image'),
@@ -166,5 +207,20 @@ exports.post_pfp = [
       profilePic: fullFilePath,
     }).exec();
     res.json({ data: fullFilePath });
+  },
+];
+
+exports.get_communities = [
+  verifyToken,
+  async (req, res, next) => {
+    const { email } = req.user;
+    const user = await User.findOne({ email })
+      .populate({
+        path: 'communities',
+        select: 'description name profilePic Users',
+      })
+      .select('communities')
+      .exec();
+    res.json({ communities: user.communities });
   },
 ];
