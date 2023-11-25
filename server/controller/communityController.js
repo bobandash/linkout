@@ -16,7 +16,21 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-// TO-DO: add pfp
+exports.get_communities = [
+  verifyToken,
+  async (req, res, next) => {
+    const communities = await Community.find({})
+      .select({
+        name: 1,
+        description: 1,
+        profilePic: 1,
+        Users: 1,
+      })
+      .exec();
+    res.json(communities);
+  },
+];
+
 exports.create_community = [
   verifyToken,
   upload.single('profilePic'),
