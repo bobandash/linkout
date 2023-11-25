@@ -19,14 +19,29 @@ const upload = multer({ storage: storage });
 exports.get_communities = [
   verifyToken,
   async (req, res, next) => {
-    const communities = await Community.find({})
-      .select({
-        name: 1,
-        description: 1,
-        profilePic: 1,
-        Users: 1,
-      })
-      .exec();
+    const { limit, numUsersOrder, nameOrder } = req.query;
+
+    let communities = Community.find({});
+
+    if (numUsersOrder) {
+      communities = communities.sort({ numUsers: Number(numUsersOrder) });
+    } else if (nameOrder) {
+      communities = communities.sort({ name: Number(nameOrder) });
+    }
+
+    communities = communities.select({
+      name: 1,
+      description: 1,
+      profilePic: 1,
+      Users: 1,
+    });
+
+    if (limit) {
+      communities = communities.limit(Number(limit));
+    }
+
+    communities = await communities.exec();
+
     res.json(communities);
   },
 ];

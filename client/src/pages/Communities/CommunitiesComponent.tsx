@@ -23,14 +23,18 @@ const CommunitiesComponent = () => {
     }
 
     async function getCommunities() {
-      const response = await axios.get('/api/community');
+      const response = await axios.get('/api/community', {
+        params: {
+          nameOrder: 1,
+        },
+      });
       setCommunities(response.data);
     }
     async function getBiggestCommunities() {
       const response = await axios.get('/api/community', {
         params: {
-          limit: 5,
-          order: -1,
+          limit: 4,
+          numUsersOrder: -1,
         },
       });
       const communities = response.data;
@@ -78,6 +82,14 @@ const CommunitiesComponent = () => {
           </h1>
           <div className="flex-row flex-wrap md:flex md:gap-3 xl:gap-5">
             {biggestCommunities.map((community) => (
+              <CommunityCard community={community} />
+            ))}
+          </div>
+          <h1 className="text-outline mt-5 font-play text-2xl text-white md:text-3xl xl:text-4xl">
+            Communities
+          </h1>
+          <div className="flex-row flex-wrap md:flex md:gap-3 xl:gap-5">
+            {communities.map((community) => (
               <CommunityCard community={community} />
             ))}
           </div>
