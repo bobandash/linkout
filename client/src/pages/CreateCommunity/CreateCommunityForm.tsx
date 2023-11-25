@@ -11,12 +11,13 @@ const CreateCommunityForm = () => {
     handleInputChange,
     handleTextAreaChange,
     handleSubmit,
+    handleProfileInputChange,
     errors,
   } = useCommunity();
 
   return (
     <PageMainContentContainer>
-      <div className="bg-color_3 flex-grow">
+      <div className="flex-grow bg-color_3">
         <form
           encType="multipart/form-data"
           noValidate
@@ -25,8 +26,12 @@ const CreateCommunityForm = () => {
             handleSubmit(e);
           }}
         >
-          <FormIconInput centered={true} />
-          {community.profilePic === '' && (
+          <FormIconInput
+            name="profilePic"
+            centered={true}
+            handleInputChange={handleProfileInputChange}
+          />
+          {community.profilePic === null && (
             <button className="mx-auto block text-white">
               Generate With Ai
             </button>

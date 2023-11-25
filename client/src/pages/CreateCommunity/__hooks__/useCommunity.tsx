@@ -3,19 +3,25 @@ import { UserContext } from '../../../context/UserContext';
 import axios, { AxiosError } from 'axios';
 import { useNavigate } from 'react-router';
 
+interface CommunityProps {
+  name: string;
+  description: string;
+  profilePic: File | null;
+}
+
 const useCommunity = () => {
   const { username } = useContext(UserContext);
   // Methods to create a state
   const sampleCommunity = {
     name: '',
     description: '',
-    profilePic: '',
+    profilePic: null,
   };
   const [sampleErrors] = useState({
     name: { msg: '' },
     description: { msg: '' },
   });
-  const [community, setCommunity] = useState(sampleCommunity);
+  const [community, setCommunity] = useState<CommunityProps>(sampleCommunity);
   const navigate = useNavigate();
   const [errors, setErrors] = useState(sampleErrors);
 
@@ -24,7 +30,7 @@ const useCommunity = () => {
       const newCommunity = {
         name: `${username}'s Community`,
         description: '',
-        profilePic: '',
+        profilePic: null,
       };
       setCommunity(newCommunity);
     }
@@ -37,6 +43,19 @@ const useCommunity = () => {
     },
     [community, sampleErrors],
   );
+
+  const handleProfileInputChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (e.target.files !== null) {
+        const { name } = e.target;
+        const file = e.target.files[0];
+        setErrors(sampleErrors);
+        setCommunity({ ...community, [name]: file });
+      }
+    },
+    [community, sampleErrors],
+  );
+
   const handleTextAreaChange = useCallback(
     (e: React.ChangeEvent<HTMLTextAreaElement>) => {
       setErrors(sampleErrors);
@@ -48,14 +67,21 @@ const useCommunity = () => {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/community/create', community);
+      // Need to create form data because handling images
+      const data = new FormData();
+      data.append('name', community.name);
+      data.append('description', community.description);
+      if (community.profilePic) {
+        data.append('profilePic', community.profilePic);
+      }
+
+      const response = await axios.post('/api/community/create', data);
       if (response.status === 200) {
         /*         const communityId = response.data.community.id;
         navigate(`/community/${communityId}`); */
       }
     } catch (err: unknown) {
       if (err instanceof AxiosError) {
-        console.log(err.response?.data);
         setErrors(err.response?.data);
       }
     }
@@ -66,6 +92,7 @@ const useCommunity = () => {
     handleInputChange,
     handleTextAreaChange,
     handleSubmit,
+    handleProfileInputChange,
     errors,
   };
 };
