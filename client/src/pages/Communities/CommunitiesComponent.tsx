@@ -2,13 +2,59 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons/faMagnifyin
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CommunityCard from './CommunityCard';
 import PageMainContentContainer from '../../components/PageMainContentContainer';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import he from 'he';
+
+interface CommunityProps {
+  name: string;
+  description: string;
+  communityId: string;
+  numUsers: number;
+  profilePic: string;
+}
 
 const CommunitiesComponent = () => {
+  const [communities, setCommunities] = useState([]);
+  const [biggestCommunities, setBiggestCommunities] = useState([]);
+  useEffect(() => {
+    async function main() {
+      await Promise.all([getCommunities(), getBiggestCommunities()]);
+    }
+
+    async function getCommunities() {
+      const response = await axios.get('/api/community');
+      setCommunities(response.data);
+    }
+    async function getBiggestCommunities() {
+      const response = await axios.get('/api/community', {
+        params: {
+          limit: 5,
+          order: -1,
+        },
+      });
+      const communities = response.data;
+      const communitiesDecoded = communities.map(
+        (community: CommunityProps) => {
+          const decodedCommunity = {
+            ...community,
+            name: he.decode(community.name),
+            description: he.decode(community.description),
+          };
+          return decodedCommunity;
+        },
+      );
+
+      setBiggestCommunities(communitiesDecoded);
+    }
+    main();
+  }, []);
+
   return (
     <PageMainContentContainer>
-      <div className="bg-color_3 flex-grow">
+      <div className="flex-grow bg-color_3">
         <div>
-          <div className="mx-auto rounded-lg border-2 bg-primary bg-secondary p-5 ">
+          <div className="bg-secondary mx-auto rounded-lg border-2 bg-primary p-5 ">
             <h1 className="text-center text-xl font-bold uppercase text-white md:text-2xl lg:text-3xl xl:text-4xl">
               Find Interesting People
             </h1>
@@ -31,10 +77,9 @@ const CommunitiesComponent = () => {
             Biggest Communities
           </h1>
           <div className="flex-row flex-wrap md:flex md:gap-3 xl:gap-5">
-            <CommunityCard />
-            <CommunityCard />
-            <CommunityCard />
-            <CommunityCard />
+            {biggestCommunities.map((community) => (
+              <CommunityCard community={community} />
+            ))}
           </div>
         </div>
       </div>
