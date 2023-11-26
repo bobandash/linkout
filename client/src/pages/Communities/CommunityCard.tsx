@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { FC } from 'react';
 import { useNavigate } from 'react-router';
 
@@ -17,6 +18,14 @@ const CommunityCard: FC<CommunityCardProps> = ({ community }) => {
   const navigate = useNavigate();
   function handleNavigate() {
     navigate('/communities/' + community.id);
+  }
+  async function joinCommunity() {
+    try {
+      await axios.put('/api/users/user/community/join');
+      handleNavigate();
+    } catch {
+      console.log('There was an error joining the community');
+    }
   }
 
   return (
@@ -58,7 +67,12 @@ const CommunityCard: FC<CommunityCardProps> = ({ community }) => {
               Visit
             </button>
           ) : (
-            <button className="bg-lightGreen p-1 text-xl font-bold uppercase shadow-custom">
+            <button
+              className="bg-lightGreen p-1 text-xl font-bold uppercase shadow-custom"
+              onClick={async () => {
+                await joinCommunity();
+              }}
+            >
               Join
             </button>
           )}

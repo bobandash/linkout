@@ -14,5 +14,6 @@ router.get('/user/profile', userController.get_profile);
 router.put('/user/profile', userController.update_profile);
 router.put('/user/pfp', userController.post_pfp);
 router.get('/user/community', userController.get_communities);
+router.put('/user/community/join', userController.join_community);
 
 module.exports = router;

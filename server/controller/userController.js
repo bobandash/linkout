@@ -2,6 +2,7 @@ const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 const Profile = require('../models/Profile');
+const Community = require('../models/Community');
 const jwt = require('jsonwebtoken');
 const verifyToken = require('./utils/verifyToken');
 const multer = require('multer');
@@ -222,5 +223,21 @@ exports.get_communities = [
       .select('communities')
       .exec();
     res.json({ communities: user.communities });
+  },
+];
+
+exports.join_community = [
+  verifyToken,
+  async (req, res, next) => {
+    const { email } = req.user;
+    const { communityId } = req.body;
+    const community = await Community.findById(communityId).exec();
+    const user = await User.findOneAndUpdate(
+      { email },
+      {
+        $push: { communities: community },
+      },
+    );
+    res.json({ user: user });
   },
 ];
