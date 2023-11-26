@@ -19,7 +19,12 @@ const upload = multer({ storage: storage });
 exports.get_communities = [
   verifyToken,
   async (req, res, next) => {
-    const { limit, numUsersOrder, nameOrder } = req.query;
+    const { limit, numUsersOrder, nameOrder, communityId } = req.query;
+
+    if (communityId) {
+      const community = await Community.findById(communityId).exec();
+      return res.json(community);
+    }
 
     let communities = Community.find({});
 
@@ -42,7 +47,7 @@ exports.get_communities = [
 
     communities = await communities.exec();
 
-    res.json(communities);
+    res.json({ communities: communities });
   },
 ];
 
