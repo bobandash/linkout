@@ -7,6 +7,7 @@ import axios from 'axios';
 import he from 'he';
 
 interface CommunityProps {
+  _id: string;
   name: string;
   description: string;
   communityId: string;
@@ -14,30 +15,56 @@ interface CommunityProps {
   profilePic: string;
 }
 
+interface CommunityJoinedProps extends CommunityProps {
+  joinedStatus: boolean;
+}
+
+interface getCommunitiesProps {
+  filters: {
+    nameOrder?: number;
+    limit?: number;
+    numUsersOrder?: number;
+  };
+  setState: React.Dispatch<React.SetStateAction<never[]>>;
+}
+
 const CommunitiesComponent = () => {
   const [communities, setCommunities] = useState([]);
   const [biggestCommunities, setBiggestCommunities] = useState([]);
   useEffect(() => {
     async function main() {
-      await Promise.all([getCommunities(), getBiggestCommunities()]);
+      const allCommunitiesFilter = {
+        nameOrder: 1,
+      };
+      const biggestCommunitiesFilter = {
+        limit: 4,
+        numUsersOrder: -1,
+      };
+
+      await Promise.all([
+        getCommunities({
+          filters: allCommunitiesFilter,
+          setState: setCommunities,
+        }),
+        getCommunities({
+          filters: biggestCommunitiesFilter,
+          setState: setBiggestCommunities,
+        }),
+      ]);
     }
 
-    async function getCommunities() {
-      const response = await axios.get('/api/community', {
-        params: {
-          nameOrder: 1,
-        },
-      });
-      setCommunities(response.data);
-    }
-    async function getBiggestCommunities() {
-      const response = await axios.get('/api/community', {
-        params: {
-          limit: 4,
-          numUsersOrder: -1,
-        },
-      });
-      const communities = response.data;
+    async function getCommunities({
+      filters,
+      setState,
+    }: getCommunitiesProps): Promise<void> {
+      const communities = (
+        await axios.get('/api/community', {
+          params: {
+            ...filters,
+          },
+        })
+      ).data.communities;
+
       const communitiesDecoded = communities.map(
         (community: CommunityProps) => {
           const decodedCommunity = {
@@ -49,8 +76,31 @@ const CommunitiesComponent = () => {
         },
       );
 
-      setBiggestCommunities(communitiesDecoded);
+      const userCommunities: Array<CommunityProps> = (
+        await axios.get('/api/users/user/community')
+      ).data.communities;
+
+      const allCommunitiesWithJoinedStatus = communitiesDecoded.map(
+        (community: CommunityJoinedProps) => {
+          let hasJoined = false;
+          userCommunities.forEach((userCommunity) => {
+            if (userCommunity._id === community._id) {
+              hasJoined = true;
+              return;
+            }
+          });
+          {
+            hasJoined
+              ? (community.joinedStatus = true)
+              : (community.joinedStatus = false);
+          }
+          return { ...community };
+        },
+      );
+
+      setState(allCommunitiesWithJoinedStatus);
     }
+
     main();
   }, []);
 

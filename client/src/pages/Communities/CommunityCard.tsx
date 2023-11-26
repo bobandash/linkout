@@ -8,14 +8,16 @@ interface CommunityCardProps {
     communityId: string;
     numUsers: number;
     profilePic: string;
+    id: string;
+    joinedStatus: boolean;
   };
 }
 
 const CommunityCard: FC<CommunityCardProps> = ({ community }) => {
   const navigate = useNavigate();
-  /*   async function handleJoin() {
-    navigate('/community/' + communityId);
-  } */
+  function handleNavigate() {
+    navigate('/communities/' + community.id);
+  }
 
   return (
     <>
@@ -48,9 +50,18 @@ const CommunityCard: FC<CommunityCardProps> = ({ community }) => {
           <p className="max-h-4/5 mb-2 mt-1 overflow-hidden overflow-ellipsis text-black">
             {community.description}
           </p>
-          <button className="bg-lightGreen p-1 text-xl font-bold uppercase shadow-custom">
-            Join
-          </button>
+          {community.joinedStatus ? (
+            <button
+              onClick={handleNavigate}
+              className="bg-primary p-1 text-xl font-bold uppercase text-white shadow-custom"
+            >
+              Visit
+            </button>
+          ) : (
+            <button className="bg-lightGreen p-1 text-xl font-bold uppercase shadow-custom">
+              Join
+            </button>
+          )}
         </div>
       </div>
     </>
