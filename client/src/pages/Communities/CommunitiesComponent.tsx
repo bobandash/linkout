@@ -5,6 +5,7 @@ import PageMainContentContainer from '../../components/PageMainContentContainer'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import he from 'he';
+import LoadingScreen from '../Loading/index';
 
 interface CommunityProps {
   _id: string;
@@ -31,6 +32,7 @@ interface getCommunitiesProps {
 const CommunitiesComponent = () => {
   const [communities, setCommunities] = useState([]);
   const [biggestCommunities, setBiggestCommunities] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     async function main() {
       const allCommunitiesFilter = {
@@ -51,6 +53,7 @@ const CommunitiesComponent = () => {
           setState: setBiggestCommunities,
         }),
       ]);
+      setIsLoading(false);
     }
 
     async function getCommunities({
@@ -103,6 +106,10 @@ const CommunitiesComponent = () => {
 
     main();
   }, []);
+
+  if (isLoading) {
+    <LoadingScreen />;
+  }
 
   return (
     <PageMainContentContainer>
