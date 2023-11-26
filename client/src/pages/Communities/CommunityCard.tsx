@@ -21,7 +21,10 @@ const CommunityCard: FC<CommunityCardProps> = ({ community }) => {
   }
   async function joinCommunity() {
     try {
-      await axios.put('/api/users/user/community/join');
+      const data = {
+        communityId: community.id,
+      };
+      await axios.put('/api/users/user/community/join', data);
       handleNavigate();
     } catch {
       console.log('There was an error joining the community');
