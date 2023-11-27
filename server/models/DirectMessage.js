@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-
 const { Schema } = mongoose;
+const { DateTime } = require('luxon');
 
 // Stores the messages for conversations
 const DirectMessageSchema = new Schema(
@@ -17,14 +17,12 @@ const DirectMessageSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'Conversation',
     },
-    readBy: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Friend',
-      },
-    ],
   },
   { timestamps: true },
 );
+
+DirectMessageSchema.virtual('dateFormatted').get(function () {
+  return this.createdAt.toLocaleString(DateTime.DATE_MED);
+});
 
 module.exports = mongoose.model('DirectMessage', DirectMessageSchema);
