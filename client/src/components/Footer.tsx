@@ -28,21 +28,38 @@ const Footer = () => {
   }
 
   return (
-    <footer className="bg-color_1 sticky bottom-0 flex justify-around p-3  lg:hidden">
-      <div onClick={navHome} className={'hover:cursor-pointer'}>
+    <footer className="sticky bottom-0 flex justify-around bg-color_1 p-3  lg:hidden">
+      <div onClick={navHome} className={'flex flex-col hover:cursor-pointer'}>
         <FontAwesomeIcon icon={faHomeUser} size={'xl'} color={'#FFF'} />
+        <p className="text-sm text-white">Home</p>
       </div>
-      <div onClick={navProfile} className={'hover:cursor-pointer'}>
-        <FontAwesomeIcon icon={faUser} size={'xl'} color={'#FFF'} />
-      </div>
-      <div onClick={navServers} className={'hover:cursor-pointer'}>
+      <div
+        onClick={navServers}
+        className={'flex flex-col hover:cursor-pointer'}
+      >
         <FontAwesomeIcon icon={faNetworkWired} size={'xl'} color={'#FFF'} />
+        <p className="text-sm text-white">Communities</p>
       </div>
-      <div onClick={navMessages} className={'hover:cursor-pointer'}>
+      <div
+        onClick={navMessages}
+        className={'flex flex-col hover:cursor-pointer'}
+      >
         <FontAwesomeIcon icon={faMessage} size={'xl'} color={'#FFF'} />
+        <p className="text-sm text-white">Messages</p>
       </div>
-      <div onClick={navFriends} className={'hover:cursor-pointer'}>
+      <div
+        onClick={navFriends}
+        className={'flex flex-col hover:cursor-pointer'}
+      >
         <FontAwesomeIcon icon={faUsers} size={'xl'} color={'#FFF'} />
+        <p className="text-sm text-white">Friends</p>
+      </div>
+      <div
+        onClick={navProfile}
+        className={'flex flex-col hover:cursor-pointer'}
+      >
+        <FontAwesomeIcon icon={faUser} size={'xl'} color={'#FFF'} />
+        <p className="text-sm text-white">Profile</p>
       </div>
     </footer>
   );
