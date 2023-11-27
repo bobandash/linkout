@@ -18,8 +18,8 @@ const CommunityMessageSchema = new Schema(
       ref: 'Community',
     },
   },
-  { timestamps: true },
   {
+    timestamps: true,
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
   },

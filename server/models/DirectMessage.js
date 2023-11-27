@@ -18,7 +18,11 @@ const DirectMessageSchema = new Schema(
       ref: 'Conversation',
     },
   },
-  { timestamps: true },
+  {
+    timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  },
 );
 
 DirectMessageSchema.virtual('dateFormatted').get(function () {
