@@ -6,7 +6,7 @@ const Sidebar = () => {
   return (
     <aside className="hidden min-h-screen max-w-full flex-row overflow-hidden lg:flex">
       <ServersComponent />
-      <div className="bg-color_2 flex flex-grow flex-col">
+      <div className="flex flex-grow flex-col bg-color_2">
         <UsernameComponent />
         <FriendsComponent />
       </div>
