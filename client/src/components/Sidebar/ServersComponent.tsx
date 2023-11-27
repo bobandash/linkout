@@ -10,12 +10,8 @@ import UserServer from './Server/UserServer';
 const ServersComponent = () => {
   const { communities } = useContext(UserContext);
   return (
-    <div className="flex flex-col bg-color_1 p-4">
+    <div className="scrollbar-none flex max-h-screen flex-col items-center gap-2 overflow-scroll bg-color_1 p-4">
       <DefaultServer icon={<FontAwesomeIcon icon={faHouse} />} link={'/'} />
-      <DefaultServer
-        icon={<FontAwesomeIcon icon={faComment} />}
-        link={'/messages'}
-      />
       {communities !== null &&
         communities.map((community) => (
           <UserServer key={community._id} community={community} />
