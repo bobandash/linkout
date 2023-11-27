@@ -2,10 +2,12 @@ const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 const Community = require('../models/Community');
+const Profile = require('../models/Profile');
 const jwt = require('jsonwebtoken');
 const verifyToken = require('./utils/verifyToken');
 const multer = require('multer');
 const path = require('path');
+const CommunityMessage = require('../models/CommunityMessage');
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'public/uploads/');
@@ -20,11 +22,6 @@ exports.get_communities = [
   verifyToken,
   async (req, res, next) => {
     const { limit, numUsersOrder, nameOrder, communityId } = req.query;
-
-    if (communityId) {
-      const community = await Community.findById(communityId).exec();
-      return res.json(community);
-    }
 
     let communities = Community.find({});
 
@@ -48,6 +45,15 @@ exports.get_communities = [
     communities = await communities.exec();
 
     res.json({ communities: communities });
+  },
+];
+
+exports.get_individual_community = [
+  verifyToken,
+  async (req, res, next) => {
+    const { communityId } = req.params;
+    const community = await Community.findById(communityId).exec();
+    res.json(community);
   },
 ];
 
@@ -80,6 +86,52 @@ exports.create_community = [
     });
     await user.updateOne({ $push: { communities: community } }).exec();
     await community.save();
-    return res.json(community);
+    return res.json({ community: community });
+  },
+];
+
+exports.add_message = [
+  verifyToken,
+  body('content', 'Content must not be empty').trim().notEmpty().escape(),
+  async (req, res, next) => {
+    const errors = validationResult(req).mapped();
+    if (Object.keys(errors).length > 0) {
+      return res.status(400).json(errors);
+    }
+    const { email } = req.user;
+    const { communityId } = req.params;
+    const { message } = req.body;
+    const [community, user] = await Promise.all([
+      Community.findById(communityId).exec(),
+      User.findOne({ email: email }).exec(),
+    ]);
+    const newMessage = new CommunityMessage({
+      content: message,
+      sender: user,
+      community: community,
+    });
+    await newMessage.save();
+    res.json({ message: newMessage });
+  },
+];
+
+exports.get_messages = [
+  verifyToken,
+  async (req, res, next) => {
+    const { communityId } = req.params;
+    const messages = await CommunityMessage.find({
+      community: communityId,
+    })
+      .populate({
+        path: 'sender',
+        select: 'profile',
+        populate: {
+          path: 'profile',
+          select: 'profilePic username',
+        },
+      })
+      .sort({ createdAt: 1 })
+      .exec();
+    res.json(messages);
   },
 ];
