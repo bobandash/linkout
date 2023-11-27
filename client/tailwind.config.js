@@ -1,3 +1,6 @@
+import scrollbarPlugin from 'tailwind-scrollbar';
+import gridTemplateAreas from '@savvywombat/tailwindcss-grid-areas';
+
 /** @type {import('tailwindcss').Config} */
 export default {
   mode: 'jit',
@@ -36,5 +39,5 @@ export default {
       },
     },
   },
-  plugins: [import('@savvywombat/tailwindcss-grid-areas')],
+  plugins: [gridTemplateAreas, scrollbarPlugin],
 };
