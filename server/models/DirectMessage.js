@@ -29,4 +29,13 @@ DirectMessageSchema.virtual('dateFormatted').get(function () {
   return this.createdAt.toLocaleString(DateTime.DATE_MED);
 });
 
+DirectMessageSchema.virtual('longDateFormatted').get(function () {
+  const options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  };
+  return new Intl.DateTimeFormat('en-US', options).format(this.createdAt);
+});
+
 module.exports = mongoose.model('DirectMessage', DirectMessageSchema);

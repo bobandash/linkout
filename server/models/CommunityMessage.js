@@ -29,4 +29,13 @@ CommunityMessageSchema.virtual('dateFormatted').get(function () {
   return this.createdAt.toLocaleString(DateTime.DATE_MED);
 });
 
+CommunityMessageSchema.virtual('longDateFormatted').get(function () {
+  const options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  };
+  return new Intl.DateTimeFormat('en-US', options).format(this.createdAt);
+});
+
 module.exports = mongoose.model('CommunityMessage', CommunityMessageSchema);
