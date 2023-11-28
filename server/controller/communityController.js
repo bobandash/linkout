@@ -92,7 +92,7 @@ exports.create_community = [
 
 exports.add_message = [
   verifyToken,
-  body('content', 'Content must not be empty').trim().notEmpty().escape(),
+  body('message', 'Message must not be empty').trim().notEmpty().escape(),
   async (req, res, next) => {
     const errors = validationResult(req).mapped();
     if (Object.keys(errors).length > 0) {

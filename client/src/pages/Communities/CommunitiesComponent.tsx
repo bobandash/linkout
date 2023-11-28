@@ -26,11 +26,11 @@ interface getCommunitiesProps {
     limit?: number;
     numUsersOrder?: number;
   };
-  setState: React.Dispatch<React.SetStateAction<never[]>>;
+  setState: React.Dispatch<React.SetStateAction<CommunityProps[]>>;
 }
 
 const CommunitiesComponent = () => {
-  const [communities, setCommunities] = useState([]);
+  const [communities, setCommunities] = useState<Array<CommunityProps>>([]);
   const [biggestCommunities, setBiggestCommunities] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
@@ -138,16 +138,16 @@ const CommunitiesComponent = () => {
             Biggest Communities
           </h1>
           <div className="flex-row flex-wrap md:flex md:gap-3 xl:gap-5">
-            {biggestCommunities.map((community) => (
-              <CommunityCard community={community} />
+            {biggestCommunities.map((community: CommunityJoinedProps) => (
+              <CommunityCard key={community._id} community={community} />
             ))}
           </div>
           <h1 className="text-outline mt-5 font-play text-2xl text-white md:text-3xl xl:text-4xl">
             Communities
           </h1>
           <div className="flex-row flex-wrap md:flex md:gap-3 xl:gap-5">
-            {communities.map((community) => (
-              <CommunityCard community={community} />
+            {communities.map((community: CommunityJoinedProps) => (
+              <CommunityCard key={community._id} community={community} />
             ))}
           </div>
         </div>

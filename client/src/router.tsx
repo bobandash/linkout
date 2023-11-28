@@ -4,6 +4,7 @@ import SignUpForm from './pages/SignUpForm/index.tsx';
 import Profile from './pages/OwnProfile/index.tsx';
 import Communities from './pages/Communities/index.tsx';
 import CreateCommunity from './pages/CreateCommunity/index.tsx';
+import CommunityMessage from './pages/CommunityMessageBoard/index.tsx';
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Communities />,
+      },
+      {
+        path: '/communities/:communityId',
+        element: <CommunityMessage />,
       },
       {
         path: '/communities/create',
