@@ -32,10 +32,13 @@ export default {
         lg_site: '350px minmax(0,3fr)',
         two_xl_site: '350px minmax(0,3fr) 300px',
         sidebar_site: 'fit-content minmax(0, 1fr)',
+        mobile_message: '60px minmax(0,1fr)',
+        desktop_message: '80px minmax(0,1fr)',
       },
       gridTemplateAreas: {
         mobile_site: ['main-header', 'main', 'footer'],
         md_site: ['sidebar-header main-header', 'sidebar main'],
+        message: ['profile-picture', 'message-content'],
       },
     },
   },
