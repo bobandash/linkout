@@ -76,9 +76,9 @@ const useCommunity = () => {
       }
 
       const response = await axios.post('/api/community/create', data);
-      if (response.status === 200) {
-        /*         const communityId = response.data.community.id;
-        navigate(`/community/${communityId}`); */
+      if (response.status == 200) {
+        const communityId = response.data.community.id;
+        navigate(`/communities/${communityId}`);
       }
     } catch (err: unknown) {
       if (err instanceof AxiosError) {
