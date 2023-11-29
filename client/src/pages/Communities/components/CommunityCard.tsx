@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { FC } from 'react';
 import { useNavigate } from 'react-router';
-import CommunityProps from '../../interface/community';
+import CommunityProps from '../../../interface/community';
 
 interface CommunityCardProps {
   community: CommunityProps;
