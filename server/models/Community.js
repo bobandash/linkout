@@ -16,7 +16,7 @@ const CommunitySchema = new Schema(
       type: String,
       required: true,
     },
-    Users: [
+    users: [
       {
         user: {
           type: Schema.Types.ObjectId,
@@ -28,13 +28,13 @@ const CommunitySchema = new Schema(
         },
       },
     ],
-    Admins: [
+    admins: [
       {
         type: Schema.Types.ObjectId,
         ref: 'User',
       },
     ],
-    LinkOuts: [
+    linkOuts: [
       {
         type: Schema.Types.ObjectId,
         ref: 'Linkout',
@@ -42,13 +42,15 @@ const CommunitySchema = new Schema(
     ],
   },
   {
-    toJSON: { virtuals: true },
+    toJSON: {
+      virtuals: true,
+    },
     toObject: { virtuals: true },
   },
 );
 
 CommunitySchema.virtual('numUsers').get(function () {
-  return this.Users.length;
+  return this.users.length;
 });
 
 module.exports = mongoose.model('Community', CommunitySchema);

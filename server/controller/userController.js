@@ -218,7 +218,7 @@ exports.get_communities = [
     const user = await User.findOne({ email })
       .populate({
         path: 'communities',
-        select: 'description name profilePic Users',
+        select: 'description name profilePic users',
       })
       .select('communities')
       .exec();

@@ -35,7 +35,7 @@ exports.get_communities = [
       name: 1,
       description: 1,
       profilePic: 1,
-      Users: 1,
+      users: 1,
     });
 
     if (limit) {
@@ -80,9 +80,14 @@ exports.create_community = [
       name,
       description,
       profilePic: image,
-      Users: [user],
-      Admins: [user],
-      LinkOuts: [],
+      users: [
+        {
+          user: user,
+          isVisible: true,
+        },
+      ],
+      admins: [user],
+      linkOuts: [],
     });
     await user.updateOne({ $push: { communities: community } }).exec();
     await community.save();
