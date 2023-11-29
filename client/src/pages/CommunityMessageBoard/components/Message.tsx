@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import ProfilePic from '../../../components/ProfilePic';
 import message from '../interface/message';
+import he from 'he';
 
 interface MessageComponentProps {
   message: message;
@@ -35,7 +36,9 @@ const Message: FC<MessageComponentProps> = ({
           <TimeComponent longDateFormatted={message.longDateFormatted} />
         )}
         <div className="grid grid-cols-mobile_message md:grid-cols-desktop_message">
-          <p className="col-start-2 text-lg xl:text-xl">{message.content}</p>
+          <p className="col-start-2 text-lg xl:text-xl">
+            {he.decode(message.content)}
+          </p>
         </div>
       </>
     );
@@ -57,13 +60,13 @@ const Message: FC<MessageComponentProps> = ({
         <div className="flex flex-grow flex-col">
           <div className="flex flex-row items-center gap-2">
             <h1 className="max-w-[10ch] overflow-hidden overflow-ellipsis whitespace-nowrap text-lg font-bold text-primary md:max-w-[24ch]  xl:text-xl">
-              {message.sender.profile.username}
+              {he.decode(message.sender.profile.username)}
             </h1>
             <p className="text-sm text-gray xl:text-base">
               {message.dateFormatted}
             </p>
           </div>
-          <p className="text-lg xl:text-xl">{message.content}</p>
+          <p className="text-lg xl:text-xl">{he.decode(message.content)}</p>
         </div>
       </div>
     </>
