@@ -28,7 +28,7 @@ const ProfilePic: FC<ProfilePicProps> = ({ image, name, size }) => {
 
   return (
     <div
-      className={`mr-3 aspect-square ${heightMobileClass} ${heightDesktopClass} overflow-hidden rounded-full bg-white 2xl:mr-5`}
+      className={`aspect-square ${heightMobileClass} ${heightDesktopClass} overflow-hidden rounded-full bg-white`}
     >
       <img src={`/api/${image}`} alt={`${name} picture`} />
     </div>
