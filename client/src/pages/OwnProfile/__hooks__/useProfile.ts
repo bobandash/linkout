@@ -1,39 +1,8 @@
 import { useEffect, useState, useCallback } from 'react';
 import axios, { AxiosError } from 'axios';
-
-interface profileProps {
-  username: string;
-  status: string;
-  profilePic: null | File;
-  aboutMe: string;
-  link: string;
-  interests: string;
-  skills: object;
-  socialMediaUrls: {
-    instagram: string;
-    facebook: string;
-    twitter: string;
-    tiktok: string;
-  };
-}
+import { mockProfile, profileProps } from '../../../interface/profile';
 
 const useProfile = () => {
-  const mockProfile = {
-    username: '',
-    status: '',
-    profilePic: null,
-    aboutMe: '',
-    link: '',
-    interests: '',
-    skills: {},
-    socialMediaUrls: {
-      instagram: '',
-      facebook: '',
-      twitter: '',
-      tiktok: '',
-    },
-  };
-
   const [profile, setProfile] = useState<profileProps>(mockProfile);
   const [success, setSuccess] = useState(false);
   const [hasErrors, setHasErrors] = useState(false);
