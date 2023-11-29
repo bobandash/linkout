@@ -7,6 +7,7 @@ const useTextbox = () => {
   const { communityId } = useParams();
   const [message, setMessage] = useState('');
 
+  console.log(message);
   const handleMessage = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMessage(e.target.value);
   };
@@ -14,11 +15,9 @@ const useTextbox = () => {
   async function handleSubmitMessage(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     try {
-      console.log(message);
       await axios.post(`/api/community/${communityId}/add-message`, {
         message,
       });
-      setMessage('');
       const target = e.target as HTMLFormElement;
       target.reset();
     } catch {
