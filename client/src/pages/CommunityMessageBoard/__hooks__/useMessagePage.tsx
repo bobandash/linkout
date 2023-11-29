@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import CommunityProps from '../interface/community';
+import CommunityProps from '../../../interface/community';
 import MessageProps from '../interface/message';
 import { useParams } from 'react-router';
 

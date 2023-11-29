@@ -1,17 +1,10 @@
 import axios from 'axios';
 import { FC } from 'react';
 import { useNavigate } from 'react-router';
+import CommunityProps from '../../interface/community';
 
 interface CommunityCardProps {
-  community: {
-    name: string;
-    description: string;
-    communityId: string;
-    numUsers: number;
-    profilePic: string;
-    id: string;
-    joinedStatus: boolean;
-  };
+  community: CommunityProps;
 }
 
 const CommunityCard: FC<CommunityCardProps> = ({ community }) => {

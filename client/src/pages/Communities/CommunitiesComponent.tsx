@@ -6,15 +6,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import he from 'he';
 import LoadingScreen from '../Loading/index';
-
-interface CommunityProps {
-  _id: string;
-  name: string;
-  description: string;
-  communityId: string;
-  numUsers: number;
-  profilePic: string;
-}
+import CommunityProps from '../../interface/community';
 
 interface CommunityJoinedProps extends CommunityProps {
   joinedStatus: boolean;
@@ -31,7 +23,9 @@ interface getCommunitiesProps {
 
 const CommunitiesComponent = () => {
   const [communities, setCommunities] = useState<Array<CommunityProps>>([]);
-  const [biggestCommunities, setBiggestCommunities] = useState([]);
+  const [biggestCommunities, setBiggestCommunities] = useState<
+    Array<CommunityProps>
+  >([]);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     async function main() {
@@ -138,7 +132,7 @@ const CommunitiesComponent = () => {
             Biggest Communities
           </h1>
           <div className="flex-row flex-wrap md:flex md:gap-3 xl:gap-5">
-            {biggestCommunities.map((community: CommunityJoinedProps) => (
+            {biggestCommunities.map((community) => (
               <CommunityCard key={community._id} community={community} />
             ))}
           </div>
@@ -146,7 +140,7 @@ const CommunitiesComponent = () => {
             Communities
           </h1>
           <div className="flex-row flex-wrap md:flex md:gap-3 xl:gap-5">
-            {communities.map((community: CommunityJoinedProps) => (
+            {communities.map((community) => (
               <CommunityCard key={community._id} community={community} />
             ))}
           </div>
