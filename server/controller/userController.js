@@ -232,6 +232,7 @@ exports.join_community = [
     const { email } = req.user;
     const { communityId } = req.body;
     const community = await Community.findById(communityId).exec();
+
     const user = await User.findOneAndUpdate(
       { email },
       {
