@@ -5,7 +5,7 @@ import Footer from '../../components/Footer';
 
 const index = () => {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex h-screen flex-col">
       <Header name={'Communities'} children={<CommunitiesCreateBtn />} />
       <CommunitiesComponent />
       <Footer />
