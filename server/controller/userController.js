@@ -238,7 +238,17 @@ exports.join_community = [
       {
         $push: { communities: community },
       },
-    );
+    ).exec();
+
+    await Community.findByIdAndUpdate(communityId, {
+      $push: {
+        users: {
+          user: user,
+          isVisible: true,
+        },
+      },
+    });
+
     res.json({ user: user });
   },
 ];
