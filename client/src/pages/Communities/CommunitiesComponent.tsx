@@ -30,7 +30,19 @@ const CommunitiesComponent = () => {
   }, [updateFilteredCommunities]);
 
   if (isLoading) {
-    <LoadingScreen />;
+    return <LoadingScreen />;
+  }
+
+  if (biggestCommunities.length === 0 && communities.length === 0) {
+    return (
+      <PageMainContentContainer>
+        <div className="flex-grow bg-color_3">
+          <h1 className="text-outline mt-5 font-play text-2xl text-white md:text-3xl xl:text-4xl">
+            Create the first community today.
+          </h1>
+        </div>
+      </PageMainContentContainer>
+    );
   }
 
   return (

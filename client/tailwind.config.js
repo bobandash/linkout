@@ -34,6 +34,7 @@ export default {
         sidebar_site: 'fit-content minmax(0, 1fr)',
         mobile_message: '60px minmax(0,1fr)',
         desktop_message: '80px minmax(0,1fr)',
+        desktop_profile: '80px minmax(0,1fr)',
       },
       gridTemplateAreas: {
         mobile_site: ['main-header', 'main', 'footer'],
