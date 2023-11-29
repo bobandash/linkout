@@ -42,7 +42,7 @@ const CommunityCard: FC<CommunityCardProps> = ({ community }) => {
             )}
           </div>
           <div className="flex flex-col justify-center overflow-hidden">
-            <h3 className="block overflow-hidden overflow-ellipsis whitespace-nowrap font-bold uppercase lg:text-xl">
+            <h3 className="block max-w-[20ch] overflow-hidden overflow-ellipsis whitespace-nowrap font-bold uppercase lg:text-xl">
               {community.name}
             </h3>
             <h4 className="overflow-ellipsis whitespace-nowrap">
