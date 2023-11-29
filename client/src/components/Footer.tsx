@@ -15,8 +15,8 @@ const Footer = () => {
     navigate('/profile');
   }
 
-  function navServers() {
-    navigate('/servers');
+  function navCommunities() {
+    navigate('/communities');
   }
 
   function navMessages() {
@@ -34,7 +34,7 @@ const Footer = () => {
         <p className="text-sm text-white">Home</p>
       </div>
       <div
-        onClick={navServers}
+        onClick={navCommunities}
         className={'flex flex-col hover:cursor-pointer'}
       >
         <FontAwesomeIcon icon={faNetworkWired} size={'xl'} color={'#FFF'} />

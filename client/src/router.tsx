@@ -5,6 +5,7 @@ import Profile from './pages/OwnProfile/index.tsx';
 import Communities from './pages/Communities/index.tsx';
 import CreateCommunity from './pages/CreateCommunity/index.tsx';
 import CommunityMessage from './pages/CommunityMessageBoard/index.tsx';
+import MyCommunitiesPage from './pages/MyCommunities/index.tsx';
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: 'profile',
         element: <Profile />,
+      },
+      {
+        path: 'communities',
+        element: <MyCommunitiesPage />,
       },
     ],
   },
