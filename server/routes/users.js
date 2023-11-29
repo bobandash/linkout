@@ -16,4 +16,8 @@ router.put('/user/pfp', userController.post_pfp);
 router.get('/user/community', userController.get_communities);
 router.put('/user/community/join', userController.join_community);
 
+// to get users related to a community
+router.get('/community', userController.get_users);
+router.get('/community/:communityId', userController.get_users_by_community);
+
 module.exports = router;

@@ -252,3 +252,52 @@ exports.join_community = [
     res.json({ user: user });
   },
 ];
+
+// returns array of objects with username, status, and profilePic
+exports.get_users = [
+  verifyToken,
+  async (req, res, next) => {
+    const users = await User.find({})
+      .populate({
+        path: 'profile',
+        select: 'username status profilePic',
+      })
+      .select('profile')
+      .exec();
+    const usersFormatted = users.map((user) => {
+      return user.profile;
+    });
+
+    // sorts alphabetically
+    usersFormatted.sort(function (a, b) {
+      const textA = a.username.toUpperCase();
+      const textB = b.username.toUpperCase();
+      return textA < textB ? -1 : textA > textB ? 1 : 0;
+    });
+    res.json(usersFormatted);
+  },
+];
+
+exports.get_users_by_community = [
+  verifyToken,
+  async (req, res, next) => {
+    const { communityId } = req.params;
+    const community = await Community.findById(communityId).populate({
+      path: 'users.user',
+      populate: {
+        path: 'profile',
+        select: 'username status profilePic',
+      },
+    });
+    const userObj = community.users;
+    const profiles = userObj.map((userObj) => {
+      return userObj.user.profile;
+    });
+    profiles.sort(function (a, b) {
+      const textA = a.username.toUpperCase();
+      const textB = b.username.toUpperCase();
+      return textA < textB ? -1 : textA > textB ? 1 : 0;
+    });
+    res.json(profiles);
+  },
+];
