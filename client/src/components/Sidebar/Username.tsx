@@ -1,37 +1,43 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
+import profileProps, { mockProfile } from '../../interface/profile';
+import ProfilePic from '../ProfilePic';
 
 const UsernameComponent = () => {
   const navigate = useNavigate();
-  const [username, setUsername] = useState('Username');
+  const [profile, setProfile] = useState<profileProps>(mockProfile);
   function handleEditProfile() {
     navigate('/profile');
   }
 
   useEffect(() => {
-    async function getUserName() {
+    async function getProfile() {
       try {
-        const response = await axios.get('/api/users/user/username', {
+        const response = await axios.get('/api/users/user/profile', {
           withCredentials: true,
         });
-        const username = response.data.username;
-        setUsername(username);
+        const profile = response.data.profile;
+        setProfile(profile);
       } catch {
-        setUsername('Cannot find');
+        console.error('There was an error');
       }
     }
-    getUserName();
+    getProfile();
   }, []);
 
   return (
-    <div className="grid-in-sidebar-header flex w-full flex-row gap-x-4 border-b-4 border-black bg-secondary p-5">
+    <div className="bg-secondary flex w-full flex-row gap-x-4 border-b-4 border-black p-5 grid-in-sidebar-header">
       <div className="flex items-center justify-center">
-        <div className="aspect-square min-w-[60px] rounded-full bg-white 2xl:min-w-[80px]"></div>
+        {typeof profile.profilePic === 'string' ? (
+          <ProfilePic name={profile.username} image={profile.profilePic} />
+        ) : (
+          <div className="aspect-square min-w-[60px] rounded-full bg-white 2xl:min-w-[80px]"></div>
+        )}
       </div>
       <div className="flex flex-col justify-center overflow-hidden">
         <h1 className="text-outline xl:text-1xl overflow-ellipsis font-play font-bold uppercase text-white md:max-w-[10ch] md:overflow-hidden md:overflow-ellipsis md:text-xl">
-          {username}
+          {profile.username}
         </h1>
         <button
           onClick={handleEditProfile}
