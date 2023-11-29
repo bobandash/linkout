@@ -6,8 +6,6 @@ import axios from 'axios';
 const useTextbox = () => {
   const { communityId } = useParams();
   const [message, setMessage] = useState('');
-
-  console.log(message);
   const handleMessage = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMessage(e.target.value);
   };
