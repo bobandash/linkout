@@ -4,8 +4,8 @@ import LoadingScreen from '../Loading/index';
 
 import SearchForm from './components/SearchForm';
 import CommunitiesList from './components/CommunitiesList';
-import useCommunities from '../__hooks__/useCommunities';
-import useSearchForm from '../__hooks__/useSearchForm';
+import useCommunities from './__hooks__/useCommunities';
+import useSearchForm from './__hooks__/useSearchForm';
 import { useEffect, useState, useCallback } from 'react';
 import CommunityProps from '../../interface/community';
 

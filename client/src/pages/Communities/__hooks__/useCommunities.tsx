@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import he from 'he';
-import CommunityProps from '../../interface/community';
+import CommunityProps from '../../../interface/community';
 
 interface CommunityJoinedProps extends CommunityProps {
   joinedStatus: boolean;
