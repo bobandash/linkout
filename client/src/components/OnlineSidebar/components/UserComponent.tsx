@@ -8,7 +8,7 @@ interface UserComponentProps {
 
 const UserComponent: FC<UserComponentProps> = ({ user }) => {
   return (
-    <div className="grid-cols-desktop_profile mb-1 grid gap-2 rounded-lg bg-color_4 p-2">
+    <div className="mb-1 grid grid-cols-desktop_profile gap-2 rounded-lg bg-color_4 p-2">
       <div className="flex items-center justify-center">
         <ProfilePic size="small" image={user.profilePic} name={user.username} />
       </div>
@@ -16,7 +16,9 @@ const UserComponent: FC<UserComponentProps> = ({ user }) => {
         <p className="overflow-hidden overflow-ellipsis text-xl font-bold">
           {user.username}
         </p>
-        <p>{user.status}</p>
+        <p className="overflow-hidden overflow-ellipsis whitespace-nowrap">
+          {user.status}
+        </p>
       </div>
     </div>
   );
