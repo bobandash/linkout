@@ -1,20 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
-import { useRef, FC } from 'react';
+import { useRef } from 'react';
 import useAutosizeTextArea from '../__hooks__/useAutosizeTextArea';
+import useTextbox from '../__hooks__/useTextbox';
 
-interface FormTextProps {
-  handleMessage: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  handleSubmitMessage: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
-  message: string;
-}
-
-const FormText: FC<FormTextProps> = ({
-  handleMessage,
-  handleSubmitMessage,
-  message,
-}) => {
+const FormText = () => {
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
+  const { message, handleMessage, handleSubmitMessage } = useTextbox();
   useAutosizeTextArea(textAreaRef.current, message);
 
   return (
