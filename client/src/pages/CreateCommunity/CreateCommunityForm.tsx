@@ -31,11 +31,6 @@ const CreateCommunityForm = () => {
             centered={true}
             handleInputChange={handleProfileInputChange}
           />
-          {community.profilePic === null && (
-            <button className="mx-auto block text-white">
-              Generate With Ai
-            </button>
-          )}
           <FormInput
             name={'Name'}
             autoFocus={true}
