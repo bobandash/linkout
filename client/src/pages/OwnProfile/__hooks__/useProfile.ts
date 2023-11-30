@@ -2,15 +2,38 @@ import { useEffect, useState, useCallback } from 'react';
 import axios, { AxiosError } from 'axios';
 import { mockProfile, profileProps } from '../../../interface/profile';
 
+interface errorProps {
+  username?: {
+    msg: string;
+  };
+  profilePic?: {
+    msg: string;
+  };
+  'socialMediaUrls.instagram'?: {
+    msg: string;
+  };
+  'socialMediaUrls.facebook'?: {
+    msg: string;
+  };
+  'socialMediaUrls.twitter'?: {
+    msg: string;
+  };
+  'socialMediaUrls.tiktok'?: {
+    msg: string;
+  };
+}
+
 const useProfile = () => {
   const [profile, setProfile] = useState<profileProps>(mockProfile);
   const [success, setSuccess] = useState(false);
-  const [hasErrors, setHasErrors] = useState(false);
+  const [errors, setErrors] = useState<null | errorProps>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function getProfile() {
       const response = await axios.get('/api/users/user/profile');
       setProfile(response.data.profile);
+      setIsLoading(false);
     }
 
     getProfile();
@@ -18,7 +41,7 @@ const useProfile = () => {
 
   const handleInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setHasErrors(false);
+      setErrors(null);
       setSuccess(false);
       const { name, value } = e.target;
       setProfile({ ...profile, [name]: value });
@@ -28,7 +51,7 @@ const useProfile = () => {
 
   const handleSocialMediaInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setHasErrors(false);
+      setErrors(null);
       setSuccess(false);
       const { name, value } = e.target;
       setProfile({
@@ -41,7 +64,7 @@ const useProfile = () => {
 
   const handleTextAreaChange = useCallback(
     (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      setHasErrors(false);
+      setErrors({});
       setSuccess(false);
       const { name, value } = e.target;
       setProfile({ ...profile, [name]: value });
@@ -51,7 +74,7 @@ const useProfile = () => {
 
   const handleProfilePicChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setHasErrors(false);
+      setErrors(null);
       setSuccess(false);
       if (e.target.files) {
         const file = e.target.files[0];
@@ -65,8 +88,17 @@ const useProfile = () => {
     e.preventDefault();
     try {
       const formData = new FormData();
-      if (profile.profilePic !== null) {
-        formData.append('profilePic', profile.profilePic);
+      for (const key in profile) {
+        // TO-DO: figure out typescript error
+        if (typeof profile[key] === 'object' && profile[key] !== null) {
+          for (const nestedKey in profile[key]) {
+            const nestedValue = profile[key][nestedKey];
+            formData.append(`${key}.${nestedKey}`, nestedValue);
+          }
+        } else {
+          const value = profile[key];
+          formData.append(key, value);
+        }
       }
 
       const response = await axios.put('/api/users/user/profile', formData);
@@ -75,7 +107,10 @@ const useProfile = () => {
       }
     } catch (err) {
       if (err instanceof AxiosError) {
-        setHasErrors(true);
+        if (err.response?.status === 400) {
+          const errors = err.response?.data.errors;
+          setErrors({ ...errors });
+        }
       }
     }
   };
@@ -87,8 +122,9 @@ const useProfile = () => {
     handleSocialMediaInputChange,
     handleProfilePicChange,
     success,
-    hasErrors,
+    errors,
     handleSubmit,
+    isLoading,
   };
 };
 

@@ -5,7 +5,6 @@ export interface profileProps {
   aboutMe: string;
   link: string;
   interests: string;
-  skills: object;
   socialMediaUrls: {
     instagram: string;
     facebook: string;
