@@ -8,7 +8,7 @@ const UsernameComponent = () => {
   const navigate = useNavigate();
   const [profile, setProfile] = useState<profileProps>(mockProfile);
   function handleEditProfile() {
-    navigate('/profile');
+    navigate('/profile/edit');
   }
 
   useEffect(() => {

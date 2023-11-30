@@ -5,6 +5,7 @@ const Profile = require('../models/Profile');
 const Community = require('../models/Community');
 const jwt = require('jsonwebtoken');
 const verifyToken = require('./utils/verifyToken');
+const getUsername = require('./utils/getUsername');
 const multer = require('multer');
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -157,21 +158,70 @@ exports.get_profile = [
 
 exports.update_profile = [
   verifyToken,
+  getUsername,
   upload.single('profilePic'),
-  // TO-DO: add data validation for social media urls
+  body('username', 'Username cannot be empty').trim().notEmpty(),
+  body('socialMediaUrls.instagram')
+    .optional()
+    .trim()
+    .custom((value) => {
+      if (value && !value.startsWith('instagram.com/')) {
+        throw new Error('Link must start with: instagram.com/');
+      }
+      return true;
+    }),
+  body('socialMediaUrls.facebook')
+    .optional()
+    .trim()
+    .custom((value) => {
+      if (value && !value.startsWith('facebook.com/')) {
+        throw new Error('Link must start with: facebook.com/');
+      }
+      return true;
+    }),
+  body('socialMediaUrls.twitter')
+    .optional()
+    .trim()
+    .custom((value) => {
+      if (value && !value.startsWith('twitter.com/')) {
+        throw new Error('Link must start with: twitter.com/');
+      }
+      return true;
+    }),
+  body('socialMediaUrls.tiktok')
+    .optional()
+    .trim()
+    .custom((value) => {
+      if (value && !value.startsWith('tiktok.com/')) {
+        throw new Error('Link must start with: tiktok.com/');
+      }
+      return true;
+    }),
+  async (req, res, next) => {
+    // show all the errors
+    const errors = validationResult(req).mapped();
+    const { username } = req.body;
+    if (username !== req.username) {
+      const profile = await Profile.findOne({
+        username: username,
+      }).exec();
+      if (profile) {
+        errors.username = { msg: 'Username already exists' };
+      }
+    }
+
+    if (Object.keys(errors).length > 0) {
+      return res.status(400).json({ errors: errors });
+    }
+    next();
+  },
   async (req, res, next) => {
     const file = req.file;
-    const {
-      username,
-      status,
-      aboutMe,
-      link,
-      interests,
-      instagram,
-      facebook,
-      twitter,
-      tiktok,
-    } = req.body;
+    const { username, status, aboutMe, link, interests } = req.body;
+    const instagram = req.body['socialMediaUrls.instagram'];
+    const facebook = req.body['socialMediaUrls.facebook'];
+    const twitter = req.body['socialMediaUrls.twitter'];
+    const tiktok = req.body['socialMediaUrls.tiktok'];
     const { email } = req.user;
     const user = await User.findOne({ email }).populate('profile').exec();
     const profileId = user.profile.id;
@@ -191,8 +241,11 @@ exports.update_profile = [
       },
     };
 
-    await Profile.findByIdAndUpdate(profileId, updateFields);
-    res.json({ success: 'Success' });
+    const profile = await Profile.findByIdAndUpdate(
+      profileId,
+      updateFields,
+    ).exec();
+    res.json(profile);
   },
 ];
 
