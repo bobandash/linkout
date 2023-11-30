@@ -7,7 +7,9 @@ const CommunityMessageSchema = new Schema(
   {
     content: {
       type: String,
-      required: true,
+    },
+    image: {
+      type: String,
     },
     sender: {
       type: Schema.Types.ObjectId,
@@ -28,6 +30,10 @@ const CommunityMessageSchema = new Schema(
 CommunityMessageSchema.virtual('dateFormatted').get(function () {
   return this.createdAt.toLocaleString(DateTime.DATE_MED);
 });
+
+CommunityMessageSchema.path('content').validate(function (value) {
+  return this.content || this.image;
+}, 'Either content or image is required.');
 
 CommunityMessageSchema.virtual('longDateFormatted').get(function () {
   const options = {
