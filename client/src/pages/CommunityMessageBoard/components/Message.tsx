@@ -66,7 +66,16 @@ const Message: FC<MessageComponentProps> = ({
               {message.dateFormatted}
             </p>
           </div>
-          <p className="text-lg xl:text-xl">{he.decode(message.content)}</p>
+          {message.content && (
+            <p className="text-lg xl:text-xl">{he.decode(message.content)}</p>
+          )}
+          {message.image && (
+            <img
+              className="md:max-w-xs"
+              src={`/api/${message.image}`}
+              alt="message image"
+            />
+          )}
         </div>
       </div>
     </>

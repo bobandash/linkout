@@ -140,3 +140,25 @@ exports.get_messages = [
     res.json(messages);
   },
 ];
+
+exports.add_image = [
+  verifyToken,
+  upload.single('image'),
+  async (req, res, next) => {
+    let imagePath = path.join('uploads', req.file.filename);
+    const { email } = req.user;
+    const { communityId } = req.params;
+    const [community, user] = await Promise.all([
+      Community.findById(communityId).exec(),
+      User.findOne({ email: email }).exec(),
+    ]);
+
+    const newMessage = new CommunityMessage({
+      image: imagePath,
+      sender: user,
+      community: community,
+    });
+    await newMessage.save();
+    res.json({ message: newMessage });
+  },
+];

@@ -7,6 +7,7 @@ interface MessageProps {
       username: string;
     };
   };
+  image: string;
   dateFormatted: string;
   longDateFormatted: string;
   createdAt: string;
