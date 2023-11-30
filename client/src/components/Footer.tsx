@@ -12,7 +12,7 @@ const Footer = () => {
     navigate('/');
   }
   function navProfile() {
-    navigate('/profile');
+    navigate('/profile/edit');
   }
 
   function navCommunities() {
