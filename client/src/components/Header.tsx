@@ -20,7 +20,7 @@ const Header: FC<HeaderProps> = ({ name, image, children }) => {
           <img src={`/api/${image}`} alt={`${he.decode(name)} picture`} />
         </div>
       )}
-      <h1 className="text-outline mx-auto max-w-[16ch] overflow-hidden text-ellipsis whitespace-nowrap text-center font-play text-4xl uppercase text-white md:max-w-[16ch] lg:mx-0 lg:text-left xl:text-6xl">
+      <h1 className="text-outline mx-auto overflow-hidden text-ellipsis whitespace-nowrap text-center font-play text-3xl uppercase text-white md:text-4xl lg:mx-0 lg:text-left xl:text-6xl">
         {he.decode(name)}
       </h1>
       {children && children}
