@@ -116,7 +116,18 @@ exports.add_message = [
       community: community,
     });
     await newMessage.save();
-    res.json({ message: newMessage });
+    // Need to format the message with relevant fields
+    const messageToReturn = await CommunityMessage.findById(newMessage._id)
+      .populate({
+        path: 'sender',
+        select: 'profile',
+        populate: {
+          path: 'profile',
+          select: 'profilePic username',
+        },
+      })
+      .exec();
+    res.json({ message: messageToReturn });
   },
 ];
 
@@ -159,6 +170,17 @@ exports.add_image = [
       community: community,
     });
     await newMessage.save();
-    res.json({ message: newMessage });
+    // Need to format the message with relevant fields
+    const messageToReturn = await CommunityMessage.findById(newMessage._id)
+      .populate({
+        path: 'sender',
+        select: 'profile',
+        populate: {
+          path: 'profile',
+          select: 'profilePic username',
+        },
+      })
+      .exec();
+    res.json({ message: messageToReturn });
   },
 ];
