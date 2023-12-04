@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import CommunityProps from '../../../interface/community';
 import MessageProps from '../interface/message';
 import { useParams } from 'react-router';
-
+import socket from '../../../socket';
 // custom hook to render message board
 const useMessagePage = () => {
   const { communityId } = useParams();
@@ -12,6 +12,10 @@ const useMessagePage = () => {
     Array<MessageProps>
   >([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  socket.on('receive_message', (message) => {
+    setCommunityMessages([...communityMessages, message]);
+  });
 
   useEffect(() => {
     async function getCommunity() {
@@ -29,6 +33,7 @@ const useMessagePage = () => {
     async function main() {
       try {
         await Promise.all([getCommunity(), getMessages()]);
+        socket.emit('join_chatroom', communityId);
         setIsLoading(false);
       } catch {
         console.error('There are an error');

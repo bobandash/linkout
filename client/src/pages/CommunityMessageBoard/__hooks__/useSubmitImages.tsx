@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router';
 import axios from 'axios';
+import socket from '../../../socket';
 
 const useSubmitImages = () => {
   const { communityId } = useParams();
@@ -10,12 +11,20 @@ const useSubmitImages = () => {
       const fileToUpload = e.target.files[0];
       const formData = new FormData();
       formData.append('image', fileToUpload);
-      const response = await axios.post(
-        `/api/community/${communityId}/add-image`,
-        formData,
-      );
-      console.log(response.data);
-      e.target.value = '';
+      try {
+        const response = await axios.post(
+          `/api/community/${communityId}/add-image`,
+          formData,
+        );
+        const message = response.data.message;
+        socket.emit('send_message', {
+          id: communityId,
+          message: message,
+        });
+        e.target.value = '';
+      } catch {
+        console.error('Could not add image');
+      }
     }
   };
 
