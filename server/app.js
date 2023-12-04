@@ -28,7 +28,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/community', communityRouter);
@@ -49,4 +48,61 @@ app.use((err, req, res, next) => {
   res.render('error');
 });
 
-module.exports = app;
+/* TO-DO: Move back to bin after */
+var debug = require('debug')('server:server');
+var http = require('http');
+const { Server } = require('socket.io');
+/**
+ * Get port from environment and store in Express.
+ */
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+var port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+
+var server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST'],
+  },
+});
+
+// TO-DO: move this inside socket controller in the future
+io.on('connection', (socket) => {
+  console.log('connected');
+  socket.on('send_message', ({ id, message }) => {
+    io.to(id).emit('receive_message', message);
+  });
+
+  // join new server is called when a community is created / joined
+  socket.on('join_new_community', (community) => {
+    socket.emit('addServerIconSidebar', community);
+  });
+
+  socket.on('join_chatroom', (communityId) => {
+    // user can only be in one room at a time
+    const amtOfRooms = socket.rooms.size;
+    if (amtOfRooms > 0) {
+      const [room] = socket.rooms;
+      socket.leave(room);
+    }
+
+    socket.join(communityId);
+  });
+});
+
+server.listen(port);
