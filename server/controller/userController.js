@@ -156,6 +156,15 @@ exports.get_profile = [
   },
 ];
 
+exports.get_other_user_profile = [
+  verifyToken,
+  async (req, res, next) => {
+    const { profileId } = req.params;
+    const profile = await Profile.findById(profileId).exec();
+    res.json({ profile: profile });
+  },
+];
+
 exports.update_profile = [
   verifyToken,
   getUsername,

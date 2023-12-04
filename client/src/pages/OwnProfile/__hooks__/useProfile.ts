@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import axios, { AxiosError } from 'axios';
 import { mockProfile, profileProps } from '../../../interface/profile';
+import { useParams } from 'react-router';
 
 interface errorProps {
   username?: {
@@ -24,6 +25,7 @@ interface errorProps {
 }
 
 const useProfile = () => {
+  const { profileId } = useParams();
   const [profile, setProfile] = useState<profileProps>(mockProfile);
   const [success, setSuccess] = useState(false);
   const [errors, setErrors] = useState<null | errorProps>(null);
@@ -31,13 +33,21 @@ const useProfile = () => {
 
   useEffect(() => {
     async function getProfile() {
-      const response = await axios.get('/api/users/user/profile');
-      setProfile(response.data.profile);
-      setIsLoading(false);
+      if (profileId) {
+        const response = await axios.get(
+          `/api/users/user/${profileId}/profile`,
+        );
+        setProfile(response.data.profile);
+        setIsLoading(false);
+      } else {
+        const response = await axios.get('/api/users/user/profile');
+        setProfile(response.data.profile);
+        setIsLoading(false);
+      }
     }
 
     getProfile();
-  }, []);
+  }, [profileId]);
 
   const handleInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {

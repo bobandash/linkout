@@ -34,6 +34,10 @@ const router = createBrowserRouter([
         element: <ViewProfile />,
       },
       {
+        path: 'profile/:profileId/view',
+        element: <ViewProfile />,
+      },
+      {
         path: 'communities',
         element: <MyCommunitiesPage />,
       },
