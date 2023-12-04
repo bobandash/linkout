@@ -2,7 +2,6 @@ import { faMessage } from '@fortawesome/free-regular-svg-icons/faMessage';
 import { faHomeUser } from '@fortawesome/free-solid-svg-icons/faHomeUser';
 import { faNetworkWired } from '@fortawesome/free-solid-svg-icons/faNetworkWired';
 import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
-import { faUsers } from '@fortawesome/free-solid-svg-icons/faUsers';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router';
 
@@ -20,11 +19,7 @@ const Footer = () => {
   }
 
   function navMessages() {
-    navigate('messages');
-  }
-
-  function navFriends() {
-    navigate('/friends');
+    navigate('/messages');
   }
 
   return (
@@ -46,13 +41,6 @@ const Footer = () => {
       >
         <FontAwesomeIcon icon={faMessage} size={'xl'} color={'#FFF'} />
         <p className="text-sm text-white">Messages</p>
-      </div>
-      <div
-        onClick={navFriends}
-        className={'flex flex-col hover:cursor-pointer'}
-      >
-        <FontAwesomeIcon icon={faUsers} size={'xl'} color={'#FFF'} />
-        <p className="text-sm text-white">Friends</p>
       </div>
       <div
         onClick={navProfile}
