@@ -1,6 +1,6 @@
 import Message from '../components/Message';
 import MessageProps from '../interface/message';
-import { FC } from 'react';
+import { FC, useEffect, useRef } from 'react';
 
 interface MessageContainerProps {
   communityMessages: Array<MessageProps>;
@@ -14,11 +14,23 @@ function calcMinuteDifference(date1: string, date2: string) {
   return minDiff;
 }
 
+// TO-DO: fix bug where image being added doesn't adjust scroll height all the way
 const MessagesContainer: FC<MessageContainerProps> = ({
   communityMessages,
 }) => {
+  const containerRef = useRef<null | HTMLDivElement>(null);
+  // styling to adjust the scroll height whenever messages change
+  useEffect(() => {
+    if (containerRef.current !== null) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
+  }, [communityMessages]);
+
   return (
-    <div className="m-h-0 flex-grow overflow-auto px-5 py-4 text-2xl text-white md:p-7 md:py-4 lg:p-10 lg:py-2 2xl:p-16 2xl:py-2">
+    <div
+      ref={containerRef}
+      className="m-h-0 lg:pb-82xl:p-16 flex-grow overflow-auto px-5 py-4 pb-8 text-2xl text-white md:p-7 md:py-4 md:pb-8 lg:p-10 lg:py-2 2xl:py-2 2xl:pb-8"
+    >
       {communityMessages.length === 0 && (
         <div className="text-center text-gray">
           The Start of Your Conversations...

@@ -6,11 +6,22 @@ import useTextbox from '../__hooks__/useTextbox';
 
 const FormText = () => {
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
+  const formRef = useRef<HTMLFormElement | null>(null);
   const { message, handleMessage, handleSubmitMessage } = useTextbox();
   useAutosizeTextArea(textAreaRef.current, message);
 
+  function onKeyDown(event: React.KeyboardEvent<HTMLTextAreaElement>) {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      if (formRef.current !== null) {
+        formRef.current.requestSubmit();
+      }
+    }
+  }
+
   return (
     <form
+      ref={formRef}
       onSubmit={async (e) => {
         await handleSubmitMessage(e);
       }}
@@ -23,6 +34,8 @@ const FormText = () => {
         placeholder="Write a message"
         rows={1}
         onChange={handleMessage}
+        onKeyDown={onKeyDown}
+        value={message}
       ></textarea>
       <button className="flex items-start justify-center bg-color_2 p-3">
         <FontAwesomeIcon icon={faPaperPlane} color={'#FFF'} size={'xl'} />

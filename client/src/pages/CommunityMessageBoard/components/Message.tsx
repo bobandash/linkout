@@ -36,9 +36,17 @@ const Message: FC<MessageComponentProps> = ({
           <TimeComponent longDateFormatted={message.longDateFormatted} />
         )}
         <div className="grid grid-cols-mobile_message md:grid-cols-desktop_message">
-          <p className="col-start-2 text-lg xl:text-xl">
-            {he.decode(message.content)}
-          </p>
+          {message.image ? (
+            <img
+              className="col-start-2 mb-2 md:max-w-xs"
+              src={`/api/${message.image}`}
+              alt="message image"
+            />
+          ) : (
+            <p className="col-start-2 text-lg xl:text-xl">
+              <pre>{he.decode(message.content)}</pre>
+            </p>
+          )}
         </div>
       </>
     );
@@ -67,11 +75,13 @@ const Message: FC<MessageComponentProps> = ({
             </p>
           </div>
           {message.content && (
-            <p className="text-lg xl:text-xl">{he.decode(message.content)}</p>
+            <pre>
+              <p className="text-lg xl:text-xl">{he.decode(message.content)}</p>
+            </pre>
           )}
           {message.image && (
             <img
-              className="md:max-w-xs"
+              className="mb-2 md:max-w-xs"
               src={`/api/${message.image}`}
               alt="message image"
             />
