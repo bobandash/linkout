@@ -7,7 +7,7 @@ import {
 } from 'react';
 import { FC } from 'react';
 import axios from 'axios';
-
+import socket from '../socket';
 interface SignedInContextProviderProps {
   children: React.ReactNode;
 }
@@ -24,7 +24,7 @@ interface UserContextProps {
   setIsSignedIn: Dispatch<SetStateAction<boolean>>;
   username: string;
   isLoading: boolean;
-  communities: null | [CommunitiesProp];
+  communities: CommunitiesProp[] | null;
 }
 
 export const UserContext = createContext<UserContextProps>({
@@ -41,9 +41,15 @@ export const UserContextProvider: FC<SignedInContextProviderProps> = ({
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [username, setUsername] = useState('');
   const [isLoading, setIsLoading] = useState(true);
-  const [communities, setCommunities] = useState<null | [CommunitiesProp]>(
+  const [communities, setCommunities] = useState<null | CommunitiesProp[]>(
     null,
   );
+
+  socket.on('addServerIconSidebar', (community: CommunitiesProp) => {
+    if (communities !== null) {
+      setCommunities([...communities, community]);
+    }
+  });
 
   useEffect(() => {
     async function main() {

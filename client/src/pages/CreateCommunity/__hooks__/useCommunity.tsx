@@ -2,6 +2,7 @@ import { useCallback, useContext, useState, useEffect } from 'react';
 import { UserContext } from '../../../context/UserContext';
 import axios, { AxiosError } from 'axios';
 import { useNavigate } from 'react-router';
+import socket from '../../../socket';
 
 interface CommunityProps {
   name: string;
@@ -77,6 +78,8 @@ const useCommunity = () => {
 
       const response = await axios.post('/api/community/create', data);
       if (response.status == 200) {
+        const communityData = response.data.community;
+        socket.emit('join_new_community', communityData);
         const communityId = response.data.community.id;
         navigate(`/communities/${communityId}`);
       }

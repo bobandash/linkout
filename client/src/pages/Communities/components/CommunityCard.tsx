@@ -2,6 +2,7 @@ import axios from 'axios';
 import { FC } from 'react';
 import { useNavigate } from 'react-router';
 import CommunityProps from '../../../interface/community';
+import socket from '../../../socket';
 
 interface CommunityCardProps {
   community: CommunityProps;
@@ -18,6 +19,8 @@ const CommunityCard: FC<CommunityCardProps> = ({ community }) => {
         communityId: community.id,
       };
       await axios.put('/api/users/user/community/join', data);
+      socket.emit('join_new_community', community);
+      socket.emit('join_chatroom', community._id);
       handleNavigate();
     } catch {
       console.log('There was an error joining the community');
