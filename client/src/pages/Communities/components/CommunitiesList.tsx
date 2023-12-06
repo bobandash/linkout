@@ -13,7 +13,7 @@ const CommunitiesList: FC<CommunitiesListProps> = ({ name, communities }) => {
       <h1 className="text-outline mt-5 font-play text-2xl text-white md:text-3xl xl:text-4xl">
         {name}
       </h1>
-      <div className="flex-row flex-wrap md:flex md:gap-3 xl:gap-5">
+      <div className="3xl:gap-[0.66666667rem] flex-row flex-wrap sm:flex sm:gap-[1rem] md:gap-[0.75rem] lg:gap-[1rem] xl:gap-[0.75rem]">
         {communities.map((community) => (
           <CommunityCard key={community._id} community={community} />
         ))}
