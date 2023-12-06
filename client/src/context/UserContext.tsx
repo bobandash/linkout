@@ -66,7 +66,7 @@ export const UserContextProvider: FC<SignedInContextProviderProps> = ({
         });
         const json = response.data;
         setCommunities(json.communities);
-      } catch {
+      } catch (err) {
         setCommunities(null);
       }
     }
@@ -96,7 +96,7 @@ export const UserContextProvider: FC<SignedInContextProviderProps> = ({
       }
     }
     main();
-  }, []);
+  }, [isSignedIn]);
 
   return (
     <UserContext.Provider
