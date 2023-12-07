@@ -3,6 +3,10 @@ import axios, { AxiosError } from 'axios';
 import { mockProfile, profileProps } from '../../../interface/profile';
 import { useParams } from 'react-router';
 
+interface uploadProfilePicProps extends profileProps {
+  uploadedProfilePic?: File;
+}
+
 interface errorProps {
   username?: {
     msg: string;
@@ -26,7 +30,7 @@ interface errorProps {
 
 const useProfile = () => {
   const { profileId } = useParams();
-  const [profile, setProfile] = useState<profileProps>(mockProfile);
+  const [profile, setProfile] = useState<uploadProfilePicProps>(mockProfile);
   const [success, setSuccess] = useState(false);
   const [errors, setErrors] = useState<null | errorProps>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -88,7 +92,7 @@ const useProfile = () => {
       setSuccess(false);
       if (e.target.files) {
         const file = e.target.files[0];
-        setProfile({ ...profile, profilePic: file });
+        setProfile({ ...profile, uploadedProfilePic: file });
       }
     },
     [profile],
@@ -99,16 +103,20 @@ const useProfile = () => {
     try {
       const formData = new FormData();
       for (const key in profile) {
-        // TO-DO: figure out typescript error
-        if (typeof profile[key] === 'object' && profile[key] !== null) {
-          for (const nestedKey in profile[key]) {
-            const nestedValue = profile[key][nestedKey];
-            formData.append(`${key}.${nestedKey}`, nestedValue);
+        if (key !== 'uploadedProfilePic') {
+          if (typeof profile[key] === 'object' && profile[key] !== null) {
+            for (const nestedKey in profile[key]) {
+              const nestedValue = profile[key][nestedKey];
+              formData.append(`${key}.${nestedKey}`, nestedValue);
+            }
+          } else {
+            const value = profile[key];
+            formData.append(key, value);
           }
-        } else {
-          const value = profile[key];
-          formData.append(key, value);
         }
+      }
+      if (profile.uploadedProfilePic) {
+        formData.append('image', profile.uploadedProfilePic);
       }
 
       const response = await axios.put('/api/users/user/profile', formData);

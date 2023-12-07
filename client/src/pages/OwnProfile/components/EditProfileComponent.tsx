@@ -4,6 +4,7 @@ import FormTextArea from '../../../components/Form/FormTextArea';
 import FormIconInput from '../../../components/Form/FormIconInput';
 import LoadingScreen from '../../Loading/index';
 
+// TO-DO: set up web sockets for profile picture, username, or status being changed
 const EditProfileComponent = () => {
   const {
     profile,
@@ -46,10 +47,11 @@ const EditProfileComponent = () => {
           await handleSubmit(e);
         }}
       >
-        <div>
+        <div className="mx-auto flex flex-col items-center">
           <FormIconInput
-            name={'Profile Pic'}
+            name={'Uploaded Profile Pic'}
             handleInputChange={handleProfilePicChange}
+            defaultValue={profilePic}
           />
           <p className="text-white">Profile Picture</p>
         </div>
