@@ -6,16 +6,18 @@ const Community = require('../models/Community');
 const jwt = require('jsonwebtoken');
 const verifyToken = require('./utils/verifyToken');
 const getUsername = require('./utils/getUsername');
+const verifyInCommunity = require('./utils/verifyInCommunity');
 const multer = require('multer');
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads');
+    cb(null, 'public/uploads/');
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + ' ' + file.originalname);
   },
 });
 const upload = multer({ storage: storage });
+const path = require('path');
 
 exports.create_user = [
   body('email', 'Email is invalid').trim().isEmail().escape(),
@@ -168,7 +170,7 @@ exports.get_other_user_profile = [
 exports.update_profile = [
   verifyToken,
   getUsername,
-  upload.single('profilePic'),
+  upload.single('image'),
   body('username', 'Username cannot be empty').trim().notEmpty(),
   body('socialMediaUrls.instagram')
     .optional()
@@ -225,7 +227,6 @@ exports.update_profile = [
     next();
   },
   async (req, res, next) => {
-    const file = req.file;
     const { username, status, aboutMe, link, interests } = req.body;
     const instagram = req.body['socialMediaUrls.instagram'];
     const facebook = req.body['socialMediaUrls.facebook'];
@@ -235,8 +236,11 @@ exports.update_profile = [
     const user = await User.findOne({ email }).populate('profile').exec();
     const profileId = user.profile.id;
     const existingProfile = await Profile.findById(profileId).exec();
+    let imagePath = req.file
+      ? path.join('uploads', req.file.filename)
+      : existingProfile.profilePic;
     const updateFields = {
-      profilePic: file ? file.filename : existingProfile.profilePic,
+      profilePic: imagePath,
       username,
       status,
       aboutMe,
@@ -342,6 +346,7 @@ exports.get_users = [
 
 exports.get_users_by_community = [
   verifyToken,
+  verifyInCommunity,
   async (req, res, next) => {
     const { communityId } = req.params;
     const community = await Community.findById(communityId).populate({
