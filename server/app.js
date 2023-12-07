@@ -8,6 +8,7 @@ const passport = require('passport');
 const jwtStrategy = require('./strategies/jwt');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const conversationRouter = require('./routes/conversation');
 const communityRouter = require('./routes/community');
 
 require('dotenv').config();
@@ -31,6 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/community', communityRouter);
+app.use('/conversations', conversationRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
