@@ -1,7 +1,7 @@
 export interface profileProps {
   username: string;
   status: string;
-  profilePic: null | File | string;
+  profilePic: string;
   aboutMe: string;
   link: string;
   interests: string;
@@ -11,12 +11,15 @@ export interface profileProps {
     twitter: string;
     tiktok: string;
   };
+  // To pass form data as key value pairs
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
 }
 
 export const mockProfile = {
   username: '',
   status: '',
-  profilePic: null,
+  profilePic: '',
   aboutMe: '',
   link: '',
   interests: '',
