@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
 import CommunityProps from '../../../interface/community';
 import MessageProps from '../interface/message';
@@ -7,6 +7,7 @@ import socket from '../../../socket';
 // custom hook to render message board
 const useMessagePage = () => {
   const { communityId } = useParams();
+  const [errorCode, setErrorCode] = useState(0);
   const [community, setCommunity] = useState<null | CommunityProps>(null);
   const [communityMessages, setCommunityMessages] = useState<
     Array<MessageProps>
@@ -19,31 +20,49 @@ const useMessagePage = () => {
 
   useEffect(() => {
     async function getCommunity() {
-      const response = await axios.get(`/api/community/${communityId}`);
-      setCommunity(response.data);
+      try {
+        const response = await axios.get(`/api/community/${communityId}`);
+        setCommunity(response.data);
+      } catch (err) {
+        if (err instanceof AxiosError) {
+          if (err.response) {
+            setErrorCode(err.response?.status);
+          }
+        }
+      }
     }
 
     async function getMessages() {
-      const response = await axios.get(
-        `/api/community/${communityId}/messages`,
-      );
-      setCommunityMessages(response.data);
+      try {
+        const response = await axios.get(
+          `/api/community/${communityId}/messages`,
+        );
+        setCommunityMessages(response.data);
+      } catch (err) {
+        if (err instanceof AxiosError) {
+          if (err.response) {
+            setErrorCode(err.response?.status);
+          }
+        }
+      }
     }
 
     async function main() {
       try {
+        setErrorCode(0);
+        setIsLoading(true);
         await Promise.all([getCommunity(), getMessages()]);
         socket.emit('join_chatroom', communityId);
         setIsLoading(false);
       } catch {
-        console.error('There are an error');
+        console.error('There are errors');
       }
     }
 
     main();
   }, [communityId]);
 
-  return { community, communityMessages, isLoading };
+  return { community, communityMessages, isLoading, errorCode };
 };
 
 export default useMessagePage;
