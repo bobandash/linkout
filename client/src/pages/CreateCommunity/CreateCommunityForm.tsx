@@ -12,6 +12,7 @@ const CreateCommunityForm = () => {
     handleTextAreaChange,
     handleSubmit,
     handleProfileInputChange,
+    defaultValue,
     errors,
   } = useCommunity();
 
@@ -30,6 +31,7 @@ const CreateCommunityForm = () => {
             name="profilePic"
             centered={true}
             handleInputChange={handleProfileInputChange}
+            defaultValue={defaultValue}
           />
           <FormInput
             name={'Name'}

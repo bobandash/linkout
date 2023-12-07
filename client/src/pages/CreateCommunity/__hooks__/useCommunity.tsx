@@ -22,6 +22,7 @@ const useCommunity = () => {
     name: { msg: '' },
     description: { msg: '' },
   });
+  const [defaultValue, setDefaultValue] = useState('');
   const [community, setCommunity] = useState<CommunityProps>(sampleCommunity);
   const navigate = useNavigate();
   const [errors, setErrors] = useState(sampleErrors);
@@ -33,6 +34,11 @@ const useCommunity = () => {
         description: '',
         profilePic: null,
       };
+      if (username.length > 2) {
+        setDefaultValue(username.substring(0, 2));
+      } else {
+        setDefaultValue(username);
+      }
       setCommunity(newCommunity);
     }
   }, [username]);
@@ -40,6 +46,13 @@ const useCommunity = () => {
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setErrors(sampleErrors);
       const { name, value } = e.target;
+      if (name === 'name') {
+        if (value.length > 2) {
+          setDefaultValue(value.substring(0, 2));
+        } else {
+          setDefaultValue(value);
+        }
+      }
       setCommunity({ ...community, [name]: value });
     },
     [community, sampleErrors],
@@ -97,6 +110,7 @@ const useCommunity = () => {
     handleSubmit,
     handleProfileInputChange,
     errors,
+    defaultValue,
   };
 };
 
