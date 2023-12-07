@@ -43,9 +43,9 @@ const Message: FC<MessageComponentProps> = ({
               alt="message image"
             />
           ) : (
-            <p className="col-start-2 text-lg xl:text-xl">
-              <pre className="font-play">{he.decode(message.content)}</pre>
-            </p>
+            <pre className="col-start-2 font-play text-lg xl:text-xl">
+              {he.decode(message.content)}
+            </pre>
           )}
         </div>
       </>
@@ -75,9 +75,9 @@ const Message: FC<MessageComponentProps> = ({
             </p>
           </div>
           {message.content && (
-            <p className="text-lg xl:text-xl">
-              <pre className="font-play">{he.decode(message.content)}</pre>
-            </p>
+            <pre className="font-play text-lg xl:text-xl">
+              {he.decode(message.content)}
+            </pre>
           )}
           {message.image && (
             <img
