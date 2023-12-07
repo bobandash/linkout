@@ -20,7 +20,7 @@ const OnlineSidebar = () => {
     getUsers();
   }, [communityId]);
   return (
-    <div className="hidden bg-color_2 p-5 xl:flex xl:flex-col">
+    <div className="hidden max-h-screen overflow-x-auto overflow-y-scroll bg-color_2 p-5 scrollbar-none 2xl:flex 2xl:flex-col">
       <h1 className={'text-3xl text-white'}>Users</h1>
       <div className="mt-5">
         {users.map((user) => (

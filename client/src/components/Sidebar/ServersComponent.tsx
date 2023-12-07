@@ -1,5 +1,4 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faComment } from '@fortawesome/free-regular-svg-icons';
 import DefaultServer from './Server/DefaultServer';
 import { faHouse } from '@fortawesome/free-solid-svg-icons/faHouse';
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
@@ -10,7 +9,7 @@ import UserServer from './Server/UserServer';
 const ServersComponent = () => {
   const { communities } = useContext(UserContext);
   return (
-    <div className="scrollbar-none flex max-h-screen flex-col items-center gap-2 overflow-scroll bg-color_1 p-4">
+    <div className="flex max-h-screen flex-col items-center gap-2 overflow-scroll bg-color_1 p-4 scrollbar-none">
       <DefaultServer icon={<FontAwesomeIcon icon={faHouse} />} link={'/'} />
       {communities !== null &&
         communities.map((community) => (
