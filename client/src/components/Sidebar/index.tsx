@@ -1,4 +1,4 @@
-import FriendsComponent from './Friends';
+import MessagesNavSidebar from './Messages';
 import ServersComponent from './ServersComponent';
 import UsernameComponent from './Username';
 
@@ -8,7 +8,7 @@ const Sidebar = () => {
       <ServersComponent />
       <div className="flex max-h-screen flex-grow flex-col bg-color_2">
         <UsernameComponent />
-        <FriendsComponent />
+        <MessagesNavSidebar />
       </div>
     </aside>
   );
