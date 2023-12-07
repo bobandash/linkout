@@ -38,7 +38,7 @@ const ViewProfileComponent = () => {
           {socialMediaUrls.twitter && (
             <SocialMediaIcon
               socialMedia={'facebook'}
-              socialMediaLink={socialMediaUrls.twitter}
+              socialMediaLink={socialMediaUrls.facebook}
             />
           )}
           {socialMediaUrls.twitter && (
