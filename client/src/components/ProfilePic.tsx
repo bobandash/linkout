@@ -3,7 +3,7 @@ import { FC } from 'react';
 interface ProfilePicProps {
   image: string;
   name: string;
-  size?: 'small' | 'medium' | 'large';
+  size?: 'x-small' | 'small' | 'medium' | 'large';
 }
 
 const ProfilePic: FC<ProfilePicProps> = ({ image, name, size }) => {
@@ -11,6 +11,10 @@ const ProfilePic: FC<ProfilePicProps> = ({ image, name, size }) => {
   let heightDesktopClass = '';
 
   switch (size) {
+    case 'x-small':
+      heightMobileClass = 'h-[40px]';
+      heightDesktopClass = '2xl:h-[50px]';
+      break;
     case 'small':
       heightMobileClass = 'h-[50px]';
       heightDesktopClass = '2xl:h-[60px]';
