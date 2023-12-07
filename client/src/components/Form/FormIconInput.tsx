@@ -1,32 +1,40 @@
-import { FC, useRef, useEffect } from 'react';
+import { FC, useRef, useState, useEffect } from 'react';
 import camelize from '../../utils/camelize';
 
 interface FormIconInputProps {
   centered?: boolean;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   name: string;
-  /*   value: string | null; */
+  defaultValue?: string;
 }
 
 const FormIconInput: FC<FormIconInputProps> = ({
   centered,
   handleInputChange,
   name,
-  /*   value, */
+  defaultValue,
 }) => {
   const nameCamelized = camelize(name);
   const imageRef = useRef<HTMLImageElement | null>(null);
+  const [hasImage, setHasImage] = useState(false);
+  const [defaultValueIsImage, setDefaultValueIsImage] = useState(false);
 
-  /*   useEffect(() => {
-    if (imageRef.current) {
-      imageRef.current.src = `/api/${value}`;
+  // TO-DO: Change hacky way of presenting whether or not the default value is image
+  useEffect(() => {
+    if (defaultValue) {
+      if (
+        defaultValue?.includes('images') ||
+        defaultValue?.includes('uploads')
+      ) {
+        setDefaultValueIsImage(true);
+      }
     }
-  }, [value]); */
+  }, [defaultValue]);
 
   const loadFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (imageRef.current !== null && e.target.files !== null) {
       imageRef.current.src = URL.createObjectURL(e.target.files[0]);
-
+      setHasImage(true);
       imageRef.current.onload = function () {
         if (imageRef.current !== null) {
           URL.revokeObjectURL(imageRef.current.src);
@@ -41,11 +49,18 @@ const FormIconInput: FC<FormIconInputProps> = ({
         centered && 'mx-auto'
       }`}
     >
-      <img
-        alt="picture"
-        className="flex-grow hover:cursor-pointer"
-        ref={imageRef}
-      />
+      <img className="flex-grow hover:cursor-pointer" ref={imageRef} />
+      {defaultValue && !hasImage && !defaultValueIsImage && (
+        <p className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-3xl">
+          {defaultValue}
+        </p>
+      )}
+      {defaultValue && !hasImage && defaultValueIsImage && (
+        <img
+          className="absolute hover:cursor-pointer"
+          src={`/api/${defaultValue}`}
+        />
+      )}
       <input
         onChange={(e) => {
           loadFile(e);
