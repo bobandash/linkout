@@ -9,7 +9,7 @@ const PreviewButton = () => {
   return (
     <button
       onClick={navigateView}
-      className="'text-outline mx-auto mt-1 block rounded-lg border-2 border-white bg-black px-3 py-2 font-play text-xl uppercase text-white lg:ml-auto lg:mr-0"
+      className="'text-outline mt-1 block rounded-lg border-2 border-white bg-black px-3 py-2 font-play text-xl uppercase text-white lg:ml-auto lg:mr-0"
     >
       Preview
     </button>
