@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      'axios-config': path.resolve(__dirname, 'src/axios-config.ts'),
+      'axios.config': path.resolve(__dirname, 'src/axios.config.ts'),
     },
   },
   test: {
