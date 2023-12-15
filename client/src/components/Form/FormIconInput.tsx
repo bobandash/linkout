@@ -52,7 +52,7 @@ const FormIconInput: FC<FormIconInputProps> = ({
       <img className="flex-grow hover:cursor-pointer" ref={imageRef} />
       {defaultValue && !hasImage && !defaultValueIsImage && (
         <p className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-3xl">
-          {defaultValue}
+          {defaultValue.toUpperCase()}
         </p>
       )}
       {defaultValue && !hasImage && defaultValueIsImage && (
