@@ -1,24 +1,9 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { useNavigate, useParams } from 'react-router';
 
 const MessageButton = () => {
   const navigate = useNavigate();
   const { profileId } = useParams();
-  async function getConversationId() {
-    try {
-      const response = await axios.get('/api/conversations/conversation', {
-        params: {
-          profileId: profileId,
-        },
-      });
-      return response.data.conversation._id;
-    } catch (err) {
-      if (err instanceof AxiosError && err.response?.status === 400) {
-        return null;
-      }
-      throw err;
-    }
-  }
 
   async function createConversation() {
     try {
@@ -32,26 +17,26 @@ const MessageButton = () => {
     }
   }
 
-  // get conversation if exists
-  // create conversation if doesn't exist
-  async function navigateToConversation() {
-    let conversationId;
-
+  async function getConversationId() {
     try {
-      conversationId = await getConversationId();
-    } catch (err) {
-      return;
-    }
-
-    if (!conversationId) {
-      try {
-        conversationId = await createConversation();
-      } catch (err) {
-        console.error('Error while creating conversation:');
-        return;
+      const response = await axios.get('/api/conversations/conversation', {
+        params: {
+          profileId: profileId,
+        },
+      });
+      if (response.status === 200) {
+        return response.data.conversation._id;
       }
+    } catch {
+      return null;
     }
+  }
 
+  async function navigateToConversation() {
+    let conversationId = await getConversationId();
+    if (!conversationId) {
+      conversationId = await createConversation();
+    }
     navigate(`/conversation/${conversationId}`);
   }
 

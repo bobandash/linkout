@@ -59,6 +59,8 @@ exports.get_conversation_if_exists = [
       });
       if (conversation) {
         return res.json({ conversation: conversation });
+      } else {
+        return res.status(404).json({ message: 'Does not exist' });
       }
     } catch {
       return res.status(404).json({ message: 'Does not exist' });
@@ -118,7 +120,7 @@ exports.get_conversation_details = [
         .select('profile')
         .exec();
       const username = currentUser.profile.username;
-      const profilePic = currentUser.profile.profilePic;
+      let profilePic = '';
       let usersConcatenated = '';
       const conversation = await Conversation.findById(conversationId)
         .populate({
@@ -135,6 +137,7 @@ exports.get_conversation_details = [
       usersArray.forEach((user) => {
         const currentUsername = user.profile.username;
         if (currentUsername !== username) {
+          profilePic = user.profile.profilePic;
           usersConcatenated =
             usersConcatenated === ''
               ? currentUsername
