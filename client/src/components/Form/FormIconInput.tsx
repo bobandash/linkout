@@ -57,8 +57,8 @@ const FormIconInput: FC<FormIconInputProps> = ({
       )}
       {defaultValue && !hasImage && defaultValueIsImage && (
         <img
-          className="absolute hover:cursor-pointer"
-          src={`/api/${defaultValue}`}
+          className="absolute h-full w-full hover:cursor-pointer"
+          src={defaultValue}
         />
       )}
       <input

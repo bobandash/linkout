@@ -8,16 +8,18 @@ const verifyToken = require('./utils/verifyToken');
 const getUsername = require('./utils/getUsername');
 const verifyInCommunity = require('./utils/verifyInCommunity');
 const multer = require('multer');
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'public/uploads/');
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + ' ' + file.originalname);
-  },
-});
-const upload = multer({ storage: storage });
+const storage = multer.memoryStorage();
+const fileFilter = (req, file, cb) => {
+  if (file.mimetype.split('/')[0] === 'image') {
+    cb(null, true);
+  } else {
+    cb(new MulterError.MulterError('LIMIT_UNEXPECTED_FILE', false));
+  }
+};
+const upload = multer({ storage, fileFilter });
+
 const path = require('path');
+const { s3Uploadsv2 } = require('../s3Serve');
 
 exports.create_user = [
   body('email', 'Email is invalid').trim().isEmail().escape(),
@@ -237,7 +239,7 @@ exports.update_profile = [
     const profileId = user.profile.id;
     const existingProfile = await Profile.findById(profileId).exec();
     let imagePath = req.file
-      ? path.join('uploads', req.file.filename)
+      ? (await s3Uploadsv2(req.file)).Location
       : existingProfile.profilePic;
     const updateFields = {
       profilePic: imagePath,
@@ -267,13 +269,14 @@ exports.post_pfp = [
   upload.single('image'),
   async (req, res, next) => {
     const { email } = req.user;
-    const fullFilePath = req.file.path;
+    const file = req.file;
+    const result = await s3Uploadsv2(file);
     const user = await User.findOne({ email }).populate('profile').exec();
     const profileId = user.profile._id;
     await Profile.findByIdAndUpdate(profileId, {
-      profilePic: fullFilePath,
+      profilePic: result.Location,
     }).exec();
-    res.json({ data: fullFilePath });
+    res.json({ data: result.Location });
   },
 ];
 

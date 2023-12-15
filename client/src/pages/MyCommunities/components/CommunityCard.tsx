@@ -15,7 +15,7 @@ const CommunityCard: FC<CommunityCardProps> = ({ community }) => {
 
   return (
     <>
-      <div className="3xl:w-[calc(25%-0.5rem)] mt-3 flex flex-col overflow-hidden rounded-lg border-2 sm:w-[calc(50%-0.5rem)] md:aspect-square md:w-[calc(33.333333%-0.5rem)] lg:w-[calc(50%-0.5rem)] xl:w-[calc(33.3333%-0.5rem)]">
+      <div className="mt-3 flex flex-col overflow-hidden rounded-lg border-2 sm:w-[calc(50%-0.5rem)] md:aspect-square md:w-[calc(33.333333%-0.5rem)] lg:w-[calc(50%-0.5rem)] xl:w-[calc(33.3333%-0.5rem)] 3xl:w-[calc(25%-0.5rem)]">
         <div className="grid min-h-fit grid-cols-desktop_profile bg-color_1 p-3  pb-1 text-white shadow-custom">
           <div className="relative mb-2 aspect-square w-[70px] overflow-hidden rounded-full border-2 border-black bg-white p-3 hover:cursor-pointer">
             {community.profilePic.length <= 2 ? (
@@ -25,7 +25,7 @@ const CommunityCard: FC<CommunityCardProps> = ({ community }) => {
             ) : (
               <img
                 className="absolute left-0 top-0 h-full"
-                src={`/api/${community.profilePic}`}
+                src={community.profilePic}
                 alt="server picture"
               />
             )}

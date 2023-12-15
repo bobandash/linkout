@@ -5,17 +5,18 @@ const User = require('../models/User');
 const Profile = require('../models/Profile');
 const DirectMessage = require('../models/DirectMessage');
 const multer = require('multer');
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'public/uploads/');
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + ' ' + file.originalname);
-  },
-});
-const upload = multer({ storage: storage });
+const storage = multer.memoryStorage();
+const fileFilter = (req, file, cb) => {
+  if (file.mimetype.split('/')[0] === 'image') {
+    cb(null, true);
+  } else {
+    cb(new MulterError.MulterError('LIMIT_UNEXPECTED_FILE', false));
+  }
+};
+const upload = multer({ storage, fileFilter });
 const path = require('path');
 const verifyInConversation = require('./utils/verifyInConversation');
+const { s3Uploadsv2 } = require('../s3Serve');
 
 // gets all the conversations for particular user
 exports.get_conversations = [
@@ -217,7 +218,8 @@ exports.add_image = [
   upload.single('image'),
   async (req, res, next) => {
     try {
-      let imagePath = path.join('uploads', req.file.filename);
+      const file = req.file;
+      const result = await s3Uploadsv2(file);
       const { email } = req.user;
       const { conversationId } = req.params;
       const [conversation, user] = await Promise.all([
@@ -225,7 +227,7 @@ exports.add_image = [
         User.findOne({ email: email }).exec(),
       ]);
       const newMessage = new DirectMessage({
-        image: imagePath,
+        image: result.Location,
         sender: user,
         conversation: conversation,
       });

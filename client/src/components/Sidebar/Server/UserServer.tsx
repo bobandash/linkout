@@ -33,7 +33,7 @@ const UserServer: FC<CommunitiesProp> = ({ community }) => {
     >
       <img
         className="absolute left-0 top-0 h-full w-full"
-        src={`/api/${community.profilePic}`}
+        src={community.profilePic}
         alt="server picture"
       />
     </div>

@@ -39,7 +39,7 @@ const Message: FC<MessageComponentProps> = ({
           {message.image ? (
             <img
               className="col-start-2 mb-2 md:max-w-xs"
-              src={`/api/${message.image}`}
+              src={message.image}
               alt="message image"
             />
           ) : (
@@ -82,7 +82,7 @@ const Message: FC<MessageComponentProps> = ({
           {message.image && (
             <img
               className="mb-2 md:max-w-xs"
-              src={`/api/${message.image}`}
+              src={message.image}
               alt="message image"
             />
           )}

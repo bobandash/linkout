@@ -9,15 +9,16 @@ const multer = require('multer');
 const path = require('path');
 const CommunityMessage = require('../models/CommunityMessage');
 const verifyInCommunity = require('./utils/verifyInCommunity');
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'public/uploads/');
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + ' ' + file.originalname);
-  },
-});
-const upload = multer({ storage: storage });
+const { s3Uploadsv2 } = require('../s3Serve');
+const storage = multer.memoryStorage();
+const fileFilter = (req, file, cb) => {
+  if (file.mimetype.split('/')[0] === 'image') {
+    cb(null, true);
+  } else {
+    cb(new MulterError.MulterError('LIMIT_UNEXPECTED_FILE', false));
+  }
+};
+const upload = multer({ storage, fileFilter });
 
 exports.get_communities = [
   verifyToken,
@@ -85,7 +86,7 @@ exports.create_community = [
       let community = {};
       const defaultPfp = name.length === 1 ? name : name.substring(0, 2);
       let image = req.file
-        ? path.join('uploads', req.file.filename)
+        ? (await s3Uploadsv2(req.file)).Location
         : defaultPfp;
       community = new Community({
         name,
@@ -180,7 +181,8 @@ exports.add_image = [
   upload.single('image'),
   async (req, res, next) => {
     try {
-      let imagePath = path.join('uploads', req.file.filename);
+      const file = req.file;
+      const result = await s3Uploadsv2(file);
       const { email } = req.user;
       const { communityId } = req.params;
       const [community, user] = await Promise.all([
@@ -189,7 +191,7 @@ exports.add_image = [
       ]);
 
       const newMessage = new CommunityMessage({
-        image: imagePath,
+        image: result.Location,
         sender: user,
         community: community,
       });

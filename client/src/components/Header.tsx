@@ -17,7 +17,7 @@ const Header: FC<HeaderProps> = ({ name, image, children }) => {
       )}
       {image && image.length > 2 && (
         <div className="mr-3 hidden aspect-square h-[60px] overflow-hidden rounded-full bg-white md:my-auto lg:flex lg:items-center lg:justify-center 2xl:mr-5 2xl:h-[80px]">
-          <img src={`/api/${image}`} alt={`${he.decode(name)} picture`} />
+          <img src={image} alt={`${he.decode(name)} picture`} />
         </div>
       )}
       <h1 className="text-outline mx-auto overflow-hidden text-ellipsis whitespace-nowrap text-center font-play text-3xl uppercase text-white md:text-4xl lg:mx-0 lg:text-left xl:text-6xl">
