@@ -11,7 +11,7 @@ const Profile = () => {
   // Case when viewing other user's profile
   if (profileId) {
     return (
-      <div className="flex min-h-screen flex-col md:h-screen">
+      <div className="relative flex min-h-screen flex-col md:h-screen">
         <Header name={'Profile'} children={<MessageButton />} />
         <PageMainContentContainer>
           <ViewProfileComponent />
@@ -22,7 +22,7 @@ const Profile = () => {
   }
 
   return (
-    <div className="flex min-h-screen flex-col md:h-screen">
+    <div className="relative flex min-h-screen flex-col md:h-screen">
       <Header name={'Profile Preview'} children={<EditButton />} />
       <PageMainContentContainer>
         <ViewProfileComponent />

@@ -1,16 +1,19 @@
 import PageMainContentContainer from '../../components/PageMainContentContainer';
-
-import LoadingScreen from '../Loading/index';
-
 import SearchForm from './components/SearchForm';
 import CommunitiesList from './components/CommunitiesList';
-import useCommunities from './__hooks__/useCommunities';
 import useSearchForm from './__hooks__/useSearchForm';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, FC } from 'react';
 import CommunityProps from '../../interface/community';
 
-const CommunitiesComponent = () => {
-  const { isLoading, communities, biggestCommunities } = useCommunities();
+interface CommunitiesComponentProps {
+  communities: Array<CommunityProps>;
+  biggestCommunities: Array<CommunityProps>;
+}
+
+const CommunitiesComponent: FC<CommunitiesComponentProps> = ({
+  communities,
+  biggestCommunities,
+}) => {
   const { query, handleChange } = useSearchForm();
   const [communitiesFiltered, setCommunitiesFiltered] = useState<
     Array<CommunityProps>
@@ -28,10 +31,6 @@ const CommunitiesComponent = () => {
   useEffect(() => {
     updateFilteredCommunities();
   }, [updateFilteredCommunities]);
-
-  if (isLoading) {
-    return <LoadingScreen />;
-  }
 
   if (biggestCommunities.length === 0 && communities.length === 0) {
     return (

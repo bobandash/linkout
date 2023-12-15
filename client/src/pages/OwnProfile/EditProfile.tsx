@@ -7,7 +7,7 @@ import LogoutButton from './components/ProfileButtons/LogoutButton';
 
 const Profile = () => {
   return (
-    <div className="flex min-h-screen flex-col md:h-screen">
+    <div className="relative flex min-h-screen flex-col md:h-screen">
       <Header
         name={'Your Profile'}
         children={

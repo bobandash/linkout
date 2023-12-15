@@ -4,7 +4,7 @@ import CommunitiesComponent from './CommunityComponent';
 
 const MyCommunitiesPage = () => {
   return (
-    <div className="flex min-h-screen flex-col md:h-screen">
+    <div className="relative flex min-h-screen flex-col md:h-screen">
       <Header name={'My Communities'} />
       <CommunitiesComponent />
       <Footer />
