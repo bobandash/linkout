@@ -20,7 +20,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 passport.use(jwtStrategy);
-app.use(cors());
+app.use(cors({ origin: 'https://linkingout.netlify.app', credentials: true }));
 app.use(express.static('public'));
 app.use(cookieParser());
 app.use(passport.initialize());
@@ -78,7 +78,7 @@ app.set('port', port);
 var server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: '*',
+    origin: 'https://linkingout.netlify.app',
     methods: ['GET', 'POST'],
   },
 });
