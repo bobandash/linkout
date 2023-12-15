@@ -28,7 +28,7 @@ const FormTextArea: FC<EditProfileInputProps> = ({
         {required === true && <RequiredAsterisk />}
       </label>
       <textarea
-        className="w-full border-2 border-black bg-color_3 px-2 py-3 text-xl text-white focus:outline-none"
+        className="w-full resize-none border-2 border-black bg-color_3 px-2 py-3 text-xl text-white focus:outline-none"
         name={nameCamelized}
         id={nameCamelized}
         onChange={handleChange}
