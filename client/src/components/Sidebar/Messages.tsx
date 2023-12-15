@@ -34,7 +34,9 @@ const MessagesNavSidebar = () => {
   useEffect(() => {
     async function getConversations() {
       try {
-        const response = await axios.get('/api/conversations');
+        const response = await axios.get(
+          'https://linkout.onrender.com/conversations',
+        );
         const conversationData: ConversationProps[] = response.data;
         // filter the raw conversation data to the necessary params to display
         const userData = conversationData.map((conversation) => {

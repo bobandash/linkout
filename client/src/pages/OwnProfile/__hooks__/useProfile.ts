@@ -39,12 +39,14 @@ const useProfile = () => {
     async function getProfile() {
       if (profileId) {
         const response = await axios.get(
-          `/api/users/user/${profileId}/profile`,
+          `https://linkout.onrender.com/users/user/${profileId}/profile`,
         );
         setProfile(response.data.profile);
         setIsLoading(false);
       } else {
-        const response = await axios.get('/api/users/user/profile');
+        const response = await axios.get(
+          'https://linkout.onrender.com/users/user/profile',
+        );
         setProfile(response.data.profile);
         setIsLoading(false);
       }
@@ -119,7 +121,10 @@ const useProfile = () => {
         formData.append('image', profile.uploadedProfilePic);
       }
 
-      const response = await axios.put('/api/users/user/profile', formData);
+      const response = await axios.put(
+        'https://linkout.onrender.com/users/user/profile',
+        formData,
+      );
       if (response.status === 200) {
         setSuccess(true);
       }

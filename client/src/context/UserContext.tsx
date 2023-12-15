@@ -61,9 +61,12 @@ export const UserContextProvider: FC<SignedInContextProviderProps> = ({
 
     async function getUserCommunities() {
       try {
-        const response = await axios.get('/api/users/user/community', {
-          withCredentials: true,
-        });
+        const response = await axios.get(
+          'https://linkout.onrender.com/users/user/community',
+          {
+            withCredentials: true,
+          },
+        );
         const json = response.data;
         setCommunities(json.communities);
       } catch (err) {
@@ -73,9 +76,12 @@ export const UserContextProvider: FC<SignedInContextProviderProps> = ({
 
     async function getUsername() {
       try {
-        const response = await axios.get('/api/users/user/username', {
-          withCredentials: true,
-        });
+        const response = await axios.get(
+          'https://linkout.onrender.com/users/user/username',
+          {
+            withCredentials: true,
+          },
+        );
         const json = response.data;
         setUsername(json.username);
       } catch {
@@ -85,9 +91,12 @@ export const UserContextProvider: FC<SignedInContextProviderProps> = ({
 
     async function getUser() {
       try {
-        const response = await axios.get('/api/users/user/sign-in-status', {
-          withCredentials: true,
-        });
+        const response = await axios.get(
+          'https://linkout.onrender.com/users/user/sign-in-status',
+          {
+            withCredentials: true,
+          },
+        );
         if (response.status === 200) {
           setIsSignedIn(true);
         }

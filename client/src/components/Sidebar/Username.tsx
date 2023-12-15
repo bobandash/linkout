@@ -14,9 +14,12 @@ const UsernameComponent = () => {
   useEffect(() => {
     async function getProfile() {
       try {
-        const response = await axios.get('/api/users/user/profile', {
-          withCredentials: true,
-        });
+        const response = await axios.get(
+          'https://linkout.onrender.com/users/user/profile',
+          {
+            withCredentials: true,
+          },
+        );
         const profile = response.data.profile;
         setProfile(profile);
       } catch {

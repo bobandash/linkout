@@ -36,7 +36,7 @@ const ProfilePic: FC<ProfilePicProps> = ({ image, name, size }) => {
     >
       {image == 'images/defaultPfp.jpg' ? (
         <img
-          src={`/api/${image}`}
+          src={`https://linkout.onrender.com/${image}`}
           alt={`${name} picture`}
           className="h-full w-full"
         />

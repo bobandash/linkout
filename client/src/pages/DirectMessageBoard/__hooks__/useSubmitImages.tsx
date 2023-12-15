@@ -13,7 +13,7 @@ const useSubmitImages = () => {
       formData.append('image', fileToUpload);
       try {
         const response = await axios.post(
-          `/api/conversations/${conversationId}/add-image`,
+          `https://linkout.onrender.com/conversations/${conversationId}/add-image`,
           formData,
         );
         const message = response.data.message;

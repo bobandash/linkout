@@ -10,10 +10,14 @@ const OnlineSidebar = () => {
   useEffect(() => {
     async function getUsers() {
       if (communityId === undefined) {
-        const response = await axios.get(`/api/users/community`);
+        const response = await axios.get(
+          `https://linkout.onrender.com/users/community`,
+        );
         setUsers(response.data);
       } else {
-        const response = await axios.get(`/api/users/community/${communityId}`);
+        const response = await axios.get(
+          `https://linkout.onrender.com/users/community/${communityId}`,
+        );
         setUsers(response.data);
       }
     }

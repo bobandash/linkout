@@ -18,7 +18,10 @@ const CommunityCard: FC<CommunityCardProps> = ({ community }) => {
       const data = {
         communityId: community.id,
       };
-      await axios.put('/api/users/user/community/join', data);
+      await axios.put(
+        'https://linkout.onrender.com/users/user/community/join',
+        data,
+      );
       socket.emit('join_new_community', community);
       socket.emit('join_chatroom', community._id);
       handleNavigate();

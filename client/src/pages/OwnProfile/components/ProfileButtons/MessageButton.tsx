@@ -7,9 +7,12 @@ const MessageButton = () => {
 
   async function createConversation() {
     try {
-      const response = await axios.post('/api/conversations/create', {
-        profileId: profileId,
-      });
+      const response = await axios.post(
+        'https://linkout.onrender.com/conversations/create',
+        {
+          profileId: profileId,
+        },
+      );
       return response.data.conversation._id;
     } catch (err) {
       console.error('There was an error creating the conversation');
@@ -19,11 +22,14 @@ const MessageButton = () => {
 
   async function getConversationId() {
     try {
-      const response = await axios.get('/api/conversations/conversation', {
-        params: {
-          profileId: profileId,
+      const response = await axios.get(
+        'https://linkout.onrender.com/conversations/conversation',
+        {
+          params: {
+            profileId: profileId,
+          },
         },
-      });
+      );
       if (response.status === 200) {
         return response.data.conversation._id;
       }

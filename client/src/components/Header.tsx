@@ -19,7 +19,10 @@ const ImageComponent: FC<ImageComponentProps> = ({ image }) => {
     <div className={commonClasses}>
       {image.length <= 2 && <p className="font-bold uppercase">{image}</p>}
       {image === 'images/defaultPfp.jpg' && (
-        <img src={`/api/${image}`} alt="header picture" />
+        <img
+          src={`https://linkout.onrender.com/${image}`}
+          alt="header picture"
+        />
       )}
       {image.length > 2 && <img src={image} alt="header picture" />}
     </div>
