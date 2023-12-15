@@ -108,6 +108,7 @@ exports.log_in = [
           .cookie('secureToken', JSON.stringify(token), {
             httpOnly: true,
             secure: true,
+            sameSite: 'none',
             maxAge: 24 * 60 * 60 * 1000 * 7,
           })
           .json({ msg: 'Successfully signed in' });
