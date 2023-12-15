@@ -34,7 +34,7 @@ const ProfilePic: FC<ProfilePicProps> = ({ image, name, size }) => {
     <div
       className={`aspect-square ${heightMobileClass} ${heightDesktopClass} overflow-hidden rounded-full bg-white`}
     >
-      <img src={`/api/${image}`} alt={`${name} picture`} />
+      <img src={`/api/${image}`} alt={`${name} picture`} className = "h-full" />
     </div>
   );
 };
