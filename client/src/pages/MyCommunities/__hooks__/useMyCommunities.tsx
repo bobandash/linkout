@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import CommunityProps from '../../../interface/community';
-import axios from 'axios';
+import axios from 'axios-config';
 
 const useMyCommunities = () => {
   const [myCommunities, setMyCommunities] = useState<Array<CommunityProps>>([]);

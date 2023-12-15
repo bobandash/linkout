@@ -6,7 +6,7 @@ import {
   Dispatch,
 } from 'react';
 import { FC } from 'react';
-import axios from 'axios';
+import axios from 'axios-config';
 import socket from '../socket';
 interface SignedInContextProviderProps {
   children: React.ReactNode;
