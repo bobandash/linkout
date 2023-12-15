@@ -1,4 +1,4 @@
-import axios from 'axios-config';
+import axios from 'axios.config';
 import { FC } from 'react';
 import { useNavigate } from 'react-router';
 import CommunityProps from '../../../interface/community';

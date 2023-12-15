@@ -1,4 +1,4 @@
-import axios from 'axios-config';
+import axios from 'axios.config';
 import { useNavigate, useParams } from 'react-router';
 
 const MessageButton = () => {

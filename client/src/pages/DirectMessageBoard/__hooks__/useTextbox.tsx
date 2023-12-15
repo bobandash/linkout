@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { useParams } from 'react-router';
-import axios from 'axios-config';
+import axios from 'axios.config';
 import socket from '../../../socket';
 
 // TO-DO: Deal with presenting line breaks

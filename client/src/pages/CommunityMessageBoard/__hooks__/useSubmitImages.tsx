@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router';
-import axios from 'axios-config';
+import axios from 'axios.config';
 import socket from '../../../socket';
 
 const useSubmitImages = () => {

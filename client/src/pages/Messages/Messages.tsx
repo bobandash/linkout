@@ -2,7 +2,7 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import UserMessage from './components/UserMessage';
 import { useState, useEffect, useContext } from 'react';
-import axios from 'axios-config';
+import axios from 'axios.config';
 import { UserContext } from '../../context/UserContext';
 import ConversationProps from '../../interface/conversation';
 import MessagesProps from './interface/MessagesProp';

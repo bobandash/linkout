@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import UserComponent from './components/UserComponent';
-import axios from 'axios-config';
+import axios from 'axios.config';
 import { useParams } from 'react-router';
 import UserProps from './interface/UserProps';
 

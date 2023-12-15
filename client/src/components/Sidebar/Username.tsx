@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
-import axios from 'axios-config';
+import axios from 'axios.config';
 import profileProps, { mockProfile } from '../../interface/profile';
 import ProfilePic from '../ProfilePic';
 

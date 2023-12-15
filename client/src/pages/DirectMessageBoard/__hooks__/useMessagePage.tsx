@@ -1,4 +1,4 @@
-import axios from 'axios-config';
+import axios from 'axios.config';
 import { useEffect, useState } from 'react';
 import DirectMessageProps from '../interface/DirectMessage';
 import { useParams } from 'react-router';

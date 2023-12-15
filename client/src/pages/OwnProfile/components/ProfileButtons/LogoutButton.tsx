@@ -1,4 +1,4 @@
-import axios from 'axios-config';
+import axios from 'axios.config';
 
 const LogoutButton = () => {
   async function logout() {
