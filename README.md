@@ -37,3 +37,5 @@ If I were to come back to this project in the future, I would want to:
 - Refactor the date to display in client's timezone (call date on client side instead of virtual property in backend)
 - Create a Linkout feature: similar to dating apps where you can view each user's profile in the community
 - Change the UI colors to not match Discord
+- Add testing
+- Add user authorization with Google and LinkedIn
