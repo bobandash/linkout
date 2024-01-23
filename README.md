@@ -1,4 +1,4 @@
-# Linkout - A Discord Clone
+# Linkout
 ## Description:
 A full-stack chat application done as part of [The Odin Project's curriculum](https://www.theodinproject.com/lessons/nodejs-messaging-app) that allows users to create and join communities chat within those communities, and direct message other users.
 
