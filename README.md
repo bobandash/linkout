@@ -1,5 +1,4 @@
 # Linkout
-## Description:
 A full-stack chat application that allows users to create and join communities chat within those communities, and direct message other users.
 
 ## Live View:
