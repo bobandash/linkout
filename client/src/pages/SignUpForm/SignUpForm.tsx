@@ -1,6 +1,4 @@
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGoogle, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import RequiredAsterisk from '../../components/RequiredAsterisk';
 import useSignUp from './__hooks__/useSignUp';
 
@@ -90,20 +88,6 @@ const SignUpForm = () => {
           <p className="text-success">Your account was successfully created.</p>
         )}
       </form>
-      <div className="relative">
-        <div className="border-t-1 absolute top-1/2 w-full border border-black"></div>
-        <p className="relative z-10 mx-auto w-fit bg-white p-2 text-xl font-bold">
-          or sign up with
-        </p>
-      </div>
-      <div className="mb-2 flex flex-col">
-        <button className="mb-2 w-full rounded-md bg-primary p-2 text-lg font-bold uppercase text-white">
-          <FontAwesomeIcon icon={faGoogle} /> Google
-        </button>
-        <button className="w-full rounded-md bg-primary p-2 text-lg font-bold uppercase text-white">
-          <FontAwesomeIcon icon={faLinkedin} /> Linkedin
-        </button>
-      </div>
       <p>
         Have an account?{' '}
         <Link className="text-blue-400" to={'/'}>

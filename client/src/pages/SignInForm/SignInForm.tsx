@@ -1,6 +1,4 @@
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGoogle, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import useSignIn from './__hooks__/useSignIn';
 
 const SignInForm = () => {
@@ -46,20 +44,6 @@ const SignInForm = () => {
           Sign In
         </button>
       </form>
-      <div className="relative">
-        <div className="border-t-1 absolute top-1/2 w-full border border-black"></div>
-        <p className="relative z-10 mx-auto w-fit bg-white p-2 text-xl font-bold">
-          or sign in with
-        </p>
-      </div>
-      <div className="mb-2 flex flex-col">
-        <button className="mb-2 w-full rounded-md bg-primary p-2 text-lg font-bold uppercase text-white">
-          <FontAwesomeIcon icon={faGoogle} /> Google
-        </button>
-        <button className="w-full rounded-md bg-primary p-2 text-lg font-bold uppercase text-white">
-          <FontAwesomeIcon icon={faLinkedin} /> Linkedin
-        </button>
-      </div>
       <p>
         Don't have an account?{' '}
         <Link className="text-blue-400" to={'/signup'}>
