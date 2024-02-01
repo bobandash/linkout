@@ -58,7 +58,7 @@ const MessagesNavSidebar = () => {
   }, [username]);
 
   return (
-    <div className="flex flex-col overflow-scroll p-4 scrollbar-thin md:flex-grow">
+    <div className="flex flex-col overflow-y-scroll p-4 scrollbar-none md:flex-grow">
       <h2 className="font-play text-3xl text-white">Messages</h2>
       <form
         className="mt-2 w-full rounded-xl border-2 border-black bg-color_4 p-3"
