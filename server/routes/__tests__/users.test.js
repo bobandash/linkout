@@ -67,7 +67,7 @@ describe('Test user API', () => {
       });
     });
 
-    it(`should send error message when password and username don't match`, async () => {
+    it(`should send error message when password and username don't meet requirements`, async () => {
       const response = await request(app)
         .post('/users/create')
         .type('form')
@@ -96,4 +96,6 @@ describe('Test user API', () => {
       });
     });
   });
+
+  describe('POST /users/login', () => {});
 });
