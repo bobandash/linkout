@@ -20,6 +20,7 @@ const upload = multer({ storage, fileFilter });
 
 const path = require('path');
 const { s3Uploadsv2 } = require('../s3Serve');
+const { hashPassword, createUser } = require('./utils/createUser');
 
 exports.create_user = [
   body('email', 'Email is invalid').trim().isEmail().escape(),
@@ -36,53 +37,42 @@ exports.create_user = [
     .escape(),
   body('displayName').trim().escape(),
   body('confirmPassword').trim().escape(),
+  // Error messages such as account already exists, not strong password should take precedence
   async (req, res, next) => {
-    // Error messages such as account already exists, not strong password should take precedence
     const errors = validationResult(req).mapped();
     const { email, password, confirmPassword } = req.body;
     const hasUser = await User.findOne({ email }).exec();
     const passwordMatches = confirmPassword === password;
     if (hasUser) {
-      res.status(400).json({ email: { msg: 'Email already has an account' } });
-    } else if (Object.keys(errors).length > 0) {
-      if (!errors.password) {
-        if (!passwordMatches) {
-          errors.confirmPassword = { msg: 'Passwords do not match' };
-        }
+      return res
+        .status(400)
+        .json({ email: { msg: 'Email already has an account' } });
+    }
+
+    if (Object.keys(errors).length > 0) {
+      if (!errors.password && !passwordMatches) {
+        errors.confirmPassword = { msg: 'Passwords do not match' };
       }
-      res.status(400).json(errors);
-    } else if (!passwordMatches) {
-      res
+      return res.status(400).json(errors);
+    }
+
+    if (!passwordMatches) {
+      return res
         .status(400)
         .json({ confirmPassword: { msg: 'Passwords do not match' } });
-    } else {
-      next();
     }
+    next();
   },
-  (req, res, next) => {
+  async (req, res, next) => {
     const { email, password, displayName } = req.body;
-    const username = displayName === '' ? email : displayName;
-    bcrypt.hash(password, 10, async (err, hashedPassword) => {
-      if (err) {
-        res.status(400).json({
-          error: 'There was an error processing your request.',
-        });
-      } else {
-        const newProfile = new Profile({
-          username,
-        });
-        await newProfile.save();
-        const newUser = new User({
-          email,
-          password: hashedPassword,
-          profile: newProfile,
-        });
-        await newUser.save();
-      }
-      res.json({
-        success: 'Your account was successfully created.',
-      });
-    });
+    try {
+      const hashedPassword = await hashPassword(password);
+      const result = await createUser(email, hashedPassword, displayName);
+      return res.json(result);
+    } catch (error) {
+      console.error('Error creating user:', error);
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
   },
 ];
 
@@ -95,10 +85,10 @@ exports.log_in = [
       return res.status(400).json(errors);
     }
 
-    const userOfInterest = await User.findOne({ email: email }).exec();
+    const user = await User.findOne({ email: email }).exec();
 
-    if (userOfInterest) {
-      const match = await bcrypt.compare(password, userOfInterest.password);
+    if (user) {
+      const match = await bcrypt.compare(password, user.password);
       if (match) {
         const token = jwt.sign({ email }, process.env.SECRET_TOKEN, {
           expiresIn: '7d',
