@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Sign Up Form Component > renders form with username, password, and confirm password fields 1`] = `
+exports[`Sign Up Form Component > should renders form with username, password, and confirm password fields 1`] = `
 <div>
   <div
     class="relative min-h-screen min-w-full bg-primary"
@@ -9,13 +9,13 @@ exports[`Sign Up Form Component > renders form with username, password, and conf
       class="absolute left-1/2 top-1/2 w-10/12 max-w-6xl  -translate-x-1/2 -translate-y-1/2 "
     >
       <div
-        class="shadow-custom relative flex justify-center rounded-lg"
+        class="relative flex justify-center rounded-lg shadow-custom"
       >
         <div
           class="hidden w-1/2 flex-col justify-center overflow-hidden bg-black p-8 text-white md:flex lg:px-12"
         >
           <h1
-            class="font-fingerPaint text-6xl uppercase lg:text-7xl xl:text-8xl"
+            class="font-play text-6xl uppercase lg:text-7xl xl:text-8xl"
           >
             Linkout
           </h1>
@@ -29,16 +29,17 @@ exports[`Sign Up Form Component > renders form with username, password, and conf
           class="w-full overflow-hidden bg-white p-8 md:w-1/2"
         >
           <h1
-            class="text-outline text-center font-fingerPaint text-6xl text-white md:hidden"
+            class="text-outline text-center font-play text-6xl font-bold uppercase text-black md:hidden"
           >
             Linkout
           </h1>
           <h1
-            class="text-outline hidden text-center font-fingerPaint text-6xl text-white md:block"
+            class="text-outline hidden text-center font-play text-6xl font-bold uppercase text-black md:block"
           >
             Sign Up
           </h1>
           <form
+            autocomplete="off"
             class="my-5 flex flex-col"
             novalidate=""
           >
@@ -54,18 +55,12 @@ exports[`Sign Up Form Component > renders form with username, password, and conf
               </span>
             </label>
             <input
-              autocomplete="off"
+              autocomplete="xyz"
               class="rounded-md bg-gray pl-2 pr-2 text-2xl"
               id="email"
               name="email"
               required=""
               type="email"
-            />
-            <p
-              class="text-error text-sm"
-            />
-            <p
-              class="text-error text-sm"
             />
             <label
               class="mt-4 text-lg"
@@ -97,9 +92,6 @@ exports[`Sign Up Form Component > renders form with username, password, and conf
               required=""
               type="password"
             />
-            <p
-              class="text-error text-sm"
-            />
             <label
               class="mt-4 text-lg"
               for="confirmPassword"
@@ -117,9 +109,6 @@ exports[`Sign Up Form Component > renders form with username, password, and conf
               name="confirmPassword"
               required=""
               type="password"
-            />
-            <p
-              class="text-error text-sm"
             />
             <button
               class="mt-5 w-full rounded-md bg-primary p-2 text-3xl font-bold uppercase text-white"
@@ -144,7 +133,7 @@ exports[`Sign Up Form Component > renders form with username, password, and conf
             class="mb-2 flex flex-col"
           >
             <button
-              class="mb-2 w-full rounded-md bg-secondary p-2 text-lg font-bold uppercase text-white"
+              class="mb-2 w-full rounded-md bg-primary p-2 text-lg font-bold uppercase text-white"
             >
               <svg
                 aria-hidden="true"
@@ -164,7 +153,7 @@ exports[`Sign Up Form Component > renders form with username, password, and conf
                Google
             </button>
             <button
-              class="w-full rounded-md bg-secondary p-2 text-lg font-bold uppercase text-white"
+              class="w-full rounded-md bg-primary p-2 text-lg font-bold uppercase text-white"
             >
               <svg
                 aria-hidden="true"

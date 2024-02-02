@@ -36,10 +36,10 @@ const SignUpForm = () => {
           autoFocus
           onChange={handleInputChange}
         />
-        {errors.email && (
+        {errors.email.msg && (
           <p className="text-sm text-error">{errors.email.msg}</p>
         )}
-        {errors.userExists && (
+        {errors.userExists.msg && (
           <p className="text-sm text-error">{errors.userExists.msg}</p>
         )}
         <label htmlFor="displayName" className="mt-4 text-lg">
@@ -63,7 +63,7 @@ const SignUpForm = () => {
           className="rounded-md bg-gray pl-2 pr-2 text-2xl"
           onChange={handleInputChange}
         />
-        {errors.password && (
+        {errors.password.msg && (
           <p className="text-sm text-error">{errors.password.msg}</p>
         )}
         <label htmlFor="confirmPassword" className="mt-4 text-lg">
@@ -77,7 +77,7 @@ const SignUpForm = () => {
           className="rounded-md bg-gray pl-2 pr-2 text-2xl"
           onChange={handleInputChange}
         />
-        {errors.confirmPassword && (
+        {errors.confirmPassword.msg && (
           <p className="text-sm text-error">{errors.confirmPassword.msg}</p>
         )}
         <button
