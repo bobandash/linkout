@@ -53,9 +53,7 @@ export const UserContextProvider: FC<SignedInContextProviderProps> = ({
 
   useEffect(() => {
     async function main() {
-      await getUser();
-      await getUsername();
-      await getUserCommunities();
+      await Promise.all([getUser(), getUsername(), getUserCommunities()]);
       setIsLoading(false);
     }
 
