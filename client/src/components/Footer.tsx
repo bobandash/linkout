@@ -24,31 +24,34 @@ const Footer = () => {
 
   return (
     <footer className="sticky bottom-0 flex justify-around bg-color_1 p-3  lg:hidden">
-      <div onClick={navHome} className={'flex flex-col hover:cursor-pointer'}>
+      <button
+        onClick={navHome}
+        className={'flex flex-col items-center hover:cursor-pointer'}
+      >
         <FontAwesomeIcon icon={faHomeUser} size={'xl'} color={'#FFF'} />
         <p className="text-sm text-white">Home</p>
-      </div>
-      <div
+      </button>
+      <button
         onClick={navCommunities}
-        className={'flex flex-col hover:cursor-pointer'}
+        className={'flex flex-col items-center hover:cursor-pointer'}
       >
         <FontAwesomeIcon icon={faNetworkWired} size={'xl'} color={'#FFF'} />
         <p className="text-sm text-white">Communities</p>
-      </div>
-      <div
+      </button>
+      <button
         onClick={navMessages}
-        className={'flex flex-col hover:cursor-pointer'}
+        className={'flex flex-col items-center hover:cursor-pointer'}
       >
         <FontAwesomeIcon icon={faMessage} size={'xl'} color={'#FFF'} />
         <p className="text-sm text-white">Messages</p>
-      </div>
-      <div
+      </button>
+      <button
         onClick={navProfile}
-        className={'flex flex-col hover:cursor-pointer'}
+        className={'flex flex-col items-center hover:cursor-pointer'}
       >
         <FontAwesomeIcon icon={faUser} size={'xl'} color={'#FFF'} />
         <p className="text-sm text-white">Profile</p>
-      </div>
+      </button>
     </footer>
   );
 };
