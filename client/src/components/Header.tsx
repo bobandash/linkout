@@ -15,13 +15,35 @@ const ImageComponent: FC<ImageComponentProps> = ({ image }) => {
   const commonClasses =
     'mr-3 hidden aspect-square h-[60px] overflow-hidden rounded-full bg-white md:my-auto lg:flex lg:items-center lg:justify-center 2xl:mr-5 2xl:h-[80px]';
 
+  // undefined condition
+  if (
+    image.length > 2 &&
+    !(
+      image.startsWith('http://') ||
+      image.startsWith('https://') ||
+      image.includes('images/defaultPfp.jpg')
+    )
+  ) {
+    return;
+  }
+
+  // default profile picture
+  if (image === 'images/defaultPfp.jpg') {
+    return (
+      <div className={commonClasses}>
+        <img src={`/api/${image}`} alt="header picture" />
+      </div>
+    );
+  }
+
+  // other profile pictures
   return (
     <div className={commonClasses}>
-      {image.length <= 2 && <p className="font-bold uppercase">{image}</p>}
-      {image === 'images/defaultPfp.jpg' && (
-        <img src={`/api/${image}`} alt="header picture" />
+      {image.length <= 2 ? (
+        <p className="font-bold uppercase">{image}</p>
+      ) : (
+        <img src={image} alt="header picture" />
       )}
-      {image.length > 2 && <img src={image} alt="header picture" />}
     </div>
   );
 };

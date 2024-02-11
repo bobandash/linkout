@@ -19,7 +19,6 @@ const FormIconInput: FC<FormIconInputProps> = ({
   const [hasImage, setHasImage] = useState(false);
   const [defaultValueIsImage, setDefaultValueIsImage] = useState(false);
 
-  // TO-DO: Change hacky way of presenting whether or not the default value is image
   useEffect(() => {
     if (defaultValue) {
       if (
