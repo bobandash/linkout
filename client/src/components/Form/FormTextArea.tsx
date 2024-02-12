@@ -25,7 +25,7 @@ const FormTextArea: FC<EditProfileInputProps> = ({
         className="text-outline absolute left-0 top-0 -translate-x-1 -translate-y-1/2 bg-color_3  pb-1 pr-2 font-play text-xl uppercase text-white"
       >
         {name}
-        {required === true && <RequiredAsterisk />}
+        {required && <RequiredAsterisk />}
       </label>
       <textarea
         className="w-full resize-none border-2 border-black bg-color_3 px-2 py-3 text-xl text-white focus:outline-none"
@@ -34,7 +34,7 @@ const FormTextArea: FC<EditProfileInputProps> = ({
         onChange={handleChange}
         value={value}
         rows={rows && rows}
-        required={required === true ? true : false}
+        required={required ? true : false}
       ></textarea>
     </div>
   );

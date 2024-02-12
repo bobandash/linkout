@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import axios, { AxiosError } from 'axios';
-import { useCallback, useContext } from 'react';
-import { UserContext } from '../../../context/UserContext';
+import { useCallback } from 'react';
+import { useUserContext } from '../../../context/useUserContext';
 const useSignIn = () => {
-  const { setIsSignedIn } = useContext(UserContext);
+  const { setIsSignedIn } = useUserContext();
   const [sampleFormData] = useState({
     email: '',
     password: '',

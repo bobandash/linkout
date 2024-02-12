@@ -113,6 +113,8 @@ const UserMessage: FC<UserMessageProps> = ({ data }) => {
   return (
     <div
       onClick={handleNavigate}
+      role="button"
+      aria-label={`Navigate to conversations with ${username}`}
       className="mb-1 grid grid-cols-desktop_sidebar_profile gap-2 rounded-lg bg-color_4 p-2 hover:cursor-pointer"
     >
       <div className="flex items-center justify-center">
