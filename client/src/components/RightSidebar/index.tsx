@@ -4,7 +4,8 @@ import axios from 'axios';
 import { useParams } from 'react-router';
 import UserProps from './interface/UserProps';
 
-const OnlineSidebar = () => {
+// the left sidebar stores the user messages
+const LeftSidebar = () => {
   const [users, setUsers] = useState<Array<UserProps>>([]);
   const { communityId } = useParams();
   useEffect(() => {
@@ -19,6 +20,7 @@ const OnlineSidebar = () => {
     }
     getUsers();
   }, [communityId]);
+
   return (
     <div className="hidden max-h-screen overflow-x-auto overflow-y-scroll bg-color_2 p-5 scrollbar-none 2xl:flex 2xl:flex-col">
       <h1 className={'text-3xl text-white'}>Users</h1>
@@ -31,4 +33,4 @@ const OnlineSidebar = () => {
   );
 };
 
-export default OnlineSidebar;
+export default LeftSidebar;

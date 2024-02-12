@@ -2,7 +2,7 @@ import Messages from './components/Messages.tsx';
 import Servers from './components/Servers.tsx';
 import Username from './components/Username.tsx';
 
-const Sidebar = () => {
+const LeftSidebar = () => {
   return (
     <aside className="hidden min-h-screen max-w-full flex-row overflow-hidden lg:flex">
       <Servers />
@@ -14,4 +14,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default LeftSidebar;

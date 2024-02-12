@@ -1,8 +1,8 @@
 import { FC, useContext, useEffect, useState, useRef } from 'react';
 import ProfilePic from '../../ProfilePic';
-import UserProps from '../interface/UserProps';
 import { UserContext } from '../../../context/UserContext';
 import { useNavigate } from 'react-router';
+import UserProps from '../interface/UserProps';
 
 interface UserComponentProps {
   user: UserProps;
