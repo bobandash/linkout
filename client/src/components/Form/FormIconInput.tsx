@@ -20,13 +20,11 @@ const FormIconInput: FC<FormIconInputProps> = ({
   const [defaultValueIsImage, setDefaultValueIsImage] = useState(false);
 
   useEffect(() => {
-    if (defaultValue) {
-      if (
-        defaultValue?.includes('images') ||
-        defaultValue?.includes('uploads')
-      ) {
-        setDefaultValueIsImage(true);
-      }
+    if (
+      defaultValue &&
+      (defaultValue.includes('images') || defaultValue.includes('uploads'))
+    ) {
+      setDefaultValueIsImage(true);
     }
   }, [defaultValue]);
 
@@ -58,6 +56,7 @@ const FormIconInput: FC<FormIconInputProps> = ({
         <img
           className="absolute h-full w-full hover:cursor-pointer"
           src={defaultValue}
+          alt={`${name} image`}
         />
       )}
       <input
