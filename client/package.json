@@ -9,7 +9,8 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "format": "prettier --write ./src",
-    "test": "vitest"
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@fortawesome/fontawesome-common-types": "^6.4.2",
@@ -42,6 +43,7 @@
     "@typescript-eslint/eslint-plugin": "^6.10.0",
     "@typescript-eslint/parser": "^6.10.0",
     "@vitejs/plugin-react": "^4.2.0",
+    "@vitest/coverage-v8": "^1.2.2",
     "autoprefixer": "^10.4.16",
     "axios-mock-adapter": "^1.22.0",
     "eslint": "^8.53.0",
@@ -58,6 +60,6 @@
     "ts-jest": "^29.1.2",
     "typescript": "^5.2.2",
     "vite": "^5.0.0",
-    "vitest": "^0.34.6"
+    "vitest": "^1.2.2"
   }
 }
