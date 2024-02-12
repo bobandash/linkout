@@ -32,7 +32,7 @@ const CommunitiesComponent: FC<CommunitiesComponentProps> = ({
     updateFilteredCommunities();
   }, [updateFilteredCommunities]);
 
-  if (biggestCommunities.length === 0 && communities.length === 0) {
+  if (communities.length === 0) {
     return (
       <PageMainContentContainer>
         <div className="flex-grow bg-color_3">
@@ -49,17 +49,11 @@ const CommunitiesComponent: FC<CommunitiesComponentProps> = ({
       <div className="flex-grow bg-color_3">
         <div>
           <SearchForm handleChange={handleChange} />
-          {query === '' && (
+          {query === '' ? (
             <CommunitiesList
               name={'Biggest Communities'}
               communities={biggestCommunities}
             />
-          )}
-
-          {communitiesFiltered.length === 0 ? (
-            <h1 className="text-outline mt-5 font-play text-2xl text-white md:text-3xl xl:text-4xl">
-              No Communities Found
-            </h1>
           ) : (
             <CommunitiesList
               name={'Communities'}
