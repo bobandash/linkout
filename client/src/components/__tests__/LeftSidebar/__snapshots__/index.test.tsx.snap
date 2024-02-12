@@ -1,0 +1,128 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Left Sidebar > renders correctly 1`] = `
+<div>
+  <aside
+    class="hidden min-h-screen max-w-full flex-row overflow-hidden lg:flex"
+  >
+    <div
+      class="flex max-h-screen flex-col items-center gap-2 overflow-scroll bg-color_1 p-4 scrollbar-none"
+    >
+      <div
+        class="flex aspect-square w-full min-w-[50px] items-center justify-center rounded-full border-2 bg-white hover:cursor-pointer lg:min-w-[60px]"
+      >
+        <svg
+          aria-hidden="true"
+          class="svg-inline--fa fa-house "
+          data-icon="house"
+          data-prefix="fas"
+          focusable="false"
+          role="img"
+          viewBox="0 0 576 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40H456c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1H416 392c-22.1 0-40-17.9-40-40V448 384c0-17.7-14.3-32-32-32H256c-17.7 0-32 14.3-32 32v64 24c0 22.1-17.9 40-40 40H160 128.1c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2H104c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9 .1-2.8V287.6H32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"
+            fill="currentColor"
+          />
+        </svg>
+      </div>
+      <div
+        class="flex aspect-square w-full min-w-[50px] items-center justify-center rounded-full border-2 bg-white hover:cursor-pointer lg:min-w-[60px]"
+      >
+        <svg
+          aria-hidden="true"
+          class="svg-inline--fa fa-plus "
+          data-icon="plus"
+          data-prefix="fas"
+          focusable="false"
+          role="img"
+          viewBox="0 0 448 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"
+            fill="currentColor"
+          />
+        </svg>
+      </div>
+    </div>
+    <div
+      class="flex max-h-screen flex-grow flex-col bg-color_2"
+    >
+      <div
+        class="bg-secondary flex w-full flex-row gap-x-4 border-b-4 border-black p-5 grid-in-sidebar-header"
+      >
+        <div
+          class="flex items-center justify-center"
+        >
+          <div
+            class="aspect-square h-[60px] 2xl:h-[80px] overflow-hidden rounded-full bg-white"
+          >
+            <img
+              alt=" picture"
+              class="h-full w-full"
+              src=""
+            />
+          </div>
+        </div>
+        <div
+          class="flex flex-col justify-center overflow-hidden"
+        >
+          <h1
+            class="text-outline xl:text-1xl overflow-ellipsis font-play font-bold uppercase text-white md:max-w-[10ch] md:overflow-hidden md:overflow-ellipsis md:text-xl"
+          />
+          <button
+            class="w-max font-play uppercase text-white"
+          >
+            Edit Profile
+          </button>
+        </div>
+      </div>
+      <div
+        class="flex flex-col overflow-y-scroll p-4 scrollbar-none md:flex-grow"
+      >
+        <h2
+          class="font-play text-3xl text-white"
+        >
+          Messages
+        </h2>
+        <form
+          class="mt-2 w-full rounded-xl border-2 border-black bg-color_4 p-3"
+        >
+          <div
+            class="relative w-full"
+          >
+            <input
+              class="rounded-1 w-full border-2 px-1 font-play focus:outline-none"
+            />
+            <button
+              class="absolute right-2 top-1/2 w-fit -translate-y-1/2"
+              type="submit"
+            >
+              <svg
+                aria-hidden="true"
+                class="svg-inline--fa fa-magnifying-glass "
+                data-icon="magnifying-glass"
+                data-prefix="fas"
+                focusable="false"
+                role="img"
+                viewBox="0 0 512 512"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"
+                  fill="currentColor"
+                />
+              </svg>
+            </button>
+          </div>
+        </form>
+        <div
+          class="mt-5"
+        />
+      </div>
+    </div>
+  </aside>
+</div>
+`;
