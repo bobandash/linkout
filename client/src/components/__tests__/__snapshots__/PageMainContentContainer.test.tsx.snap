@@ -1,0 +1,15 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`PageMainContentContainer > renders correctly 1`] = `
+<div>
+  <div
+    class="flex flex-grow flex-col overflow-y-scroll bg-color_3 p-5 scrollbar-thin md:p-7 lg:p-10 lg:pt-0 2xl:p-16 2xl:pt-0"
+  >
+    <div>
+      <h1>
+        Test
+      </h1>
+    </div>
+  </div>
+</div>
+`;
