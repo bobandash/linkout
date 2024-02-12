@@ -1,10 +1,23 @@
-import { render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Error from '../index';
 import { MemoryRouter } from 'react-router';
+const navigate = vi.fn();
+vi.mock('react-router', async () => {
+  const mod = (await vi.importActual('react-router')) as object;
+  return {
+    ...mod,
+    useNavigate: () => navigate,
+  };
+});
 
 describe('Error Page', () => {
-  it('should render 404 page by default', () => {
+  afterEach(() => {
+    vi.clearAllMocks();
+    vi.resetAllMocks();
+  });
+
+  it('renders 404 page by default', () => {
     const container = render(
       <MemoryRouter>
         <Error />
@@ -13,7 +26,18 @@ describe('Error Page', () => {
     expect(container).toMatchSnapshot();
   });
 
-  it('should render 401 page when 401 status is passed', () => {
+  it('calls navigate button when homepage button pressed', () => {
+    render(
+      <MemoryRouter>
+        <Error />
+      </MemoryRouter>,
+    );
+    const navBtn = screen.getByRole('button', { name: 'Homepage' });
+    fireEvent.click(navBtn);
+    expect(navigate).toHaveBeenCalled();
+  });
+
+  it('renders 401 page correctly', () => {
     const container = render(
       <MemoryRouter>
         <Error errorCode={401} />
@@ -22,7 +46,7 @@ describe('Error Page', () => {
     expect(container).toMatchSnapshot();
   });
 
-  it('should render 500 page when 500 status is passed', () => {
+  it('renders 500 page correctly', () => {
     const container = render(
       <MemoryRouter>
         <Error errorCode={500} />
@@ -31,7 +55,7 @@ describe('Error Page', () => {
     expect(container).toMatchSnapshot();
   });
 
-  it('should render 404 page when 404 status is passed', () => {
+  it('renders 404 page correctly', () => {
     const container = render(
       <MemoryRouter>
         <Error errorCode={404} />
