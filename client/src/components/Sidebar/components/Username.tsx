@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
-import profileProps, { mockProfile } from '../../interface/profile';
-import ProfilePic from '../ProfilePic';
+import profileProps, { mockProfile } from '../../../interface/profile';
+import ProfilePic from '../../ProfilePic';
 
-const UsernameComponent = () => {
+const Username = () => {
   const navigate = useNavigate();
   const [profile, setProfile] = useState<profileProps>(mockProfile);
   function handleEditProfile() {
@@ -50,4 +50,4 @@ const UsernameComponent = () => {
   );
 };
 
-export default UsernameComponent;
+export default Username;

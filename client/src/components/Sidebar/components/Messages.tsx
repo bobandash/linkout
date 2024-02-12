@@ -1,13 +1,29 @@
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import UserMessage from './components/UserMessage';
 import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import { UserContext } from '../../context/UserContext';
-import ConversationProps from '../../interface/conversation';
-import ConversationSidebarProps from './interface/ConversationSidebarProps';
+import { UserContext } from '../../../context/UserContext';
+import ConversationProps from '../../../interface/conversation';
+import { FC } from 'react';
+import { useNavigate } from 'react-router';
+import ProfilePic from '../../ProfilePic';
 
-const MessagesNavSidebar = () => {
+interface ConversationSidebarProps {
+  user: {
+    _id: string;
+    username: string;
+    status: string;
+    profilePic: string;
+  };
+  _id: string;
+  isRequest: boolean;
+}
+
+interface UserMessageProps {
+  data: ConversationSidebarProps;
+}
+
+const Messages = () => {
   const { username } = useContext(UserContext);
   // stores relevant data needed for conversation sidebar
   const [conversationSidebarData, setConversationSidebarData] = useState<
@@ -86,4 +102,32 @@ const MessagesNavSidebar = () => {
   );
 };
 
-export default MessagesNavSidebar;
+// renders conversation icon with the user that you're communicating with
+const UserMessage: FC<UserMessageProps> = ({ data }) => {
+  const navigate = useNavigate();
+  function handleNavigate() {
+    navigate('/conversation/' + data._id);
+  }
+  const { profilePic, username, status } = data.user;
+
+  return (
+    <div
+      onClick={handleNavigate}
+      className="mb-1 grid grid-cols-desktop_sidebar_profile gap-2 rounded-lg bg-color_4 p-2 hover:cursor-pointer"
+    >
+      <div className="flex items-center justify-center">
+        <ProfilePic size="x-small" image={profilePic} name={username} />
+      </div>
+      <div className="flex flex-col justify-center text-white">
+        <p className="overflow-hidden overflow-ellipsis text-xl font-bold">
+          {username}
+        </p>
+        <p className="max-w-[12ch] overflow-hidden overflow-ellipsis whitespace-nowrap">
+          {status}
+        </p>
+      </div>
+    </div>
+  );
+};
+
+export default Messages;

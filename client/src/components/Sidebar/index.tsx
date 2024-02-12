@@ -1,14 +1,14 @@
-import MessagesNavSidebar from './Messages';
-import ServersComponent from './ServersComponent';
-import UsernameComponent from './Username';
+import Messages from './components/Messages.tsx';
+import Servers from './components/Servers.tsx';
+import Username from './components/Username.tsx';
 
 const Sidebar = () => {
   return (
     <aside className="hidden min-h-screen max-w-full flex-row overflow-hidden lg:flex">
-      <ServersComponent />
+      <Servers />
       <div className="flex max-h-screen flex-grow flex-col bg-color_2">
-        <UsernameComponent />
-        <MessagesNavSidebar />
+        <Username />
+        <Messages />
       </div>
     </aside>
   );
