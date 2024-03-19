@@ -65,8 +65,21 @@ export const UserContextProvider: FC<SignedInContextProviderProps> = ({
   socket.on('add_server_icon_sidebar', (community: CommunitiesProp) => {
     if (communities !== null) {
       setCommunities([...communities, community]);
+    } else {
+      setCommunities([community]);
     }
   });
+
+  socket.on(
+    'add_new_conversation_sidebar',
+    (conversation: ConversationSidebarProps) => {
+      if (conversations !== null) {
+        setConversations([...conversations, conversation]);
+      } else {
+        setConversations([conversation]);
+      }
+    },
+  );
 
   useEffect(() => {
     async function main() {

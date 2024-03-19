@@ -92,7 +92,11 @@ io.on('connection', (socket) => {
 
   // join new server is called when a community is created / joined
   socket.on('join_new_community', (community) => {
-    socket.emit('addServerIconSidebar', community);
+    socket.emit('add_server_icon_sidebar', community);
+  });
+
+  socket.on('create_new_conversation', (conversation) => {
+    socket.emit('add_new_conversation_sidebar', conversation);
   });
 
   socket.on('join_chatroom', (communityId) => {

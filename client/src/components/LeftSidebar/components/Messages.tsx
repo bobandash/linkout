@@ -1,6 +1,6 @@
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { UserContext } from '../../../context/UserContext';
 import { FC } from 'react';
 import { useNavigate } from 'react-router';
@@ -27,6 +27,12 @@ const Messages = () => {
   const [filteredSidebarData, setFilteredSidebarData] = useState<
     ConversationSidebarProps[] | null
   >(conversations);
+
+  useEffect(() => {
+    if (conversations) {
+      setFilteredSidebarData([...conversations]);
+    }
+  }, [conversations]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value;
