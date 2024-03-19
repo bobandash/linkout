@@ -1,11 +1,16 @@
 import { Link } from 'react-router-dom';
 import useSignIn from './__hooks__/useSignIn';
-
+import NetworkIcon from '../../assets/network.png';
 const SignInForm = () => {
   const { hasErrors, handleInputChange, handleSubmit } = useSignIn();
   return (
     <div className="flex w-full flex-col justify-center overflow-hidden bg-white">
       <div className="mx-auto flex w-10/12 max-w-[600px] flex-col gap-4">
+        <img
+          src={NetworkIcon}
+          alt="Linkout Icon"
+          className="mx-auto mb-2 block w-16"
+        />
         <h1 className="text-outline text-center font-play text-6xl font-bold uppercase text-black md:hidden">
           Linkout
         </h1>

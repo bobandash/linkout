@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import RequiredAsterisk from '../../components/RequiredAsterisk';
 import useSignUp from './__hooks__/useSignUp';
+import NetworkIcon from '../../assets/network.png';
 
 const SignUpForm = () => {
   const { errors, success, handleInputChange, handleSubmit } = useSignUp();
@@ -8,6 +9,11 @@ const SignUpForm = () => {
   return (
     <div className="flex w-full flex-col justify-center overflow-hidden bg-white">
       <div className="mx-auto flex w-10/12 max-w-[600px] flex-col gap-4">
+        <img
+          src={NetworkIcon}
+          alt="Linkout Icon"
+          className="mx-auto mb-2 block w-16"
+        />
         <h1 className="text-outline text-center font-play text-6xl font-bold uppercase text-black md:hidden">
           Linkout
         </h1>
