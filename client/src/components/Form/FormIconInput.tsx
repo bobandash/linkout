@@ -52,13 +52,22 @@ const FormIconInput: FC<FormIconInputProps> = ({
           {defaultValue.toUpperCase()}
         </p>
       )}
-      {defaultValue && !hasImage && defaultValueIsImage && (
-        <img
-          className="absolute h-full w-full hover:cursor-pointer"
-          src={defaultValue}
-          alt={`${name} image`}
-        />
-      )}
+      {defaultValue &&
+        !hasImage &&
+        defaultValueIsImage &&
+        (defaultValue === 'images/defaultPfp.jpg' ? (
+          <img
+            className="absolute h-full w-full hover:cursor-pointer"
+            src={`/api/${defaultValue}`}
+            alt={`${name} image`}
+          />
+        ) : (
+          <img
+            className="absolute h-full w-full hover:cursor-pointer"
+            src={defaultValue}
+            alt={`${name} image`}
+          />
+        ))}
       <input
         onChange={(e) => {
           loadFile(e);
