@@ -1,9 +1,7 @@
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
+import { useState, useContext } from 'react';
 import { UserContext } from '../../../context/UserContext';
-import ConversationProps from '../../../interface/conversation';
 import { FC } from 'react';
 import { useNavigate } from 'react-router';
 import ProfilePic from '../../ProfilePic';
@@ -24,54 +22,29 @@ interface UserMessageProps {
 }
 
 const Messages = () => {
-  const { username } = useContext(UserContext);
+  const { conversations } = useContext(UserContext);
   // stores relevant data needed for conversation sidebar
-  const [conversationSidebarData, setConversationSidebarData] = useState<
-    Array<ConversationSidebarProps>
-  >([]);
   const [filteredSidebarData, setFilteredSidebarData] = useState<
-    Array<ConversationSidebarProps>
-  >([]);
+    ConversationSidebarProps[] | null
+  >(conversations);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value;
     const lowerQuery = query.toLowerCase();
-    const newData = conversationSidebarData.filter((data) => {
-      const lowerCaseUsername = data.user.username.toLowerCase();
-      return lowerCaseUsername.includes(lowerQuery);
-    });
-    setFilteredSidebarData(newData);
+    if (conversations) {
+      const newData = conversations.filter((data) => {
+        const lowerCaseUsername = data.user.username.toLowerCase();
+        return lowerCaseUsername.includes(lowerQuery);
+      });
+      setFilteredSidebarData(newData);
+    } else {
+      setFilteredSidebarData(conversations);
+    }
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
-
-  useEffect(() => {
-    async function getConversations() {
-      try {
-        const response = await axios.get('/api/conversations');
-        const conversationData: ConversationProps[] = response.data;
-        // filter the raw conversation data to the necessary params to display
-        const userData = conversationData.map((conversation) => {
-          const otherUser = conversation.users.filter(
-            (user) => user.profile.username !== username,
-          )[0].profile;
-          const { _id, isRequest } = conversation;
-          return {
-            user: otherUser,
-            _id,
-            isRequest,
-          };
-        });
-        setConversationSidebarData(userData);
-        setFilteredSidebarData(userData);
-      } catch {
-        console.error('There was an error fetching the conversations');
-      }
-    }
-    getConversations();
-  }, [username]);
 
   return (
     <div className="flex flex-col overflow-y-scroll p-4 scrollbar-none md:flex-grow">
@@ -94,9 +67,10 @@ const Messages = () => {
         </div>
       </form>
       <div className="mt-3">
-        {filteredSidebarData.map((data) => (
-          <UserMessage key={data._id} data={data} />
-        ))}
+        {filteredSidebarData &&
+          filteredSidebarData.map((data) => (
+            <UserMessage key={data._id} data={data} />
+          ))}
       </div>
     </div>
   );
