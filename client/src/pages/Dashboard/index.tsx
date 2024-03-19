@@ -2,6 +2,7 @@ import { Outlet, useNavigate } from 'react-router';
 import PageTemplate from '../../components/PageTemplate';
 import { useAuthContext } from '../../context/useAuthContext';
 import { useEffect } from 'react';
+import { UserContextProvider } from '../../context/UserContext';
 
 const Dashboard = () => {
   const { isSignedIn, isAuthLoading } = useAuthContext();
@@ -14,9 +15,11 @@ const Dashboard = () => {
   }, [isSignedIn, navigate, isAuthLoading]);
 
   return (
-    <PageTemplate>
-      <Outlet />
-    </PageTemplate>
+    <UserContextProvider>
+      <PageTemplate>
+        <Outlet />
+      </PageTemplate>
+    </UserContextProvider>
   );
 };
 
