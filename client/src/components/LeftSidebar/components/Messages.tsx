@@ -93,7 +93,7 @@ const Messages = () => {
           </button>
         </div>
       </form>
-      <div className="mt-5">
+      <div className="mt-3">
         {filteredSidebarData.map((data) => (
           <UserMessage key={data._id} data={data} />
         ))}
