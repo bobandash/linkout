@@ -6,7 +6,7 @@ interface PageTemplateProps {
 
 const PageMainContentContainer: FC<PageTemplateProps> = ({ children }) => {
   return (
-    <div className="flex flex-grow flex-col overflow-y-hidden bg-color_3 p-5 scrollbar-thin md:p-7 lg:p-10 lg:pt-0 2xl:p-16 2xl:pt-0">
+    <div className="flex flex-grow flex-col overflow-y-scroll bg-color_3 p-5 md:p-7 lg:p-10 lg:pt-0 2xl:p-16 2xl:pt-0">
       {children}
     </div>
   );
