@@ -49,6 +49,7 @@ export const UserContext = createContext<UserContextProps>({
   conversations: null,
 });
 
+// Contains all relevant information for the dashboard
 export const UserContextProvider: FC<SignedInContextProviderProps> = ({
   children,
 }) => {

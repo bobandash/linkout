@@ -5,7 +5,7 @@ const LinkOutBtn = () => {
   const navigate = useNavigate();
   const communityId = useParams();
   function navLinkOut() {
-    navigate(`/communities/${communityId}/linkout`);
+    navigate(`/dashboard/communities/${communityId}/linkout`);
   }
 
   return (

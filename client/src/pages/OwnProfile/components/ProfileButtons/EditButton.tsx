@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router';
 const EditButton = () => {
   const navigate = useNavigate();
   function navigateEdit() {
-    navigate('/profile/edit');
+    navigate('/dashboard/profile/edit');
   }
 
   return (

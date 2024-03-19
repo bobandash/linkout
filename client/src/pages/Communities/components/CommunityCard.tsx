@@ -11,7 +11,7 @@ interface CommunityCardProps {
 const CommunityCard: FC<CommunityCardProps> = ({ community }) => {
   const navigate = useNavigate();
   function handleNavigate() {
-    navigate('/communities/' + community.id);
+    navigate('/dashboard/communities/' + community.id);
   }
   async function joinCommunity() {
     try {

@@ -86,7 +86,7 @@ const Messages = () => {
 const UserMessage: FC<UserMessageProps> = ({ data }) => {
   const navigate = useNavigate();
   function handleNavigate() {
-    navigate('/conversation/' + data._id);
+    navigate('/dashboard/conversation/' + data._id);
   }
   const { profilePic, username, status } = data.user;
 

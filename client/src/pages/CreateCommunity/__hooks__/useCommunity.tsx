@@ -94,7 +94,7 @@ const useCommunity = () => {
         const communityData = response.data.community;
         socket.emit('join_new_community', communityData);
         const communityId = response.data.community.id;
-        navigate(`/communities/${communityId}`);
+        navigate(`/dashboard/communities/${communityId}`);
       }
     } catch (err: unknown) {
       if (err instanceof AxiosError) {

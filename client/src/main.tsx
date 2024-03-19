@@ -7,13 +7,16 @@ import { RouterProvider } from 'react-router-dom';
 import router from './router.tsx';
 import { UserContextProvider } from './context/UserContext.tsx';
 import socket from './socket.ts';
+import { AuthContextProvider } from './context/AuthContext.tsx';
 socket.connect();
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <UserContextProvider>
-      <RouterProvider router={router} />
-    </UserContextProvider>
+    <AuthContextProvider>
+      <UserContextProvider>
+        <RouterProvider router={router} />
+      </UserContextProvider>
+    </AuthContextProvider>
   </React.StrictMode>,
 );
 

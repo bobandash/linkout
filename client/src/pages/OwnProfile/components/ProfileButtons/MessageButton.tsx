@@ -64,7 +64,7 @@ const MessageButton = () => {
         };
         socket.emit('create_new_conversation', conversationSidebarInfo);
       }
-      navigate(`/conversation/${conversationId}`);
+      navigate(`/dashboard/conversation/${conversationId}`);
     } catch {
       console.log('There was an error creating the conversation');
     }

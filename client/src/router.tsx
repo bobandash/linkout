@@ -10,51 +10,58 @@ import MyCommunities from './pages/MyCommunities/index.tsx';
 import DirectMessage from './pages/DirectMessageBoard/index.tsx';
 import ErrorPage from './pages/Error/index.tsx';
 import MessagesPage from './pages/Messages/index.tsx';
+import Dashboard from './pages/Dashboard/index.tsx';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
     errorElement: <ErrorPage />,
+  },
+  {
+    path: 'dashboard',
+    element: <Dashboard />,
     children: [
       {
-        path: '/',
+        path: '',
         element: <Communities />,
       },
       {
-        path: '/messages',
+        path: 'messages',
         element: <MessagesPage />,
       },
       {
-        path: '/communities/:communityId',
-        element: <CommunityMessage />,
-      },
-      {
-        path: '/communities/create',
-        element: <CreateCommunity />,
-      },
-      {
-        path: '/profile/edit',
-        element: <EditProfile />,
-      },
-      {
-        path: '/profile/view',
-        element: <ViewProfile />,
-      },
-      {
-        path: '/profile/:profileId/view',
-        element: <ViewProfile />,
-      },
-      {
-        path: '/communities',
+        path: 'communities',
         element: <MyCommunities />,
       },
       {
-        path: '/conversation/:conversationId',
+        path: 'communities/:communityId',
+        element: <CommunityMessage />,
+      },
+      {
+        path: 'communities/create',
+        element: <CreateCommunity />,
+      },
+      {
+        path: 'profile/edit',
+        element: <EditProfile />,
+      },
+      {
+        path: 'profile/view',
+        element: <ViewProfile />,
+      },
+      {
+        path: 'profile/:profileId/view',
+        element: <ViewProfile />,
+      },
+
+      {
+        path: 'conversation/:conversationId',
         element: <DirectMessage />,
       },
     ],
   },
+
   {
     path: '/signup',
     element: <SignUpForm />,

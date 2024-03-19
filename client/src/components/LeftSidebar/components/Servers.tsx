@@ -24,7 +24,10 @@ const Servers = () => {
   const { communities } = useContext(UserContext);
   return (
     <div className="flex max-h-screen flex-col items-center gap-2 overflow-scroll bg-color_1 p-4 scrollbar-none">
-      <DefaultServer icon={<FontAwesomeIcon icon={faHouse} />} link={'/'} />
+      <DefaultServer
+        icon={<FontAwesomeIcon icon={faHouse} />}
+        link={'/dashboard'}
+      />
       {communities !== null &&
         communities.map((community) => (
           <UserServer key={community._id} community={community} />
@@ -32,7 +35,7 @@ const Servers = () => {
 
       <DefaultServer
         icon={<FontAwesomeIcon icon={faPlus} />}
-        link={'/communities/create'}
+        link={'/dashboard/communities/create'}
       />
     </div>
   );
@@ -56,7 +59,7 @@ const DefaultServer: FC<DefaultServerProps> = ({ icon, link }) => {
 const UserServer: FC<CommunitiesProp> = ({ community }) => {
   const navigate = useNavigate();
   function handleNavigate() {
-    navigate('/communities/' + community._id);
+    navigate('/dashboard/communities/' + community._id);
   }
 
   if (community.profilePic.length <= 2) {

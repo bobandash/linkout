@@ -9,7 +9,7 @@ const Username = () => {
   const [profile, setProfile] = useState<profileProps>(mockProfile);
   const [hasError, setHasError] = useState(false);
   function handleEditProfile() {
-    navigate('/profile/edit');
+    navigate('/dashboard/profile/edit');
   }
 
   useEffect(() => {

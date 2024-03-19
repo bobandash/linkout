@@ -2,7 +2,8 @@ import { Link } from 'react-router-dom';
 import useSignIn from './__hooks__/useSignIn';
 import NetworkIcon from '../../assets/network.png';
 const SignInForm = () => {
-  const { hasErrors, handleInputChange, handleSubmit } = useSignIn();
+  const { hasErrors, handleInputChange, handleSubmit, loginDemoUser } =
+    useSignIn();
   return (
     <div className="flex w-full flex-col justify-center overflow-hidden bg-white">
       <div className="mx-auto flex w-10/12 max-w-[600px] flex-col gap-4">
@@ -48,9 +49,7 @@ const SignInForm = () => {
               onChange={handleInputChange}
             />
             {hasErrors && (
-              <p className="text-sm text-error">
-                Your credientials are invalid
-              </p>
+              <p className="text-sm text-error">Your credentials are invalid</p>
             )}
           </div>
           <button
@@ -63,6 +62,7 @@ const SignInForm = () => {
         <button
           type="button"
           className="w-full rounded-md bg-black p-2 text-lg font-bold uppercase text-white transition-all hover:bg-opacity-80 sm:text-2xl"
+          onClick={loginDemoUser}
         >
           User Demo
         </button>

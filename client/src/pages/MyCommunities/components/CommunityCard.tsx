@@ -10,7 +10,7 @@ interface CommunityCardProps {
 const CommunityCard: FC<CommunityCardProps> = ({ community }) => {
   const navigate = useNavigate();
   function handleNavigate() {
-    navigate('/communities/' + community.id);
+    navigate('/dashboard/communities/' + community.id);
   }
 
   return (
@@ -24,7 +24,7 @@ const CommunityCard: FC<CommunityCardProps> = ({ community }) => {
               </p>
             ) : (
               <img
-                className="absolute left-0 top-0 h-full"
+                className="absolute left-0 top-0 h-full w-full"
                 src={community.profilePic}
                 alt="server picture"
               />

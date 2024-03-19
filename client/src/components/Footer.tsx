@@ -8,18 +8,18 @@ import { useNavigate } from 'react-router';
 const Footer = () => {
   const navigate = useNavigate();
   function navHome() {
-    navigate('/');
+    navigate('/dashboard');
   }
   function navProfile() {
-    navigate('/profile/edit');
+    navigate('/dashboard/profile/edit');
   }
 
   function navCommunities() {
-    navigate('/communities');
+    navigate('/dashboard/communities');
   }
 
   function navMessages() {
-    navigate('/messages');
+    navigate('/dashboard/messages');
   }
 
   return (

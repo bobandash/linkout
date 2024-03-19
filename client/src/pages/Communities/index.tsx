@@ -27,7 +27,7 @@ const CommunitiesPage = () => {
 const CommunitiesCreateBtn = () => {
   const navigate = useNavigate();
   function navCreateCommunities() {
-    navigate('/communities/create');
+    navigate('/dashboard/communities/create');
   }
 
   return (

@@ -16,9 +16,9 @@ const UserComponent: FC<UserComponentProps> = ({ user }) => {
 
   function handleClick() {
     if (isUser) {
-      navigate('/profile/view');
+      navigate('/dashboard/profile/view');
     } else {
-      navigate(`/profile/${user._id}/view`);
+      navigate(`/dashboard/profile/${user._id}/view`);
     }
   }
 

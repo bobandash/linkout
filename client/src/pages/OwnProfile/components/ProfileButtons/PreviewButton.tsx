@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router';
 const PreviewButton = () => {
   const navigate = useNavigate();
   function navigateView() {
-    navigate('/profile/view');
+    navigate('/dashboard/profile/view');
   }
 
   return (

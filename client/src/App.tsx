@@ -1,22 +1,18 @@
 import SignInForm from './pages/SignInForm/index';
-/* import { UserContext } from './context/UserContext'; */
-import { useUserContext } from './context/useUserContext';
-import PageTemplate from './components/PageTemplate';
-import { Outlet } from 'react-router';
 import LoadingScreen from './pages/Loading/index';
+import { useNavigate } from 'react-router';
+import { useAuthContext } from './context/useAuthContext';
 
 function App() {
-  const { isSignedIn, isLoading } = useUserContext();
-  if (isLoading) {
+  const { isSignedIn, isAuthLoading } = useAuthContext();
+  const navigate = useNavigate();
+
+  if (isAuthLoading) {
     return <LoadingScreen />;
   }
 
   if (isSignedIn) {
-    return (
-      <PageTemplate>
-        <Outlet />
-      </PageTemplate>
-    );
+    navigate('/dashboard');
   }
 
   return <SignInForm />;

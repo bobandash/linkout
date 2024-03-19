@@ -39,6 +39,22 @@ const useSignIn = () => {
     [formData, setIsSignedIn],
   );
 
-  return { hasErrors, handleInputChange, handleSubmit };
+  const loginDemoUser = async () => {
+    try {
+      const response = await axios.post('/api/users/login', {
+        email: 'demouser@gmail.com',
+        password: 'Randompassword123!',
+      });
+      if (response.status === 200) {
+        setIsSignedIn(true);
+      }
+    } catch (err: unknown) {
+      if (err instanceof AxiosError) {
+        setHasErrors(true);
+      }
+    }
+  };
+
+  return { hasErrors, handleInputChange, handleSubmit, loginDemoUser };
 };
 export default useSignIn;
