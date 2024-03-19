@@ -1,10 +1,4 @@
-import {
-  useEffect,
-  useState,
-  createContext,
-  SetStateAction,
-  Dispatch,
-} from 'react';
+import { useEffect, useState, createContext } from 'react';
 import { FC } from 'react';
 import axios from 'axios';
 import socket from '../socket';
@@ -32,8 +26,6 @@ interface ConversationSidebarProps {
 }
 
 interface UserContextProps {
-  isSignedIn: boolean;
-  setIsSignedIn: Dispatch<SetStateAction<boolean>>;
   username: string;
   isLoading: boolean;
   communities: CommunitiesProp[] | null;
@@ -41,8 +33,6 @@ interface UserContextProps {
 }
 
 export const UserContext = createContext<UserContextProps>({
-  setIsSignedIn: () => {},
-  isSignedIn: false,
   username: '',
   isLoading: true,
   communities: null,
@@ -53,7 +43,6 @@ export const UserContext = createContext<UserContextProps>({
 export const UserContextProvider: FC<SignedInContextProviderProps> = ({
   children,
 }) => {
-  const [isSignedIn, setIsSignedIn] = useState(false);
   const [username, setUsername] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [communities, setCommunities] = useState<null | CommunitiesProp[]>(
@@ -85,7 +74,6 @@ export const UserContextProvider: FC<SignedInContextProviderProps> = ({
   useEffect(() => {
     async function main() {
       await Promise.all([
-        getUser(),
         getUsername(),
         getUserCommunities(),
         getConversations(),
@@ -117,19 +105,6 @@ export const UserContextProvider: FC<SignedInContextProviderProps> = ({
       }
     }
 
-    async function getUser() {
-      try {
-        const response = await axios.get('/api/users/user/sign-in-status', {
-          withCredentials: true,
-        });
-        if (response.status === 200) {
-          setIsSignedIn(true);
-        }
-      } catch {
-        setIsSignedIn(false);
-      }
-    }
-
     async function getConversations() {
       try {
         const usernameResponse = await axios.get('/api/users/user/username', {
@@ -157,13 +132,11 @@ export const UserContextProvider: FC<SignedInContextProviderProps> = ({
     }
 
     main();
-  }, [isSignedIn]);
+  }, []);
 
   return (
     <UserContext.Provider
       value={{
-        setIsSignedIn,
-        isSignedIn,
         username,
         isLoading,
         communities,
