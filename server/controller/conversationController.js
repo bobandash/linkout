@@ -158,7 +158,7 @@ exports.get_conversation_messages = [
     try {
       const { conversationId } = req.params;
       const conversation = await Conversation.findById(conversationId).exec();
-      const messages = await DirectMessage.find({ conservation: conversation })
+      const messages = await DirectMessage.find({ conversation: conversation })
         .sort({ createdAt: 1 })
         .populate({
           path: 'sender',
@@ -169,7 +169,7 @@ exports.get_conversation_messages = [
           },
         })
         .exec();
-      res.json({ messages: messages });
+      res.json({ messages });
     } catch {
       return res.status(404).json({ message: 'Does not exist' });
     }
