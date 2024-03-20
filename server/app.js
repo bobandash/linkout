@@ -52,13 +52,10 @@ app.use((err, req, res, next) => {
   res.render('error');
 });
 
-/* TO-DO: Move back to bin after */
 var debug = require('debug')('server:server');
 var http = require('http');
 const { Server } = require('socket.io');
-/**
- * Get port from environment and store in Express.
- */
+
 function normalizePort(val) {
   var port = parseInt(val, 10);
 
@@ -80,7 +77,7 @@ app.set('port', port);
 var server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: '*',
+    origin: 'https://linkingout.netlify.app',
     methods: ['GET', 'POST'],
   },
 });

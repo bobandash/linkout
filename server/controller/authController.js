@@ -108,7 +108,11 @@ exports.sign_in_status = [
 exports.logout = [
   verifyToken,
   (req, res, next) => {
-    res.clearCookie('secureToken', { secure: true, httpOnly: true });
+    res.clearCookie('secureToken', {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'none',
+    });
     return res.status(200).json({ msg: 'Successfully logged out' });
   },
 ];
