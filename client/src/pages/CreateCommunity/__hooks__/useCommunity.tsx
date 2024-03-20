@@ -89,7 +89,7 @@ const useCommunity = () => {
         data.append('profilePic', community.profilePic);
       }
 
-      const response = await axios.post('/api/community/create', data);
+      const response = await axios.post('/api/communities/create', data);
       if (response.status == 200) {
         const communityData = response.data.community;
         socket.emit('join_new_community', communityData);

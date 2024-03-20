@@ -13,7 +13,7 @@ const useSubmitImages = () => {
       formData.append('image', fileToUpload);
       try {
         const response = await axios.post(
-          `/api/community/${communityId}/add-image`,
+          `/api/communities/${communityId}/add-image`,
           formData,
         );
         const message = response.data.message;
