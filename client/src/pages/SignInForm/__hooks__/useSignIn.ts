@@ -29,6 +29,7 @@ const useSignIn = () => {
         const response = await axios.post(
           'https://linkout-1.onrender.com/auth/login',
           formData,
+          { withCredentials: true },
         );
         if (response.status === 200) {
           setIsSignedIn(true);
@@ -50,6 +51,7 @@ const useSignIn = () => {
           email: 'demouser123@gmail.com',
           password: 'Randompassword123!',
         },
+        { withCredentials: true },
       );
       if (response.status === 200) {
         setIsSignedIn(true);
