@@ -80,9 +80,9 @@ exports.log_in = [
         return res
           .status(200)
           .cookie('secureToken', JSON.stringify(token), {
-            domain: 'linkingout.netlify.app',
             httpOnly: true,
             secure: true,
+            sameSite: 'none',
             maxAge: 24 * 60 * 60 * 1000 * 7,
           })
           .json({ msg: 'Successfully signed in' });
