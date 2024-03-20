@@ -2,21 +2,18 @@ const bcrypt = require('bcryptjs');
 const User = require('../../models/User');
 const Profile = require('../../models/Profile');
 
-const hashPassword = (password) => {
-  return new Promise((resolve, reject) => {
-    bcrypt.hash(password, 10, (err, hashedPassword) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(hashedPassword);
-      }
-    });
-  });
-};
+async function hashPassword(password) {
+  try {
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    return hashedPassword;
+  } catch (error) {
+    throw new Error('Error hashing password');
+  }
+}
 
-const createUser = async (email, password, displayName) => {
+const createUser = async (email, hashedPassword, displayName) => {
   const username = displayName === '' ? email : displayName;
-  const hashedPassword = await hashPassword(password);
   try {
     const newProfile = new Profile({ username });
     await newProfile.save();

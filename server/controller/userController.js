@@ -88,9 +88,11 @@ exports.log_in = [
     const user = await User.findOne({ email: email }).exec();
 
     if (user) {
-      // const match = await bcrypt.compare(password, user.password);
-      const match = true;
-      if (match) {
+      console.log(password);
+      console.log(user.password);
+      const isMatch = await bcrypt.compare(password, user.password);
+
+      if (isMatch) {
         const token = jwt.sign({ email }, process.env.SECRET_TOKEN, {
           expiresIn: '7d',
         });
