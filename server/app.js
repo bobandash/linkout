@@ -20,7 +20,20 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 passport.use(jwtStrategy);
-app.use(cors());
+
+// Set up cors
+const whitelist = ['http://localhost:5173', 'https://linkingout.netlify.app'];
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+};
+app.use(cors(corsOptions));
+
 app.use(express.static('public'));
 app.use(cookieParser());
 app.use(passport.initialize());
