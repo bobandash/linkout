@@ -107,11 +107,13 @@ exports.sign_in_status = [
 
 exports.logout = [
   (req, res, next) => {
-    res.clearCookie('secureToken', {
-      httpOnly: true,
-      secure: true,
-      sameSite: 'none',
-    });
-    return res.status(200).json({ msg: 'Successfully logged out' });
+    return res
+      .status(200)
+      .clearCookie('secureToken', {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'none',
+      })
+      .json({ msg: 'Successfully logged out' });
   },
 ];
