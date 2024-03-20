@@ -55,6 +55,7 @@ const useCommunities = () => {
           params: {
             ...filters,
           },
+          withCredentials: true,
         })
       ).data.communities;
 
@@ -70,7 +71,9 @@ const useCommunities = () => {
       );
 
       const userCommunities: Array<CommunityProps> = (
-        await axios.get('https://linkout-1.onrender.com/users/me/community')
+        await axios.get('https://linkout-1.onrender.com/users/me/community', {
+          withCredentials: true,
+        })
       ).data.communities;
 
       const allCommunitiesWithJoinedStatus = communitiesDecoded.map(

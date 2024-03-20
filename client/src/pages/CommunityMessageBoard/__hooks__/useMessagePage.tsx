@@ -23,6 +23,7 @@ const useMessagePage = () => {
       try {
         const response = await axios.get(
           `https://linkout-1.onrender.com/communities/${communityId}`,
+          { withCredentials: true },
         );
         setCommunity(response.data);
       } catch (err) {
@@ -38,6 +39,7 @@ const useMessagePage = () => {
       try {
         const response = await axios.get(
           `https://linkout-1.onrender.com/communities/${communityId}/messages`,
+          { withCredentials: true },
         );
         setCommunityMessages(response.data);
       } catch (err) {

@@ -13,11 +13,17 @@ const RightSidebar = () => {
       if (communityId === undefined) {
         const response = await axios.get(
           `https://linkout-1.onrender.com/users`,
+          {
+            withCredentials: true,
+          },
         );
         setUsers(response.data);
       } else {
         const response = await axios.get(
           `https://linkout-1.onrender.com/communities/${communityId}/users`,
+          {
+            withCredentials: true,
+          },
         );
         setUsers(response.data);
       }

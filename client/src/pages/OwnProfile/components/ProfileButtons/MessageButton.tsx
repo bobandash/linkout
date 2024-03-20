@@ -13,6 +13,7 @@ const MessageButton = () => {
         {
           profileId: profileId,
         },
+        { withCredentials: true },
       );
       return response.data.conversation._id;
     } catch (err) {
@@ -29,6 +30,7 @@ const MessageButton = () => {
           params: {
             profileId: profileId,
           },
+          withCredentials: true,
         },
       );
       if (response.status === 200) {
@@ -43,6 +45,7 @@ const MessageButton = () => {
     try {
       const response = await axios.get(
         `https://linkout-1.onrender.com/users/profile/${profileId}`,
+        { withCredentials: true },
       );
       const profile = response.data.profile;
       const userInfo = {

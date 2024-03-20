@@ -92,6 +92,7 @@ const useCommunity = () => {
       const response = await axios.post(
         'https://linkout-1.onrender.com/communities/create',
         data,
+        { withCredentials: true },
       );
       if (response.status == 200) {
         const communityData = response.data.community;

@@ -39,6 +39,7 @@ const useSignUp = () => {
         await axios.post(
           'https://linkout-1.onrender.com/auth/register',
           formData,
+          { withCredentials: true },
         );
         setSuccess(true);
       } catch (err: unknown) {

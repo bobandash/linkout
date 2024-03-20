@@ -24,6 +24,7 @@ const useMessagePage = () => {
       try {
         const response = await axios.get(
           `https://linkout-1.onrender.com/conversations/${conversationId}/details`,
+          { withCredentials: true },
         );
         const data = response.data;
         setConversationDetails(data);
@@ -36,6 +37,7 @@ const useMessagePage = () => {
       try {
         const response = await axios.get(
           `https://linkout-1.onrender.com/conversations/${conversationId}/messages`,
+          { withCredentials: true },
         );
         const messages = response.data.messages;
         setMessages(messages);

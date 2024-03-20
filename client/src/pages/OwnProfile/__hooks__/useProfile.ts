@@ -40,12 +40,14 @@ const useProfile = () => {
       if (profileId) {
         const response = await axios.get(
           `https://linkout-1.onrender.com/users/profile/${profileId}`,
+          { withCredentials: true },
         );
         setProfile(response.data.profile);
         setIsLoading(false);
       } else {
         const response = await axios.get(
           'https://linkout-1.onrender.com/users/me/profile',
+          { withCredentials: true },
         );
         setProfile(response.data.profile);
         setIsLoading(false);
@@ -124,6 +126,7 @@ const useProfile = () => {
       const response = await axios.put(
         'https://linkout-1.onrender.com/users/me/profile',
         formData,
+        { withCredentials: true },
       );
       if (response.status === 200) {
         setSuccess(true);

@@ -121,6 +121,9 @@ export const UserContextProvider: FC<SignedInContextProviderProps> = ({
         );
         const response = await axios.get(
           'https://linkout-1.onrender.com/users/me/conversation',
+          {
+            withCredentials: true,
+          },
         );
         const conversationData: ConversationProps[] = response.data;
         // filter the raw conversation data to the necessary params to display
