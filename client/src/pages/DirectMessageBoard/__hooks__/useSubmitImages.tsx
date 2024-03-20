@@ -15,6 +15,7 @@ const useSubmitImages = () => {
         const response = await axios.post(
           `https://linkout-1.onrender.com/conversations/${conversationId}/add-image`,
           formData,
+          { withCredentials: true },
         );
         const message = response.data.message;
         socket.emit('send_message', {

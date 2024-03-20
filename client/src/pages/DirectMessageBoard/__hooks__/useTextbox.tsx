@@ -29,6 +29,7 @@ const useTextbox = () => {
         {
           message,
         },
+        { withCredentials: true },
       );
       const target = e.target as HTMLFormElement;
       target.reset();
