@@ -1,10 +1,8 @@
 import { useState } from 'react';
 import axios, { AxiosError } from 'axios';
 import { useCallback } from 'react';
-import { useNavigate } from 'react-router';
 import { useAuthContext } from '../../../context/useAuthContext';
 const useSignIn = () => {
-  const navigate = useNavigate();
   const { setIsSignedIn } = useAuthContext();
   const [sampleFormData] = useState({
     email: '',
@@ -34,7 +32,6 @@ const useSignIn = () => {
         );
         if (response.status === 200) {
           setIsSignedIn(true);
-          navigate('/dashboard');
         }
       } catch (err: unknown) {
         if (err instanceof AxiosError) {
@@ -42,7 +39,7 @@ const useSignIn = () => {
         }
       }
     },
-    [formData, setIsSignedIn, navigate],
+    [formData, setIsSignedIn],
   );
 
   const loginDemoUser = async () => {
@@ -56,7 +53,6 @@ const useSignIn = () => {
       );
       if (response.status === 200) {
         setIsSignedIn(true);
-        navigate('/dashboard');
       }
     } catch (err: unknown) {
       if (err instanceof AxiosError) {
