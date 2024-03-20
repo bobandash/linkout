@@ -52,7 +52,7 @@ const Header: FC<HeaderProps> = ({ name, image, children }) => {
   return (
     <header className="bg-color_1 p-7 text-3xl md:p-10 md:py-5 lg:flex lg:items-center lg:border-b-0 lg:bg-color_3 2xl:p-16 2xl:py-7">
       {image && <ImageComponent image={image} />}
-      <h1 className="text-outline mx-auto overflow-hidden text-ellipsis whitespace-nowrap text-center font-play text-3xl uppercase text-white md:text-4xl lg:mx-0 lg:text-left xl:text-6xl">
+      <h1 className="text-outline break-long-words mx-auto text-center font-play text-3xl uppercase text-white md:text-4xl lg:mx-0 lg:text-left xl:text-6xl">
         {he.decode(name)}
       </h1>
       {children && children}
