@@ -45,7 +45,7 @@ const useSignIn = () => {
   const loginDemoUser = async () => {
     try {
       const response = await axios.post('/api/users/login', {
-        email: 'demouser@gmail.com',
+        email: 'demouser123@gmail.com',
         password: 'Randompassword123!',
       });
       if (response.status === 200) {
