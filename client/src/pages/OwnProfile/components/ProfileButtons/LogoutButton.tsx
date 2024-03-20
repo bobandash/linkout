@@ -10,6 +10,7 @@ const LogoutButton = () => {
           withCredentials: true,
         },
       );
+      window.location.href = '/';
     } catch {
       console.error('Could not log out');
     }
