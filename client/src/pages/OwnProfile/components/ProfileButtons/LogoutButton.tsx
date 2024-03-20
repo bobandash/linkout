@@ -3,7 +3,9 @@ import axios from 'axios';
 const LogoutButton = () => {
   async function logout() {
     try {
-      await axios.post('https://linkout-1.onrender.com/auth/logout');
+      await axios.post('https://linkout-1.onrender.com/auth/logout', {
+        withCredentials: true,
+      });
     } catch {
       console.error('Could not log out');
     }
