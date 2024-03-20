@@ -9,7 +9,7 @@ const useMyCommunities = () => {
   useEffect(() => {
     async function getCommunities() {
       try {
-        const communities = (await axios.get('/api/user/me/community')).data
+        const communities = (await axios.get('/api/users/me/community')).data
           .communities;
         setMyCommunities(communities);
         setIsLoading(false);
