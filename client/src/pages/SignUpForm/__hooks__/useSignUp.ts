@@ -36,7 +36,7 @@ const useSignUp = () => {
       setErrors(sampleErrors);
       e.preventDefault();
       try {
-        await axios.post('/api/users/create', formData);
+        await axios.post('/api/auth/register', formData);
         setSuccess(true);
       } catch (err: unknown) {
         if (err instanceof AxiosError) {

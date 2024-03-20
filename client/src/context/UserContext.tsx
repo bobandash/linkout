@@ -83,7 +83,7 @@ export const UserContextProvider: FC<SignedInContextProviderProps> = ({
 
     async function getUserCommunities() {
       try {
-        const response = await axios.get('/api/users/user/community', {
+        const response = await axios.get('/api/users/me/community', {
           withCredentials: true,
         });
         const json = response.data;
@@ -95,7 +95,7 @@ export const UserContextProvider: FC<SignedInContextProviderProps> = ({
 
     async function getUsername() {
       try {
-        const response = await axios.get('/api/users/user/username', {
+        const response = await axios.get('/api/users/me/username', {
           withCredentials: true,
         });
         const json = response.data;
@@ -107,10 +107,10 @@ export const UserContextProvider: FC<SignedInContextProviderProps> = ({
 
     async function getConversations() {
       try {
-        const usernameResponse = await axios.get('/api/users/user/username', {
+        const usernameResponse = await axios.get('/api/users/me/username', {
           withCredentials: true,
         });
-        const response = await axios.get('/api/conversations');
+        const response = await axios.get('/api/users/me/conversation');
         const conversationData: ConversationProps[] = response.data;
         // filter the raw conversation data to the necessary params to display
         const username = usernameResponse.data.username;

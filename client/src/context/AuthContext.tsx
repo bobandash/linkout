@@ -32,7 +32,7 @@ export const AuthContextProvider: FC<SignedInContextProviderProps> = ({
   useEffect(() => {
     async function getSignedInStatus() {
       try {
-        const response = await axios.get('/api/users/user/sign-in-status', {
+        const response = await axios.get('/api/auth/sign-in-status', {
           withCredentials: true,
         });
         if (response.status === 200) {

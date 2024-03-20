@@ -4,17 +4,19 @@ import axios from 'axios';
 import { useParams } from 'react-router';
 import UserProps from './interface/UserProps';
 
-// the left sidebar stores the user messages
-const LeftSidebar = () => {
+// Right sidebar stores all users inside a community or all users in the application
+const RightSidebar = () => {
   const [users, setUsers] = useState<Array<UserProps>>([]);
   const { communityId } = useParams();
   useEffect(() => {
     async function getUsers() {
       if (communityId === undefined) {
-        const response = await axios.get(`/api/users/community`);
+        const response = await axios.get(`/api/users`);
         setUsers(response.data);
       } else {
-        const response = await axios.get(`/api/users/community/${communityId}`);
+        const response = await axios.get(
+          `/api/communities/${communityId}/users`,
+        );
         setUsers(response.data);
       }
     }
@@ -33,4 +35,4 @@ const LeftSidebar = () => {
   );
 };
 
-export default LeftSidebar;
+export default RightSidebar;

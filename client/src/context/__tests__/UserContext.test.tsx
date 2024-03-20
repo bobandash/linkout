@@ -9,12 +9,10 @@ import MockAdapter from 'axios-mock-adapter';
 const mAxios = new MockAdapter(axios);
 
 const MockChild = () => {
-  const { isSignedIn, username, isLoading, communities } =
-    useContext(UserContext);
+  const { username, isLoading, communities } = useContext(UserContext);
   return (
     <div>
       <p>{username}</p>
-      <p>Signed In: {isSignedIn ? 'true' : 'false'}</p>
       <p>Is Loading: {isLoading ? 'true' : 'false'}</p>
       {communities?.map((community) => {
         return (
@@ -34,11 +32,11 @@ describe('UserContextProvider', () => {
 
   it('should render children and fetch data properly', async () => {
     mAxios
-      .onGet('/api/users/user/sign-in-status')
+      .onGet('/api/auth/sign-in-status')
       .reply(200)
-      .onGet('/api/users/user/username')
+      .onGet('/api/user/username')
       .reply(200, { username: 'testUser' })
-      .onGet('/api/users/user/community')
+      .onGet('/api/user/community')
       .reply(200, {
         communities: [
           {
@@ -68,11 +66,11 @@ describe('UserContextProvider', () => {
 
   it('should have default values if fetches fail', async () => {
     mAxios
-      .onGet('/api/users/user/sign-in-status')
+      .onGet('/api/auth/sign-in-status')
       .reply(400)
-      .onGet('/api/users/user/username')
+      .onGet('/api/user/username')
       .reply(400)
-      .onGet('/api/users/user/community')
+      .onGet('/api/user/community')
       .reply(400);
 
     // Render the component with a test child

@@ -29,7 +29,7 @@ describe('Sign Up Form Component', () => {
       </MemoryRouter>,
     );
 
-    mAxios.onPost('/api/users/create').reply(200);
+    mAxios.onPost('/api/auth/register').reply(200);
     const submitButton = screen.getByRole('button', { name: 'Sign Up' });
     userEvent.click(submitButton);
     await waitFor(() => {
@@ -44,7 +44,7 @@ describe('Sign Up Form Component', () => {
       </MemoryRouter>,
     );
 
-    mAxios.onPost('/api/users/create').reply(400, {
+    mAxios.onPost('/api/auth/register').reply(400, {
       email: {
         msg: 'Email invalid',
       },

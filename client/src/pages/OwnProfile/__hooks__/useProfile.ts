@@ -38,13 +38,11 @@ const useProfile = () => {
   useEffect(() => {
     async function getProfile() {
       if (profileId) {
-        const response = await axios.get(
-          `/api/users/user/${profileId}/profile`,
-        );
+        const response = await axios.get(`/api/users/profile/${profileId}`);
         setProfile(response.data.profile);
         setIsLoading(false);
       } else {
-        const response = await axios.get('/api/users/user/profile');
+        const response = await axios.get('/api/users/me/profile');
         setProfile(response.data.profile);
         setIsLoading(false);
       }
@@ -119,7 +117,7 @@ const useProfile = () => {
         formData.append('image', profile.uploadedProfilePic);
       }
 
-      const response = await axios.put('/api/users/user/profile', formData);
+      const response = await axios.put('/api/users/me/profile', formData);
       if (response.status === 200) {
         setSuccess(true);
       }

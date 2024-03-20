@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 const Profile = require('../models/Profile');
 const Community = require('../models/Community');
+const Conversation = require('../models/Conversation');
 const jwt = require('jsonwebtoken');
 const verifyToken = require('./utils/verifyToken');
 const getUsername = require('./utils/getUsername');
@@ -17,118 +18,15 @@ const fileFilter = (req, file, cb) => {
   }
 };
 const upload = multer({ storage, fileFilter });
-
 const path = require('path');
 const { s3Uploadsv2 } = require('../s3Serve');
-const { hashPassword, createUser } = require('./utils/createUser');
-
-exports.create_user = [
-  body('email', 'Email is invalid').trim().isEmail().escape(),
-  body(
-    'password',
-    'Password has to be at least 8 characters, 1 uppercase, and 1 symbol',
-  )
-    .trim()
-    .isStrongPassword({
-      minLength: 8,
-      minUppercase: 1,
-      minSymbols: 1,
-    })
-    .escape(),
-  body('displayName').trim().escape(),
-  body('confirmPassword').trim().escape(),
-  // Error messages such as account already exists, not strong password should take precedence
-  async (req, res, next) => {
-    const errors = validationResult(req).mapped();
-    const { email, password, confirmPassword } = req.body;
-    const hasUser = await User.findOne({ email }).exec();
-    const passwordMatches = confirmPassword === password;
-    if (hasUser) {
-      return res
-        .status(400)
-        .json({ email: { msg: 'Email already has an account' } });
-    }
-
-    if (Object.keys(errors).length > 0) {
-      if (!errors.password && !passwordMatches) {
-        errors.confirmPassword = { msg: 'Passwords do not match' };
-      }
-      return res.status(400).json(errors);
-    }
-
-    if (!passwordMatches) {
-      return res
-        .status(400)
-        .json({ confirmPassword: { msg: 'Passwords do not match' } });
-    }
-    next();
-  },
-  async (req, res, next) => {
-    const { email, password, displayName } = req.body;
-    try {
-      const hashedPassword = await hashPassword(password);
-      const result = await createUser(email, hashedPassword, displayName);
-      return res.json(result);
-    } catch (error) {
-      console.error('Error creating user:', error);
-      return res.status(500).json({ error: 'Internal Server Error' });
-    }
-  },
-];
-
-exports.log_in = [
-  body('email', 'Your credentials are invalid').trim().isEmail().escape(),
-  async (req, res, next) => {
-    const errors = validationResult(req).mapped();
-    const { email, password } = req.body;
-    if (Object.keys(errors).length > 0) {
-      return res.status(400).json(errors);
-    }
-
-    const user = await User.findOne({ email: email }).exec();
-
-    if (user) {
-      console.log(password);
-      console.log(user.password);
-      const isMatch = await bcrypt.compare(password, user.password);
-
-      if (isMatch) {
-        const token = jwt.sign({ email }, process.env.SECRET_TOKEN, {
-          expiresIn: '7d',
-        });
-        return res
-          .status(200)
-          .cookie('secureToken', JSON.stringify(token), {
-            httpOnly: true,
-            secure: true,
-            maxAge: 24 * 60 * 60 * 1000 * 7,
-          })
-          .json({ msg: 'Successfully signed in' });
-      }
-      return res.status(400).json({
-        password: {
-          msg: 'Your credentials are invalid',
-        },
-      });
-    }
-  },
-];
-
-exports.sign_in_status = [
-  verifyToken,
-  (req, res, next) => {
-    res.status(200).json({
-      signedInStatus: true,
-    });
-  },
-];
 
 exports.get_username = [
   verifyToken,
   async (req, res, next) => {
     const { email } = req.user;
     const user = await User.findOne({ email }).populate('profile').exec();
-    res.json({
+    return res.json({
       username: user.profile.username,
     });
   },
@@ -138,7 +36,7 @@ exports.get_email = [
   verifyToken,
   async (req, res, next) => {
     const { email } = req.user;
-    res.json({
+    return res.json({
       email: email,
     });
   },
@@ -149,7 +47,7 @@ exports.get_profile = [
   async (req, res, next) => {
     const { email } = req.user;
     const user = await User.findOne({ email }).populate('profile').exec();
-    res.json({ profile: user.profile });
+    return res.json({ profile: user.profile });
   },
 ];
 
@@ -158,7 +56,7 @@ exports.get_other_user_profile = [
   async (req, res, next) => {
     const { profileId } = req.params;
     const profile = await Profile.findById(profileId).exec();
-    res.json({ profile: profile });
+    return res.status(200).json({ profile });
   },
 ];
 
@@ -253,7 +151,7 @@ exports.update_profile = [
       profileId,
       updateFields,
     ).exec();
-    res.json(profile);
+    return res.json(profile);
   },
 ];
 
@@ -269,7 +167,7 @@ exports.post_pfp = [
     await Profile.findByIdAndUpdate(profileId, {
       profilePic: result.Location,
     }).exec();
-    res.json({ data: result.Location });
+    return res.json({ data: result.Location });
   },
 ];
 
@@ -284,7 +182,7 @@ exports.get_communities = [
       })
       .select('communities')
       .exec();
-    res.json({ communities: user.communities });
+    return res.json({ communities: user.communities });
   },
 ];
 
@@ -311,11 +209,11 @@ exports.join_community = [
       },
     });
 
-    res.json({ user: user });
+    return res.json({ user: user });
   },
 ];
 
-// returns array of objects with username, status, and profilePic
+// Returns array of all users with username, status, and profilePic
 exports.get_users = [
   verifyToken,
   async (req, res, next) => {
@@ -336,31 +234,31 @@ exports.get_users = [
       const textB = b.username.toUpperCase();
       return textA < textB ? -1 : textA > textB ? 1 : 0;
     });
-    res.json(usersFormatted);
+    return res.status(200).json(usersFormatted);
   },
 ];
 
-exports.get_users_by_community = [
+// gets all the conversations for particular user
+exports.get_conversations = [
   verifyToken,
-  verifyInCommunity,
   async (req, res, next) => {
-    const { communityId } = req.params;
-    const community = await Community.findById(communityId).populate({
-      path: 'users.user',
-      populate: {
-        path: 'profile',
-        select: 'username status profilePic',
-      },
-    });
-    const userObj = community.users;
-    const profiles = userObj.map((userObj) => {
-      return userObj.user.profile;
-    });
-    profiles.sort(function (a, b) {
-      const textA = a.username.toUpperCase();
-      const textB = b.username.toUpperCase();
-      return textA < textB ? -1 : textA > textB ? 1 : 0;
-    });
-    res.json(profiles);
+    try {
+      const { email } = req.user;
+      const user = await User.findOne({ email: email }).exec();
+      const conversations = await Conversation.find({ users: { $all: user } })
+        .populate({
+          path: 'users',
+          select: 'profile',
+          populate: {
+            path: 'profile',
+            select: 'username status profilePic',
+          },
+        })
+        .sort({ lastMessageDate: -1 })
+        .exec();
+      return res.status(200).json(conversations);
+    } catch {
+      return res.status(404).json({ error: 'Does not exist' });
+    }
   },
 ];

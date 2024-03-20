@@ -6,10 +6,10 @@ const logger = require('morgan');
 const cors = require('cors');
 const passport = require('passport');
 const jwtStrategy = require('./strategies/jwt');
-const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const conversationRouter = require('./routes/conversation');
 const communityRouter = require('./routes/community');
+const authRouter = require('./routes/auth');
 
 require('dotenv').config();
 require('./config/database.config');
@@ -29,9 +29,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/', indexRouter);
+
+app.use('/auth', authRouter);
 app.use('/users', usersRouter);
-app.use('/community', communityRouter);
+app.use('/communities', communityRouter);
 app.use('/conversations', conversationRouter);
 
 // catch 404 and forward to error handler

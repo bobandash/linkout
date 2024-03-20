@@ -15,7 +15,7 @@ const Username = () => {
   useEffect(() => {
     async function getProfile() {
       try {
-        const response = await axios.get('/api/users/user/profile', {
+        const response = await axios.get('/api/users/me/profile', {
           withCredentials: true,
         });
         const profile = response.data.profile;

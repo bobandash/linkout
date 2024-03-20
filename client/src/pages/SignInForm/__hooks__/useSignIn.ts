@@ -28,7 +28,7 @@ const useSignIn = () => {
       setHasErrors(false);
       e.preventDefault();
       try {
-        const response = await axios.post('/api/users/login', formData);
+        const response = await axios.post('/api/auth/login', formData);
         if (response.status === 200) {
           setIsSignedIn(true);
           navigate('/dashboard');
@@ -44,7 +44,7 @@ const useSignIn = () => {
 
   const loginDemoUser = async () => {
     try {
-      const response = await axios.post('/api/users/login', {
+      const response = await axios.post('/api/auth/login', {
         email: 'demouser123@gmail.com',
         password: 'Randompassword123!',
       });

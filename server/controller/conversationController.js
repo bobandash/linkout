@@ -18,31 +18,7 @@ const path = require('path');
 const verifyInConversation = require('./utils/verifyInConversation');
 const { s3Uploadsv2 } = require('../s3Serve');
 
-// gets all the conversations for particular user
-exports.get_conversations = [
-  verifyToken,
-  async (req, res, next) => {
-    try {
-      const { email } = req.user;
-      const user = await User.findOne({ email: email }).exec();
-      const conversations = await Conversation.find({ users: { $all: user } })
-        .populate({
-          path: 'users',
-          select: 'profile',
-          populate: {
-            path: 'profile',
-            select: 'username status profilePic',
-          },
-        })
-        .sort({ lastMessageDate: -1 })
-        .exec();
-      res.json(conversations);
-    } catch {
-      res.status(404).json({ error: 'Does not exist' });
-    }
-  },
-];
-
+// Finds the conversation between two users
 exports.get_conversation_if_exists = [
   verifyToken,
   async (req, res, next) => {
@@ -57,11 +33,10 @@ exports.get_conversation_if_exists = [
       const conversation = await Conversation.findOne({
         users: { $all: [currentUser, otherUser] },
       });
-      if (conversation) {
-        return res.json({ conversation: conversation });
-      } else {
-        return res.status(404).json({ message: 'Does not exist' });
+      if (!conversation) {
+        return res.status(404).json({ message: 'Conversation does not exist' });
       }
+      return res.json({ conversation: conversation });
     } catch {
       return res.status(404).json({ message: 'Does not exist' });
     }
@@ -97,7 +72,7 @@ exports.create_conversation = [
           select: 'username status profilePic',
         },
       });
-      res.json({ conversation: conversation });
+      return res.json({ conversation: conversation });
     } catch {
       return res.status(404).json({ message: 'Does not exist' });
     }
@@ -144,7 +119,7 @@ exports.get_conversation_details = [
               : usersConcatenated + ', ' + currentUsername;
         }
       });
-      res.json({ name: usersConcatenated, profilePic: profilePic });
+      return res.json({ name: usersConcatenated, profilePic: profilePic });
     } catch {
       return res.status(404).json({ message: 'Does not exist' });
     }
@@ -169,7 +144,7 @@ exports.get_conversation_messages = [
           },
         })
         .exec();
-      res.json({ messages });
+      return res.json({ messages });
     } catch {
       return res.status(404).json({ message: 'Does not exist' });
     }
@@ -209,7 +184,7 @@ exports.add_message = [
           },
         })
         .exec();
-      res.json({ message: messageToReturn });
+      return res.json({ message: messageToReturn });
     } catch {
       return res.status(404).json({ message: 'Does not exist' });
     }
@@ -246,7 +221,7 @@ exports.add_image = [
           },
         })
         .exec();
-      res.json({ message: messageToReturn });
+      return res.json({ message: messageToReturn });
     } catch {
       return res.status(404).json({ message: 'Does not exist' });
     }

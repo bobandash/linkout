@@ -3,8 +3,6 @@ const express = require('express');
 const router = express.Router();
 const conversationController = require('../controller/conversationController.js');
 
-// Only the profile id is returned in the users sidebar, so most of these operations pass profileId as a param
-router.get('/', conversationController.get_conversations);
 router.get('/conversation', conversationController.get_conversation_if_exists);
 router.get(
   '/:conversationId/details',

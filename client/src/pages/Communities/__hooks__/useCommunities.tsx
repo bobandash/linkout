@@ -51,7 +51,7 @@ const useCommunities = () => {
       setState,
     }: getCommunitiesProps): Promise<void> {
       const communities = (
-        await axios.get('/api/community', {
+        await axios.get('/api/communities', {
           params: {
             ...filters,
           },
@@ -70,7 +70,7 @@ const useCommunities = () => {
       );
 
       const userCommunities: Array<CommunityProps> = (
-        await axios.get('/api/users/user/community')
+        await axios.get('/api/users/me/community')
       ).data.communities;
 
       const allCommunitiesWithJoinedStatus = communitiesDecoded.map(

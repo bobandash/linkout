@@ -25,7 +25,7 @@ const useTextbox = () => {
     try {
       setIsLoading(true);
       const response = await axios.post(
-        `/api/conversations/${conversationId}/add-message`,
+        `/api/conversation/${conversationId}/add-message`,
         {
           message,
         },

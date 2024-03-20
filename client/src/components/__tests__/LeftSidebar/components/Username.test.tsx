@@ -44,7 +44,7 @@ describe('LeftSidebar username', () => {
   describe('Successful response', () => {
     beforeEach(async () => {
       await act(async () => {
-        mAxios.onGet('/api/users/user/profile').reply(200, mockProfile);
+        mAxios.onGet('/api/users/me/profile').reply(200, mockProfile);
         render(
           <MemoryRouter>
             <Username />
@@ -79,7 +79,7 @@ describe('LeftSidebar username', () => {
   describe('Error response', () => {
     beforeEach(async () => {
       await act(async () => {
-        mAxios.onGet('/api/users/user/profile').reply(400);
+        mAxios.onGet('/api/users/me/profile').reply(400);
         render(
           <MemoryRouter>
             <Username />

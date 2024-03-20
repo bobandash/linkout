@@ -1,12 +1,9 @@
 const { body, validationResult } = require('express-validator');
-const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 const Community = require('../models/Community');
-const Profile = require('../models/Profile');
-const jwt = require('jsonwebtoken');
+
 const verifyToken = require('./utils/verifyToken');
 const multer = require('multer');
-const path = require('path');
 const CommunityMessage = require('../models/CommunityMessage');
 const verifyInCommunity = require('./utils/verifyInCommunity');
 const { s3Uploadsv2 } = require('../s3Serve');
@@ -45,7 +42,7 @@ exports.get_communities = [
         communities = communities.limit(Number(limit));
       }
       communities = await communities.exec();
-      return res.json({ communities: communities });
+      return res.json({ communities });
     } catch {
       return res.status(404).json({ error: 'Cannot find' });
     }
@@ -132,8 +129,7 @@ exports.add_message = [
         community: community,
       });
       await newMessage.save();
-      // Need to format the message with relevant fields
-      const messageToReturn = await CommunityMessage.findById(newMessage._id)
+      const messageFormatted = await CommunityMessage.findById(newMessage._id)
         .populate({
           path: 'sender',
           select: 'profile',
@@ -143,7 +139,7 @@ exports.add_message = [
           },
         })
         .exec();
-      res.json({ message: messageToReturn });
+      return res.json({ message: messageFormatted });
     } catch {
       return res.status(404).json({ error: 'Cannot find' });
     }
@@ -169,7 +165,7 @@ exports.get_messages = [
         })
         .sort({ createdAt: 1 })
         .exec();
-      res.json(messages);
+      return res.status(200).json(messages);
     } catch {
       return res.status(404).json({ error: 'Cannot find' });
     }
@@ -197,7 +193,7 @@ exports.add_image = [
       });
       await newMessage.save();
       // Need to format the message with relevant fields
-      const messageToReturn = await CommunityMessage.findById(newMessage._id)
+      const messageFormatted = await CommunityMessage.findById(newMessage._id)
         .populate({
           path: 'sender',
           select: 'profile',
@@ -207,9 +203,41 @@ exports.add_image = [
           },
         })
         .exec();
-      res.json({ message: messageToReturn });
+      return res.status(200).json({ message: messageFormatted });
     } catch {
       return res.status(404).json({ error: 'Cannot find' });
+    }
+  },
+];
+
+// Returns an array of all users in a community
+exports.get_users_by_community = [
+  verifyToken,
+  verifyInCommunity,
+  async (req, res, next) => {
+    try {
+      const { communityId } = req.params;
+      const community = await Community.findById(communityId).populate({
+        path: 'users.user',
+        populate: {
+          path: 'profile',
+          select: 'username status profilePic',
+        },
+      });
+      const userObj = community.users;
+      const profiles = userObj.map((userObj) => {
+        return userObj.user.profile;
+      });
+      profiles.sort(function (a, b) {
+        const textA = a.username.toUpperCase();
+        const textB = b.username.toUpperCase();
+        return textA < textB ? -1 : textA > textB ? 1 : 0;
+      });
+      return res.status(200).json(profiles);
+    } catch {
+      return res
+        .status(404)
+        .json({ error: 'Could not find users in the community' });
     }
   },
 ];

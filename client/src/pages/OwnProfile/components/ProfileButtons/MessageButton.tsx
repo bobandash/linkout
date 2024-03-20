@@ -35,7 +35,7 @@ const MessageButton = () => {
 
   async function getOtherUserInformation() {
     try {
-      const response = await axios.get(`/api/users/user/${profileId}/profile`);
+      const response = await axios.get(`/api/users/profile/${profileId}`);
       const profile = response.data.profile;
       const userInfo = {
         _id: profile._id,

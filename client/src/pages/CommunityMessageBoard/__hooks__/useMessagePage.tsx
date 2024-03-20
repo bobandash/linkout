@@ -21,7 +21,7 @@ const useMessagePage = () => {
   useEffect(() => {
     async function getCommunity() {
       try {
-        const response = await axios.get(`/api/community/${communityId}`);
+        const response = await axios.get(`/api/communities/${communityId}`);
         setCommunity(response.data);
       } catch (err) {
         if (err instanceof AxiosError) {
@@ -35,7 +35,7 @@ const useMessagePage = () => {
     async function getMessages() {
       try {
         const response = await axios.get(
-          `/api/community/${communityId}/messages`,
+          `/api/communities/${communityId}/messages`,
         );
         setCommunityMessages(response.data);
       } catch (err) {
