@@ -106,7 +106,6 @@ exports.sign_in_status = [
 ];
 
 exports.logout = [
-  verifyToken,
   (req, res, next) => {
     res.clearCookie('secureToken', {
       httpOnly: true,
