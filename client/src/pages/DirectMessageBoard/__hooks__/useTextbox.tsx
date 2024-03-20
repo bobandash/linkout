@@ -25,7 +25,7 @@ const useTextbox = () => {
     try {
       setIsLoading(true);
       const response = await axios.post(
-        `https://linkout-1.onrender.com/conversation/${conversationId}/add-message`,
+        `https://linkout-1.onrender.com/conversations/${conversationId}/add-message`,
         {
           message,
         },
