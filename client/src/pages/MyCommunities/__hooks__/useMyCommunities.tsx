@@ -9,8 +9,9 @@ const useMyCommunities = () => {
   useEffect(() => {
     async function getCommunities() {
       try {
-        const communities = (await axios.get('/api/users/me/community')).data
-          .communities;
+        const communities = (
+          await axios.get('https://linkout-1.onrender.com/users/me/community')
+        ).data.communities;
         setMyCommunities(communities);
         setIsLoading(false);
       } catch {

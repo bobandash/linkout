@@ -11,11 +11,13 @@ const RightSidebar = () => {
   useEffect(() => {
     async function getUsers() {
       if (communityId === undefined) {
-        const response = await axios.get(`/api/users`);
+        const response = await axios.get(
+          `https://linkout-1.onrender.com/users`,
+        );
         setUsers(response.data);
       } else {
         const response = await axios.get(
-          `/api/communities/${communityId}/users`,
+          `https://linkout-1.onrender.com/communities/${communityId}/users`,
         );
         setUsers(response.data);
       }

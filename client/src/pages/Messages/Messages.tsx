@@ -34,7 +34,9 @@ const Messages = () => {
   useEffect(() => {
     async function getConversations() {
       try {
-        const response = await axios.get('/api/users/me/conversation');
+        const response = await axios.get(
+          'https://linkout-1.onrender.com/users/me/conversation',
+        );
         const conversationData: ConversationProps[] = response.data;
         // filter the raw conversation data to the necessary params to display
         const userData = conversationData.map((conversation) => {

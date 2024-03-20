@@ -31,7 +31,10 @@ const ImageComponent: FC<ImageComponentProps> = ({ image }) => {
   if (image === 'images/defaultPfp.jpg') {
     return (
       <div className={commonClasses}>
-        <img src={`/api/${image}`} alt="header picture" />
+        <img
+          src={`https://linkout-1.onrender.com/${image}`}
+          alt="header picture"
+        />
       </div>
     );
   }

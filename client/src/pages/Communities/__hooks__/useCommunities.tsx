@@ -51,7 +51,7 @@ const useCommunities = () => {
       setState,
     }: getCommunitiesProps): Promise<void> {
       const communities = (
-        await axios.get('/api/communities', {
+        await axios.get('https://linkout-1.onrender.com/communities', {
           params: {
             ...filters,
           },
@@ -70,7 +70,7 @@ const useCommunities = () => {
       );
 
       const userCommunities: Array<CommunityProps> = (
-        await axios.get('/api/users/me/community')
+        await axios.get('https://linkout-1.onrender.com/users/me/community')
       ).data.communities;
 
       const allCommunitiesWithJoinedStatus = communitiesDecoded.map(

@@ -32,9 +32,12 @@ export const AuthContextProvider: FC<SignedInContextProviderProps> = ({
   useEffect(() => {
     async function getSignedInStatus() {
       try {
-        const response = await axios.get('/api/auth/sign-in-status', {
-          withCredentials: true,
-        });
+        const response = await axios.get(
+          'https://linkout-1.onrender.com/auth/sign-in-status',
+          {
+            withCredentials: true,
+          },
+        );
         if (response.status === 200) {
           setIsSignedIn(true);
         }

@@ -28,7 +28,10 @@ const useSignIn = () => {
       setHasErrors(false);
       e.preventDefault();
       try {
-        const response = await axios.post('/api/auth/login', formData);
+        const response = await axios.post(
+          'https://linkout-1.onrender.com/auth/login',
+          formData,
+        );
         if (response.status === 200) {
           setIsSignedIn(true);
           navigate('/dashboard');
@@ -44,10 +47,13 @@ const useSignIn = () => {
 
   const loginDemoUser = async () => {
     try {
-      const response = await axios.post('/api/auth/login', {
-        email: 'demouser123@gmail.com',
-        password: 'Randompassword123!',
-      });
+      const response = await axios.post(
+        'https://linkout-1.onrender.com/auth/login',
+        {
+          email: 'demouser123@gmail.com',
+          password: 'Randompassword123!',
+        },
+      );
       if (response.status === 200) {
         setIsSignedIn(true);
         navigate('/dashboard');

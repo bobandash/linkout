@@ -38,11 +38,15 @@ const useProfile = () => {
   useEffect(() => {
     async function getProfile() {
       if (profileId) {
-        const response = await axios.get(`/api/users/profile/${profileId}`);
+        const response = await axios.get(
+          `https://linkout-1.onrender.com/users/profile/${profileId}`,
+        );
         setProfile(response.data.profile);
         setIsLoading(false);
       } else {
-        const response = await axios.get('/api/users/me/profile');
+        const response = await axios.get(
+          'https://linkout-1.onrender.com/users/me/profile',
+        );
         setProfile(response.data.profile);
         setIsLoading(false);
       }
@@ -117,7 +121,10 @@ const useProfile = () => {
         formData.append('image', profile.uploadedProfilePic);
       }
 
-      const response = await axios.put('/api/users/me/profile', formData);
+      const response = await axios.put(
+        'https://linkout-1.onrender.com/users/me/profile',
+        formData,
+      );
       if (response.status === 200) {
         setSuccess(true);
       }

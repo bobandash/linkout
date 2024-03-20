@@ -15,9 +15,12 @@ const Username = () => {
   useEffect(() => {
     async function getProfile() {
       try {
-        const response = await axios.get('/api/users/me/profile', {
-          withCredentials: true,
-        });
+        const response = await axios.get(
+          'https://linkout-1.onrender.com/users/me/profile',
+          {
+            withCredentials: true,
+          },
+        );
         const profile = response.data.profile;
         setProfile(profile);
       } catch {

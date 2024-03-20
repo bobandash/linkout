@@ -36,7 +36,10 @@ const useSignUp = () => {
       setErrors(sampleErrors);
       e.preventDefault();
       try {
-        await axios.post('/api/auth/register', formData);
+        await axios.post(
+          'https://linkout-1.onrender.com/auth/register',
+          formData,
+        );
         setSuccess(true);
       } catch (err: unknown) {
         if (err instanceof AxiosError) {

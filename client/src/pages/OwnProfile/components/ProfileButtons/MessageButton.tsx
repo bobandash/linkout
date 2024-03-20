@@ -8,9 +8,12 @@ const MessageButton = () => {
 
   async function createConversation() {
     try {
-      const response = await axios.post('/api/conversations/create', {
-        profileId: profileId,
-      });
+      const response = await axios.post(
+        'https://linkout-1.onrender.com/conversations/create',
+        {
+          profileId: profileId,
+        },
+      );
       return response.data.conversation._id;
     } catch (err) {
       console.error('There was an error creating the conversation');
@@ -20,11 +23,14 @@ const MessageButton = () => {
 
   async function getConversationId() {
     try {
-      const response = await axios.get('/api/conversations/conversation', {
-        params: {
-          profileId: profileId,
+      const response = await axios.get(
+        'https://linkout-1.onrender.com/conversations/conversation',
+        {
+          params: {
+            profileId: profileId,
+          },
         },
-      });
+      );
       if (response.status === 200) {
         return response.data.conversation._id;
       }
@@ -35,7 +41,9 @@ const MessageButton = () => {
 
   async function getOtherUserInformation() {
     try {
-      const response = await axios.get(`/api/users/profile/${profileId}`);
+      const response = await axios.get(
+        `https://linkout-1.onrender.com/users/profile/${profileId}`,
+      );
       const profile = response.data.profile;
       const userInfo = {
         _id: profile._id,

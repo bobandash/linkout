@@ -3,7 +3,7 @@ import axios from 'axios';
 const LogoutButton = () => {
   async function logout() {
     try {
-      await axios.post('/api/auth/logout', {
+      await axios.post('https://linkout-1.onrender.com/auth/logout', {
         withCredentials: true,
       });
       window.location.href = '/';

@@ -23,7 +23,7 @@ const useMessagePage = () => {
     async function getConversationDetails() {
       try {
         const response = await axios.get(
-          `/api/conversations/${conversationId}/details`,
+          `https://linkout-1.onrender.com/conversations/${conversationId}/details`,
         );
         const data = response.data;
         setConversationDetails(data);
@@ -35,7 +35,7 @@ const useMessagePage = () => {
     async function getMessages() {
       try {
         const response = await axios.get(
-          `/api/conversations/${conversationId}/messages`,
+          `https://linkout-1.onrender.com/conversations/${conversationId}/messages`,
         );
         const messages = response.data.messages;
         setMessages(messages);

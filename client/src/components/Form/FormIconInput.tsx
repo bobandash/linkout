@@ -58,7 +58,7 @@ const FormIconInput: FC<FormIconInputProps> = ({
         (defaultValue === 'images/defaultPfp.jpg' ? (
           <img
             className="absolute h-full w-full hover:cursor-pointer"
-            src={`/api/${defaultValue}`}
+            src={`https://linkout-1.onrender.com/${defaultValue}`}
             alt={`${name} image`}
           />
         ) : (

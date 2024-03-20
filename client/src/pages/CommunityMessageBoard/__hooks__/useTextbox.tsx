@@ -25,7 +25,7 @@ const useTextbox = () => {
     try {
       setIsLoading(true);
       const response = await axios.post(
-        `/api/communities/${communityId}/add-message`,
+        `https://linkout-1.onrender.com/communities/${communityId}/add-message`,
         {
           message,
         },
