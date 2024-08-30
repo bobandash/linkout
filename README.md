@@ -10,6 +10,25 @@ Note: The application may take a few seconds to render because I am hosting the 
 ![image](https://github.com/bobandash/linkout/assets/74850332/24835838-70d7-4563-8196-009a820bf8ba)
 ![image](https://github.com/bobandash/linkout/assets/74850332/03569857-76e8-451c-a909-0ea5bbe30b65)
 
+## Instructions to Run Locally
+### Note: Before beginning setup, you would need to create an AWS account and retrieve your own AWS keys to store images on AWS, and a MongoDB database url
+- Open your terminal in your IDE of choice
+- Clone the repository - "git clone https://github.com/bobandash/linkout.git"
+- Change the working directory to the cloned repo - "cd linkout"
+- Open two instances of your terminal - one to run the server and one to run the client
+- For the server terminal, run the following commands:
+  - Change the working directory to server - "cd server"
+  - Install all the dependencies with a package manager of your choice - "npm install" or "yarn install"
+  - Create an .env file at the server directory - "touch .env", or just create the .env file using your IDE
+  - Copy and paste the .env.sample's contents into the .env file
+  - Populate the .env file with your database and AWS credientials (the secret token is for signing your JWT token)
+  - Run the server - "npm run devStart" (this uses nodemon to listen to any server changes)
+- For the client terminal, run the following commands:
+  - Change the working directory to client - "cd client"
+  - Install all the dependencies with a package manager of your choice - "npm install" or "yarn install" 
+  - Run the client - "npm run dev"
+
+
 ## Relevant Technologies Used:
 Front-End:
 - Framework: React
