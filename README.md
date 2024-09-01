@@ -22,10 +22,10 @@ Backend:
 
 ## Getting Started
 To get a local copy up and running follow these simple steps.
-#### Prerequisites
+### Prerequisites
 Before beginning setup, you would need to create an AWS account with [AWS keys](https://medium.com/@jannden/how-to-get-aws-access-keys-81cad0366418) and an [S3 Bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-bucket.html) and a [MongoDB database](https://www.mongodb.com/resources/products/fundamentals/create-database)
 
-#### Steps to run on your local machine
+### Steps to run on your local machine
 1. Clone the repository
     ```sh
     git clone https://github.com/bobandash/linkout.git
