@@ -62,7 +62,7 @@ Before beginning setup, you would need to create an AWS account with [AWS keys](
 - Sending and accessing JWT tokens through HTTP-only cookies
 - Styling components using TailwindCSS
 - Image hosting using AWS S3
-- Real-time chat and updates using socket.io
+- Real-time chat and updates using Socket.io
 
 ## To-Do:
 If I were to come back to this project in the future, I would want to:
@@ -74,3 +74,5 @@ If I were to come back to this project in the future, I would want to:
 - Create a Linkout feature: similar to dating apps where you can view each user's profile in the community
 - Add unit, integration, and E2E testing
 
+## Contact
+Bruce Hsu - brucehsu1126@gmail.com
