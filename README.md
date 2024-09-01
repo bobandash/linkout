@@ -1,17 +1,29 @@
 # Linkout
 A full-stack chat application that allows users to create and join communities chat within those communities, and direct message other users.
 
+## Built With
+Front-End:
+- Framework: React
+- Language: Typescript
+- Important NPM Libraries: TailwindCSS, Axios
+  
+Backend:
+- Framework: Express
+- Language: Javascript
+- Database: MongoDB
+- Important NPM Libraries: Socket.io, JWT, Multer, AWS-SDK for image hosting
+
 ## Live View:
 [https://linkingout.netlify.app/](https://linkingout.netlify.app/)
-
-Note: The application may take a few seconds to render because I am hosting the backend on a free PaaS that spins down with inactivity
 
 ## Preview:
 ![image](https://github.com/bobandash/linkout/assets/74850332/24835838-70d7-4563-8196-009a820bf8ba)
 ![image](https://github.com/bobandash/linkout/assets/74850332/03569857-76e8-451c-a909-0ea5bbe30b65)
 
-## Instructions to Run Locally
-### Note: Before beginning setup, you would need to create an AWS account and retrieve your own AWS keys to store images on AWS, and a MongoDB database url
+## Getting Started
+To get a local copy up and running follow these simple steps.
+#### Prerequisites
+Before beginning setup, you would need to create an AWS account with [AWS keys](https://medium.com/@jannden/how-to-get-aws-access-keys-81cad0366418) and an [S3 Bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-bucket.html) and a [MongoDB database](https://www.mongodb.com/resources/products/fundamentals/create-database)
 1. Clone the repository
     ```sh
     git clone https://github.com/bobandash/linkout.git
@@ -46,18 +58,6 @@ Note: The application may take a few seconds to render because I am hosting the 
     npm run dev
     ```
 
-## Relevant Technologies Used:
-Front-End:
-- Framework: React
-- Language: Typescript
-- Important NPM Libraries: TailwindCSS, Axios
-  
-Backend:
-- Framework: Express
-- Language: Javascript
-- Database: MongoDB
-- Important NPM Libraries: Socket.io, JWT, Multer, AWS-SDK for image hosting
-
 ## Concepts Learned
 - Sending and accessing JWT tokens through HTTP-only cookies
 - Styling components using TailwindCSS
@@ -67,10 +67,11 @@ Backend:
 ## To-Do:
 If I were to come back to this project in the future, I would want to:
 - Add features such as:
+- Add OAuth2 with LinkedIn and Google
 - Ability to edit community names
+- Notification system with webhooks
 - Create more profile fields
 - Refactor the date to display in client's timezone (call date on client side instead of virtual property in backend)
 - Create a Linkout feature: similar to dating apps where you can view each user's profile in the community
-- Change the UI colors to not match Discord
 - Add testing
-- Add user authorization with Google and LinkedIn
+
