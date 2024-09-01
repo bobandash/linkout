@@ -70,8 +70,7 @@ If I were to come back to this project in the future, I would want to:
 - Add OAuth2 with LinkedIn and Google
 - Ability to edit community names
 - Notification system with webhooks
-- Create more profile fields
-- Refactor the date to display in client's timezone (call date on client side instead of virtual property in backend)
+- Refactor the date to display in client's timezone (call date on client-side instead of virtual property in thebackend)
 - Create a Linkout feature: similar to dating apps where you can view each user's profile in the community
-- Add testing
+- Add unit, integration, and E2E testing
 
