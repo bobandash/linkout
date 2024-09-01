@@ -12,22 +12,39 @@ Note: The application may take a few seconds to render because I am hosting the 
 
 ## Instructions to Run Locally
 ### Note: Before beginning setup, you would need to create an AWS account and retrieve your own AWS keys to store images on AWS, and a MongoDB database url
-- Open your terminal in your IDE of choice
-- Clone the repository - "git clone https://github.com/bobandash/linkout.git"
-- Change the working directory to the cloned repo - "cd linkout"
-- Open two instances of your terminal - one to run the server and one to run the client
-- For the server terminal, run the following commands:
-  - Change the working directory to server - "cd server"
-  - Install all the dependencies with a package manager of your choice - "npm install" or "yarn install"
-  - Create an .env file at the server directory - "touch .env", or just create the .env file using your IDE
-  - Copy and paste the .env.sample's contents into the .env file
-  - Populate the .env file with your database and AWS credientials (the secret token is for signing your JWT token)
-  - Run the server - "npm run devStart" (this uses nodemon to listen to any server changes)
-- For the client terminal, run the following commands:
-  - Change the working directory to client - "cd client"
-  - Install all the dependencies with a package manager of your choice - "npm install" or "yarn install" 
-  - Run the client - "npm run dev"
-
+1. Clone the repository
+    ```sh
+    git clone https://github.com/bobandash/linkout.git
+    ```
+2. Open two instances of your terminal - one to run the server and one to run the client
+    ```sh
+    cd linkout/client
+    cd linkout/server
+    ```
+-  **The following steps (3 - 7) will reference the server terminal.**
+3. Install all the dependencies on the server's package.json
+    ```sh
+    npm install
+    ```
+4. Create an .env file at the server directory
+    ```sh
+    touch .env
+    ```
+5. Copy and paste the .env.sample contents into the .env file
+6. With the .env file you created, populate the file with your database and AWS credientials (the secret token is for signing your JWT token)
+7. Start up the server on your local machine (this uses nodemon to listen to any server changes)
+    ```sh
+    npm run devStart
+    ```
+-  **The following steps (8 - 9) will reference the client terminal.**
+8. Install all the dependencies with a package manager of your choice
+    ```sh
+    npm install
+    ```
+9. Install all the dependencies with a package manager of your choice
+    ```sh
+    npm run dev
+    ```
 
 ## Relevant Technologies Used:
 Front-End:
