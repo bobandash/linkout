@@ -55,7 +55,7 @@ Before beginning setup, you would need to create an AWS account with [AWS keys](
     ```sh
     npm install
     ```
-9. Install all the dependencies with a package manager of your choice
+9. Start the application and open the dev link!
     ```sh
     npm run dev
     ```
